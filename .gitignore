@@ -1,0 +1,16 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.bin
+*.DNG
+*.JPG
+*.dng
+*.jpg
+*.cube
+.DS_Store
+.env*
+firmware/
+tools/gr3-film-mods/work/
+workspace/b2_iiix/out/
+workspace/b2_iiix/logs/
