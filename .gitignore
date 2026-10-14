@@ -14,3 +14,7 @@ firmware/
 tools/gr3-film-mods/work/
 workspace/b2_iiix/out/
 workspace/b2_iiix/logs/
+
+# README demonstration images
+!docs/images/presets-video-cover.jpg
+!docs/images/shutdown-camera.jpg

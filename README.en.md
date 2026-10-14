@@ -2,20 +2,23 @@
 
 [中文](README.md) | [English](README.en.md)
 
-Eight additional in-camera color presets for the GR IIIx, keeping all 12 factory Image Controls. Use the default recipes or rebuild the firmware with a different configuration. Shutdown-image customization is a separate feature.
-
+**22 Image Controls on the GR IIIx: 12 factory presets + 2 custom options + 8 extra film looks.** All original modes are retained, and the eight added preset slots can be replaced. Use the default recipes or rebuild the firmware with a different configuration. Shutdown-image customization is a separate feature.
 
 - **Use the eight presets**: download the ready-made firmware and follow the [installation steps](#firmware-installation). No development tools needed.
-- **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installing the preset firmware is not required; Script must already be enabled.
+- **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installed separately; Script must already be enabled.
 - **Build or explore the code**: see [source build and self-tests](docs/guides/BUILD.en.md).
 
 ## Features
 
-**B2.4 is based on stock GR IIIx firmware 1.60.** It adds Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.
+**B2.4 is based on stock GR IIIx firmware 1.60.** It expands Image Controls from 14 to 22, adding Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.
 
-- These are Image Control options, not additional U1/U2/U3 controls.
+- These are Image Control options, not additional U1/U2/U3 custom shooting modes.
 - Changing recipes requires rebuilding and checking the firmware on a computer, then updating the camera. Direct LUT import from an SD card is not supported; this may be explored later.
 - Shutdown images use a separate script package and are not included in B2.4.
+
+<a href="https://xhslink.cn/o/34w09ZlOEgY"><img src="docs/images/presets-video-cover.jpg" width="280" alt="Eight presets — camera demo"></a>
+
+[Watch the camera demo on Xiaohongshu](https://xhslink.cn/o/34w09ZlOEgY)
 
 ## Camera and firmware compatibility
 
@@ -66,19 +69,21 @@ If the update screen does not appear or a card error is shown, stop and check th
 
 ### 3. Check the result and clean up
 
-Power on normally and open **MENU → Image Control**. Confirm that the factory options remain and the eight added presets are selectable. Take a photo with one preset and check the image and playback icon. The camera still reports **1.60**, which is expected.
+Power on normally and open **MENU → Image Control**. Confirm that all 22 Image Controls are available: 12 factory presets, 2 custom options and 8 added film presets. Take a photo with one preset and check the image and playback icon. The camera still reports **1.60**, which is expected.
 
 After checking, format the update card in-camera to remove the update file before everyday use; back up any test photos you want to keep first. Stop using the modified firmware if you encounter flickering, crashes or abnormal files, and retain samples for troubleshooting.
 
 ## File checksum
 
-To calculate SHA256, replace the example path with your firmware file:
+Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/SHA256SUMS.txt). Replace the example path with your firmware file:
 Mac: `shasum -a 256 /path/fwdc243b.bin`; Windows PowerShell: `Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`.
 
 ## Customization and development
 
-- **Shutdown image:**[Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0).  confirmed on the test camera and installed separately. Current scripts assume Script is already enabled; first-time instructions are incomplete and restoring the original image has not been camera-tested. Do not substitute the Urban workflow or mix firmware updates and image scripts on one card. Confirm installation by comparing the read-back image, not just a completion message; then remove the startup script and disable Script.
+- **Shutdown image:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Confirmed on the test camera and installed separately. Current scripts assume Script is already enabled; first-time instructions are incomplete and restoring the original image has not been camera-tested. Do not substitute the Urban workflow or mix firmware updates and image scripts on one card. Confirm installation by comparing the read-back image, not just a completion message; then remove the startup script and disable Script.
 - [Source build and self-tests](docs/guides/BUILD.en.md): environment setup, default builds, self-checks and preset reordering.
+
+<img src="docs/images/shutdown-camera.jpg" width="360" alt="Custom shutdown image on the camera (separate installation)">
 
 ## Self-tests and known limitations
 

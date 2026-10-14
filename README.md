@@ -2,24 +2,29 @@
 
 [中文](README.md) | [English](README.en.md)
 
-给 GR IIIx 增加八套机内色彩预设，保留原厂 12 套影像控制。可以使用默认配方，也可以更换配方后重新生成固件。项目另提供独立的关机图片自定义方案。
-
+**让 GR IIIx 拥有 22 套影像控制：12 套原厂预设＋2 套自定义＋8 套新增胶片预设。** 原有模式全部保留，新增的八个预设槽位可替换。可以使用默认配方，也可以更换配方后重新生成固件。项目另提供独立的关机图片自定义方案。
 
 - **直接使用八套预设**：下载成品固件，按[安装步骤](#直接固件安装)操作，无需开发工具。
-- **只更换关机图片**：下载[独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)，不需要安装预设固件；当前包要求已启用 Script。
+- **只更换关机图片**：下载[独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)，独立安装，当前包要求已启用 Script。
 - **自行构建或研究代码**：阅读[源码构建与自测](docs/guides/BUILD.md)。
 
 ## 功能概述
 
-**B2.4 基于 GR IIIx 原厂 1.60**，新增8个预设（Portra 400、Ektar 100、Gold 200、Pro 400H、Vision3 250D、Classic Negative、Vision3 500T、Velvia 50）。安装后，可在拍摄快捷菜单和 MENU → 影像控制中选择，拍摄对应风格的 JPEG，并在回放时识别预设。名称表示色彩模拟目标，实际效果也受曝光、白平衡和场景影响。
+**B2.4 基于 GR IIIx 原厂 1.60**，将影像控制从 14 套扩展到 22 套，新增 8 套胶片预设（Portra 400、Ektar 100、Gold 200、Pro 400H、Vision3 250D、Classic Negative、Vision3 500T、Velvia 50）。安装后，可在拍摄快捷菜单和 MENU → 影像控制中选择，拍摄对应风格的 JPEG，并在回放时识别预设。名称表示色彩模拟目标，实际效果也受曝光、白平衡和场景影响。
 
 ps:
-- 新增的是影像控制选项，不是实体按钮U1/U2/U3。
+- 新增的是影像控制选项，不是自定义拍摄模式 U1/U2/U3。
 - 更换配方需在电脑上重新生成、检查固件，再更新相机，暂不支持外卡预设直接导入 LUT（后续可能考虑优化）。
 - 关机图片使用独立脚本包，不包含在 B2.4 中。
 
+<a href="https://xhslink.cn/o/34w09ZlOEgY"><img src="docs/images/presets-video-cover.jpg" width="280" alt="八套预设真机演示"></a>
+
+[看真机演示 · 小红书视频](https://xhslink.cn/o/34w09ZlOEgY)
+
 ## 适用机型与版本
+
 本教程适用于**普通版 GR IIIx、原厂固件 1.60**，实测来自一台设备。可在 MENU → 设置 → 关于本机 → 固件信息／选项查看版本（名称以相机语言为准），并确认机身是否为 HDF 或 Urban。
+
 | 相机当前情况 | 是否适用本教程 |
 |---|---|
 | 普通版 IIIx，原厂 1.60 | 可以按下面步骤核对文件并安装 |
@@ -66,7 +71,7 @@ ps:
 
 ### 3. 确认效果并清理
 
-正常开机，进入 **MENU → 影像控制**，确认原厂预设仍在，并能选到新增的八套预设；选一套拍照，检查照片和回放图标。相机版本仍显示 **1.60**，这是正常的。
+正常开机，进入 **MENU → 影像控制**，确认共 22 套影像控制：12 套原厂预设、2 套自定义及新增的 8 套胶片预设；选一套拍照，检查照片和回放图标。相机版本仍显示 **1.60**，这是正常的。
 
 确认后，在相机内格式化更新卡，清除更新文件，再用于日常拍摄；刚拍的测试照片如果要保留，先备份。出现闪屏、死机或照片异常时停止使用，并保留样片反馈。
 
@@ -74,7 +79,7 @@ ps:
 
 ## 文件校验
 
-默认 B2.4 的 SHA256查看
+计算结果与 [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/SHA256SUMS.txt) 对照：
 Mac：`shasum -a 256 /路径/fwdc243b.bin`；
 Windows PowerShell：`Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`。
 
@@ -82,6 +87,8 @@ Windows PowerShell：`Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`。
 
 - **关机图片**：[下载独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)。已在本机确认效果，与预设固件分开安装。当前脚本只用于已启用 Script 的测试机，首次安装说明尚未完善，恢复原图也未实测。不要混用 Urban 流程或在卡上同时放置更新固件与图片脚本。安装是否成功需核对读回图片，不能只看完成提示；确认后移除启动脚本并关闭 Script。
 - [源码构建与自测](docs/guides/BUILD.md)：包含环境准备、默认构建、自测和预设顺序调整。
+
+<img src="docs/images/shutdown-camera.jpg" width="360" alt="自定义关机画面实拍（独立安装）">
 
 ## 自测情况与已知限制
 
