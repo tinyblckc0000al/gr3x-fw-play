@@ -1,8 +1,9 @@
 # gr3x-fw-play
 
+[中文](README.md) | [English](README.en.md)
+
 给 GR IIIx 增加八套机内色彩预设，保留原厂 12 套影像控制。可以使用默认配方，也可以更换配方后重新生成固件。项目另提供独立的关机图片自定义方案。
 
-[English](README.en.md)
 
 - **直接使用八套预设**：下载成品固件，按[安装步骤](#直接固件安装)操作，无需开发工具。
 - **只更换关机图片**：下载[独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)，不需要安装预设固件；当前包要求已启用 Script。

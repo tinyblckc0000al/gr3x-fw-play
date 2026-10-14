@@ -1,5 +1,10 @@
 # 源码构建与自测
- [English](BUILD.en.md)
+
+[中文](BUILD.md) | [English](BUILD.en.md)
+
+[返回首页](../../README.md)
+
+[English](BUILD.en.md)
 
 以下命令在仓库根目录执行。已验证环境为 Apple Silicon macOS、Python 3.14、Homebrew LLVM，并使用系统字体 `DIN Condensed Bold.ttf`。其他环境未验证。
 

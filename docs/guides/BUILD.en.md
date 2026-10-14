@@ -1,6 +1,8 @@
 # Source build and self-tests
 
-[Overview](../../README.en.md) · [中文](BUILD.md)
+[中文](BUILD.md) | [English](BUILD.en.md)
+
+[Overview](../../README.en.md)
 
 Run commands from the repository root. Tested environment: Apple Silicon macOS, Python 3.14, Homebrew LLVM and the system `DIN Condensed Bold.ttf` font. Other environments are untested.
 

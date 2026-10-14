@@ -1,8 +1,9 @@
 # gr3x-fw-play
 
+[中文](README.md) | [English](README.en.md)
+
 Eight additional in-camera color presets for the GR IIIx, keeping all 12 factory Image Controls. Use the default recipes or rebuild the firmware with a different configuration. Shutdown-image customization is a separate feature.
 
-[中文](README.md)
 
 - **Use the eight presets**: download the ready-made firmware and follow the [installation steps](#firmware-installation). No development tools needed.
 - **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installing the preset firmware is not required; Script must already be enabled.
