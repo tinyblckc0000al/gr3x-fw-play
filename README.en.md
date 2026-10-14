@@ -4,6 +4,10 @@ Eight additional in-camera color presets for the GR IIIx, keeping all 12 factory
 
 [中文](README.md)
 
+- **Use the eight presets**: download the ready-made firmware and follow the [installation steps](#firmware-installation). No development tools needed.
+- **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installing the preset firmware is not required; Script must already be enabled.
+- **Build or explore the code**: see [source build and self-tests](docs/guides/BUILD.en.md).
+
 ## Features
 
 **B2.4 is based on stock GR IIIx firmware 1.60.** It adds Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.

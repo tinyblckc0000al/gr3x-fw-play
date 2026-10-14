@@ -4,6 +4,10 @@
 
 [English](README.en.md)
 
+- **直接使用八套预设**：下载成品固件，按[安装步骤](#直接固件安装)操作，无需开发工具。
+- **只更换关机图片**：下载[独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)，不需要安装预设固件；当前包要求已启用 Script。
+- **自行构建或研究代码**：阅读[源码构建与自测](docs/guides/BUILD.md)。
+
 ## 功能概述
 
 **B2.4 基于 GR IIIx 原厂 1.60**，新增8个预设（Portra 400、Ektar 100、Gold 200、Pro 400H、Vision3 250D、Classic Negative、Vision3 500T、Velvia 50）。安装后，可在拍摄快捷菜单和 MENU → 影像控制中选择，拍摄对应风格的 JPEG，并在回放时识别预设。名称表示色彩模拟目标，实际效果也受曝光、白平衡和场景影响。
