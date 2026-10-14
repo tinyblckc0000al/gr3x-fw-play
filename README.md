@@ -86,9 +86,11 @@ Windows PowerShell：`Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`。
 ## 自定义与开发文档
 
 - **关机图片**：[下载独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)。已在本机确认效果，与预设固件分开安装。当前脚本只用于已启用 Script 的测试机，首次安装说明尚未完善，恢复原图也未实测。不要混用 Urban 流程或在卡上同时放置更新固件与图片脚本。安装是否成功需核对读回图片，不能只看完成提示；确认后移除启动脚本并关闭 Script。
+
+  <img src="docs/images/shutdown-camera.jpg" width="360" alt="自定义关机画面实拍（独立安装）">
+
 - [源码构建与自测](docs/guides/BUILD.md)：包含环境准备、默认构建、自测和预设顺序调整。
 
-<img src="docs/images/shutdown-camera.jpg" width="360" alt="自定义关机画面实拍（独立安装）">
 
 ## 自测情况与已知限制
 
