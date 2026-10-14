@@ -71,7 +71,7 @@ If the update screen does not appear or a card error is shown, stop and check th
 
 Power on normally and open **MENU → Image Control**. Confirm that all 22 Image Controls are available: 12 factory presets, 2 custom options and 8 added film presets. Take a photo with one preset and check the image and playback icon.
 
-The camera still reports **1.60** because this project retains the version display of its stock 1.60 base. **B2.4 is this project’s release version**, not the version shown by the camera. There is no need to manually change the camera or firmware version number.
+**Why does the camera still show 1.60?** This project retains the stock version fields. Changes to those fields have not been tested for their effects on update and recovery procedures, so do not change them just to label a modified build. **B2.4 is the project release version**; release labels identify download packages, while the [SHA256 file hash](#file-checksum) identifies the exact firmware file. The camera’s 1.60 display cannot distinguish stock from modified firmware. Added presets provide a functional check, not proof of the exact build installed.
 
 After checking, format the update card in-camera to remove the update file before everyday use; back up any test photos you want to keep first. Stop using the modified firmware if you encounter flickering, crashes or abnormal files, and retain samples for troubleshooting.
 
