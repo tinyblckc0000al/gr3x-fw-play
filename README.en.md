@@ -72,7 +72,7 @@ Mac: `shasum -a 256 /path/fwdc243b.bin`; Windows PowerShell: `Get-FileHash -Algo
 
 ## Customization and development
 
-- **Shutdown image:** confirmed on the test camera and installed separately. Current scripts assume Script is already enabled; first-time instructions are incomplete and restoring the original image has not been camera-tested. Do not substitute the Urban workflow or mix firmware updates and image scripts on one card. Confirm installation by comparing the read-back image, not just a completion message; then remove the startup script and disable Script.
+- **Shutdown image:**[Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0).  confirmed on the test camera and installed separately. Current scripts assume Script is already enabled; first-time instructions are incomplete and restoring the original image has not been camera-tested. Do not substitute the Urban workflow or mix firmware updates and image scripts on one card. Confirm installation by comparing the read-back image, not just a completion message; then remove the startup script and disable Script.
 - [Source build and self-tests](docs/guides/BUILD.en.md): environment setup, default builds, self-checks and preset reordering.
 
 ## Self-tests and known limitations
