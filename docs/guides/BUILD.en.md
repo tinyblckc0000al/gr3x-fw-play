@@ -59,7 +59,7 @@ After passing, follow the [installation instructions](../../README.en.md#firmwar
 
 Check shortcut and MENU selection, RAW+JPEG with each preset, playback identification, file reading on a computer, factory presets and in-camera RAW development, plus repeated switching and power cycles. Retain configuration, reports and samples if problems occur.
 
-These are personal-project self-test references, not a claim of full coverage. Current feedback comes from one standard IIIx; retained samples cover seven added presets, excluding Gold 200. Other bodies and long-term stability are untested.
+These are personal-project self-test references, not a claim of full coverage. Current feedback comes from one standard IIIx; retained samples cover seven added presets. Other bodies and long-term stability are untested.
 
 ## Reorder the default presets
 

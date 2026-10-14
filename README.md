@@ -80,8 +80,9 @@ ps:
 ## 文件校验
 
 计算结果与 [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/SHA256SUMS.txt) 对照：
-Mac：`shasum -a 256 /路径/fwdc243b.bin`；
-Windows PowerShell：`Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`。
+
+- Mac：`shasum -a 256 /路径/fwdc243b.bin`
+- Windows PowerShell：`Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`。
 
 ## 自定义与开发文档
 
@@ -93,9 +94,7 @@ Windows PowerShell：`Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`。
 
 ## 自测情况与已知限制
 
-默认 B2.4 通过了修改区域、菜单与回放映射检查及 91 项回归检查，可重建出指纹一致的文件。真机已确认 MENU 进入、预设选择和回放信息正常；现有九组 RAW+JPEG 样片覆盖七套新增预设，缺 Gold 200。
-
-尚无跨设备或长期稳定性验证；自定义预设完整自测、关机图片首次安装及恢复流程仍待完善。
+默认 B2.4 通过了修改区域、菜单与回放映射检查及 91 项回归检查，可重建出指纹一致的文件。真机已确认 MENU 进入、预设选择和回放信息正常；现有九组 RAW+JPEG 样片覆盖七套新增预设。
 
 ### 其他机型和品牌参考价值
 

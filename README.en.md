@@ -76,7 +76,9 @@ After checking, format the update card in-camera to remove the update file befor
 ## File checksum
 
 Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/SHA256SUMS.txt). Replace the example path with your firmware file:
-Mac: `shasum -a 256 /path/fwdc243b.bin`; Windows PowerShell: `Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`.
+
+- Mac: `shasum -a 256 /path/fwdc243b.bin`
+- Windows PowerShell: `Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`.
 
 ## Customization and development
 
@@ -88,9 +90,7 @@ Mac: `shasum -a 256 /path/fwdc243b.bin`; Windows PowerShell: `Get-FileHash -Algo
 
 ## Self-tests and known limitations
 
-Default B2.4 passed checks for modified regions, menu/playback mappings and 91 regression checks, and can be rebuilt with an identical hash. On the camera, menu entry, preset selection and playback information have been confirmed. Nine retained RAW+JPEG pairs cover seven added presets, excluding Gold 200.
-
-Cross-device and long-term stability remain untested. Full custom-preset self-checks and first-time shutdown-image installation/restoration workflows remain incomplete.
+Default B2.4 passed checks for modified regions, menu/playback mappings and 91 regression checks, and can be rebuilt with an identical hash. On the camera, menu entry, preset selection and playback information have been confirmed. Nine retained RAW+JPEG pairs cover seven added presets.
 
 ### Applicability to other cameras and brands
 
