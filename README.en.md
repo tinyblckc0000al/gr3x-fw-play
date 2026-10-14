@@ -10,7 +10,7 @@
 
 ## Features
 
-**B2.4 is based on stock GR IIIx firmware 1.60.** It expands Image Controls from 14 to 22, adding Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.
+**B2.4 is based on stock GR IIIx firmware 1.60.** The added film presets are Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.
 
 - These are Image Control options, not additional U1/U2/U3 custom shooting modes.
 - Changing recipes requires rebuilding and checking the firmware on a computer, then updating the camera. Direct LUT import from an SD card is not supported; this may be explored later.
@@ -69,7 +69,7 @@ If the update screen does not appear or a card error is shown, stop and check th
 
 ### 3. Check the result and clean up
 
-Power on normally and open **MENU → Image Control**. Confirm that all 22 Image Controls are available: 12 factory presets, 2 custom options and 8 added film presets. Take a photo with one preset and check the image and playback icon.
+Power on normally and open **MENU → Image Control**. Confirm that the added presets are selectable. Take a photo with one preset and check the image and playback icon.
 
 **Why does the camera still show 1.60?** This project retains the stock version fields. Changes to those fields have not been tested for their effects on update and recovery procedures, so do not change them just to label a modified build. **B2.4 is the project release version**; release labels identify download packages, while the [SHA256 file hash](#file-checksum) identifies the exact firmware file. The camera’s 1.60 display cannot distinguish stock from modified firmware. Added presets provide a functional check, not proof of the exact build installed.
 
@@ -86,7 +86,7 @@ Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x
 
 - [Source build and self-tests](docs/guides/BUILD.en.md): environment setup, default builds, self-checks and preset reordering.
 
-- **Shutdown image:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Confirmed on the test camera and installed separately. Current scripts assume Script is already enabled; first-time instructions are incomplete and restoring the original image has not been camera-tested. Do not substitute the Urban workflow or mix firmware updates and image scripts on one card. Confirm installation by comparing the read-back image, not just a completion message; then remove the startup script and disable Script.
+- **Shutdown image:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Script must already be enabled. See the included `README.txt` for installation and cleanup.
 
 <img src="docs/images/shutdown-camera.jpg" width="360" alt="Custom shutdown image on the camera (separate installation)">
 
