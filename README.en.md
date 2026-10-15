@@ -4,7 +4,7 @@
 
 **22 Image Controls on the GR IIIx: 12 factory presets + 2 custom options + 8 extra film looks.** All original modes are retained, and the eight added preset slots can be replaced. Use the default recipes or rebuild the firmware with a different configuration. Shutdown-image customization is a separate feature.
 
-- **Use the eight presets**: download the ready-made firmware and follow the [installation steps](#firmware-installation). No development tools needed.
+- **Use the eight presets**: download the [ready-made firmware](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4) and follow the [installation steps](#firmware-installation). No development tools needed.
 - **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installed separately; Script must already be enabled.
 - **Change recipes, names or icons**: see [custom presets](docs/guides/BUILD.en.md#custom-presets) for rebuilding instructions and custom-build verification limits.
 - **Build or explore the code**: see [source build and self-tests](docs/guides/BUILD.en.md).
