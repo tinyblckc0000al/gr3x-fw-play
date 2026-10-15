@@ -9,6 +9,10 @@
 - **替换配方、名称或图标**：查看[自定义预设](docs/guides/BUILD.md#自定义预设)，按说明重新构建；自定义版本的校验范围也在该节说明。
 - **自行构建或研究代码**：阅读[源码构建与自测](docs/guides/BUILD.md)。
 
+### 本项目新增了什么
+
+本项目基于 gr3-film-mods，将预设扩展适配到 **GR IIIx 1.60**，修复新增预设的菜单选择和回放识别，并提供配置化构建与可重复运行的自测。上游代码和数据来源见[开源项目参考](#开源项目参考)。
+
 ## 功能概述
 
 **B2.4 基于 GR IIIx 原厂 1.60**，内置新增胶片预设（Portra 400、Ektar 100、Gold 200、Pro 400H、Vision3 250D、Classic Negative、Vision3 500T、Velvia 50）。安装后，可在拍摄快捷菜单和 MENU → 影像控制中选择，拍摄对应风格的 JPEG，并在回放时识别预设。名称表示色彩模拟目标，实际效果也受曝光、白平衡和场景影响。
@@ -148,7 +152,7 @@
 | [FujifilmCameraProfiles / abpy](https://github.com/abpy/FujifilmCameraProfiles) | [`workspace/b2_iiix/fits/classic-negative.json`](workspace/b2_iiix/fits/classic-negative.json) 的预设数据来源 | [CC BY-NC-SA 4.0](tools/gr3-film-mods/LICENSES/CC-BY-NC-SA-4.0.txt) |
 | 本项目新增代码 | `scripts/`、`workspace/b2_iiix/` 中的构建、配置、桥接与自测脚本；`tools/gr3-film-mods/asm_util.py` 辅助文件 | 见[许可范围](LICENSING.md) |
 
-**本项目在这些基础上完成 GR IIIx 1.60 适配、MENU 与回放信息修复、八套预设的配置化构建，以及可重复运行的自测检查。** 分析和构建还使用了 Unicorn、Capstone、LLVM 与 Pillow。
+分析和构建还使用了 Unicorn、Capstone、LLVM 与 Pillow。
 保留原版权、许可及上游[数据修改记录](tools/gr3-film-mods/LICENSES/CHANGELOG.txt)。引用不表示上游作者审核或背书。
 
 感谢 [OpenCode](https://opencode.ai/) 在项目开发过程中提供的能力。

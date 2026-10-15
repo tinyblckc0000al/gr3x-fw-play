@@ -48,7 +48,7 @@ Outputs are the BIN and its `.report.json`. Do not use files left behind by a fa
 venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b24-playback.bin
 ```
 
-#### Order and result interpretation
+#### Test order
 
 1. **Identify the target:** confirm the camera, stock version and exact BIN. For a source build, complete input validation and building above first. Modified configurations are not frozen B2.4 and cannot be cleared by its verifier.
 2. **Run the single command above:** stages run as `selftest → structure → mutations → playback → references → rebuild → regression`. A failed stage stops the sequence; selected passing stages are not a complete result.
@@ -56,7 +56,7 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 4. **Stop on incomplete or failed results:** `FAIL`, `TIMEOUT`, `INCOMPLETE`, `NOT_RUN`, a remaining `RUNNING`, or no final report does not clear a file for installation. Read the first unsuccessful stage’s `.log`, resolve the cause and rerun the full sequence. Adjust timeouts if necessary; do not remove checks, change expected hashes or disable assertions.
 5. **Check the actual card copy last:** after default B2.4 passes, follow the README to copy the BIN and verify its SHA256 on the card. Any subsequent configuration edit or regenerated file requires another verification run.
 
-Users installing the supplied release do not need a development environment to rerun emulation, but must check compatibility and the card’s BIN against the published hash. Download integrity is not a camera-safety guarantee.
+> Users installing the supplied release do not need a development environment to rerun emulation, but must check compatibility and the card’s BIN against the published hash. Download integrity is not a camera-safety guarantee.
 
 The checks below target frozen B2.4; they do not establish safety for arbitrary modified builds.
 
@@ -81,30 +81,30 @@ After downloading or copying to a card, use the README checksum instructions to 
 
 After default B2.4 passes, copy the output as `fwdc243b.bin` and follow the [installation instructions](../../README.en.md#firmware-installation). Computer-side checks do not replace camera self-tests.
 
-#### Choosing test files
+#### Test reference
 
 Paths below are relative to the repository root. “Runnable separately” does not mean a portable standalone file: apart from checker self-tests, most require repository modules, Python dependencies, specific firmware or recipes.
 
 | File | What it investigates | Separate use and limits |
 |---|---|---|
-| `scripts/prepare_inputs.py` | Identity of the required IIIx / IV stock inputs and input preparation | Runnable separately; checks inputs, not the generated firmware |
+| `scripts/prepare_inputs.py` | Identity of the required IIIx / IV stock inputs and input preparation | **Runnable separately**; checks inputs, not the generated firmware |
 | `workspace/b2_iiix/verify_release.py` | Complete computer-side checks and summary for default B2.4 | Preferred entry point; requires stock firmware, repository scripts and default recipes, and accepts only frozen B2.4 |
 | `workspace/b2_iiix/verification.py` | Reference, mapping, protected-region, allocation and write-range rules | Library without a standalone command; used by the verifier and unit tests |
-| `workspace/b2_iiix/test_verification.py` | Whether constructed bounds, overlap and reference errors are detected | Runnable separately without a camera or firmware files; success validates only these checker test cases |
-| `workspace/b2_iiix/test_playback.py` | Playback parsing in the final BIN, with stock, added and boundary inputs | Direct execution uses the default B2.4 path in code; use the stage entry below for another path, not a BIN argument to unittest |
-| `tools/gr3-film-mods/verify_slots16.py` | Emulated menu, icon, color-parameter, mode-transition and RAW-development regression | Runnable with stock BIN, candidate BIN and recipes in slot order; the complete entry point assembles these arguments. Direct runs require checking `FAIL` lines and final `ALL OK`, not exit code alone |
+| `workspace/b2_iiix/test_verification.py` | Whether constructed bounds, overlap and reference errors are detected | **Runnable separately** without a camera or firmware files; success validates only these checker test cases |
+| `workspace/b2_iiix/test_playback.py` | Playback parsing in the final BIN, with stock, added and boundary inputs | **Direct execution** uses the default B2.4 path in code; use the stage entry below for another path, not a BIN argument to unittest |
+| `tools/gr3-film-mods/verify_slots16.py` | Emulated menu, icon, color-parameter, mode-transition and RAW-development regression | **Runnable directly** with stock BIN, candidate BIN and recipes in slot order; the complete entry point assembles these arguments. Direct runs require checking `FAIL` lines and final `ALL OK`, not exit code alone |
 | `workspace/b2_iiix/verify_offline.py` | Additional container round-trip, change-distribution and selected stock/Cross Process render comparisons | Legacy diagnostic, not a complete gate. Samples only some modes; `FAILED` may not return a nonzero exit code, and some checksum calculations repair the checksum first, so they do not establish original-input checksum validity |
 
 To investigate a single stage, run from the repository root:
 
 ```sh
+# Test the checker itself; the second command runs playback emulation only
 venv/bin/python -m unittest discover -s workspace/b2_iiix -p 'test_verification.py'
+# Diagnostic stage only: no complete report or other stages; partial success does not replace section 4
 venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b24-playback.bin --stage playback
 ```
 
-The first command tests the checker itself; the second runs playback emulation only. `--stage` is a diagnostic entry point: it produces no complete summary report and does not run other stages. Partial success does not replace the full command in section 4.
-
-#### Minimum coverage when organizing your own tests
+#### Minimum test coverage when extending or changing code
 
 - **Files and writes:** input identity, original bytes, container/layout, every changed region, allocation bounds/alignment, protected regions and stock references.
 - **Behavior and boundaries:** all added slots and stock modes; IDs/counts across shortcut, MENU, shooting, playback and in-camera RAW development; valid limits, out-of-range inputs and state restoration when returning from film to stock modes.
@@ -135,9 +135,11 @@ Provide the camera and version, supplied release versus custom build, BIN SHA256
 
 Suggested prompt:
 
-> Analyze only the supplied reports, logs and corresponding code. Separate passed, failed, unexecuted and unconfirmed checks. First confirm that the camera, firmware hash and report refer to the same run, then identify the first abnormal result with evidence and suggest minimal diagnostic steps. Do not alter expected hashes, remove assertions or skip checks to manufacture a pass. Do not equate offline success with camera safety. If evidence is missing, list it rather than guessing the cause of hardware damage.
+```text
+Analyze only the supplied reports, logs and corresponding code. Separate passed, failed, unexecuted and unconfirmed checks. First confirm that the camera, firmware hash and report refer to the same run, then identify the first abnormal result with evidence and suggest minimal diagnostic steps. Do not alter expected hashes, remove assertions or skip checks to manufacture a pass. Do not equate offline success with camera safety. If evidence is missing, list it rather than guessing the cause of hardware damage.
+```
 
-AI can explain evidence and assist troubleshooting; it cannot replace actual test execution or certify a firmware as safe to install.
+AI can help interpret evidence and investigate known problems, but cannot replace actual test execution. Camera testing still requires caution.
 
 ## Custom presets
 
@@ -151,7 +153,7 @@ AI can explain evidence and assist troubleshooting; it cannot replace actual tes
 
 ### Editing icons and configuration
 
-An icon ID is a lookup number in the code; its appearance is pixel data generated from the recipe. Shooting and playback use the same `ICON_IDS`. Changing a name, label or color does not require changing an ID.
+An icon ID is a lookup number in the code; its appearance is pixel data generated from the recipe. Shooting and playback use the same `ICON_IDS`. When changing a name, label or color, **do not change the ID**.
 
 For example, edit these fields within the existing `preset` block of a `fits/*.json` file, leaving other fields unchanged:
 
@@ -255,3 +257,5 @@ Stock code may read apparently empty regions. Do not enlarge the allocation area
 Added recipes use curve-table pointers. The preserve path restores shared pointers and retains the stock branch for tone 21 (Cross Process), preventing the previous film’s state from affecting later factory-mode rendering. After changes, check transitions from a film to Cross Process and then other factory modes, not just a single isolated render.
 
 Extensions also require configuration-specific mapping, boundary, factory-mode and emulation tests. `verify_release.py` identifies default B2.4 by its fixed SHA256 and rejects changed builds. Editing expected counts or substituting a hash does not replace full custom-build verification.
+
+## If you are unsure, take it slowly: ask AI questions and cross-check the evidence. Unless replacing your GR is pocket change, caution pays off.

@@ -9,6 +9,10 @@
 - **Change recipes, names or icons**: see [custom presets](docs/guides/BUILD.en.md#custom-presets) for rebuilding instructions and custom-build verification limits.
 - **Build or explore the code**: see [source build and self-tests](docs/guides/BUILD.en.md).
 
+### What's new here
+
+Built on gr3-film-mods, this project adapts the preset expansion to **GR IIIx 1.60**, fixes added-preset selection and playback identification, and provides configurable builds with repeatable self-checks. Upstream code and data sources are listed in [Open-source references](#open-source-references).
+
 ## Features
 
 **B2.4 is based on stock GR IIIx firmware 1.60.** The added film presets are Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.
@@ -144,7 +148,7 @@ Thanks to the projects that provided tools and research foundations:
 | [FujifilmCameraProfiles / abpy](https://github.com/abpy/FujifilmCameraProfiles) | Source of the preset data in [`workspace/b2_iiix/fits/classic-negative.json`](workspace/b2_iiix/fits/classic-negative.json) | [CC BY-NC-SA 4.0](tools/gr3-film-mods/LICENSES/CC-BY-NC-SA-4.0.txt) |
 | Project-added code | Build, configuration, bridging and self-test scripts in `scripts/` and `workspace/b2_iiix/`; the `tools/gr3-film-mods/asm_util.py` helper | See [license scope](LICENSING.md) |
 
-**This project adds GR IIIx 1.60 adaptation, MENU/playback fixes, configurable eight-preset builds and repeatable self-checks.** Analysis and builds also use Unicorn, Capstone, LLVM and Pillow.
+Analysis and builds also use Unicorn, Capstone, LLVM and Pillow.
 Original copyright notices, licenses and upstream [data modification records](tools/gr3-film-mods/LICENSES/CHANGELOG.txt) are retained. References do not imply upstream review or endorsement.
 
 Thanks to [OpenCode](https://opencode.ai/) for its capabilities during development.
