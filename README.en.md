@@ -6,23 +6,31 @@
 
 - **Use the eight presets**: download the ready-made firmware and follow the [installation steps](#firmware-installation). No development tools needed.
 - **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installed separately; Script must already be enabled.
+- **Change recipes, names or icons**: see [custom presets](docs/guides/BUILD.en.md#custom-presets) for rebuilding instructions and custom-build verification limits.
 - **Build or explore the code**: see [source build and self-tests](docs/guides/BUILD.en.md).
 
 ## Features
 
 **B2.4 is based on stock GR IIIx firmware 1.60.** The added film presets are Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.
 
-- These are Image Control options, not additional U1/U2/U3 custom shooting modes.
-- Changing recipes requires rebuilding and checking the firmware on a computer, then updating the camera. Direct LUT import from an SD card is not supported; this may be explored later.
-- Shutdown images use a separate script package and are not included in B2.4.
+### How it works
 
-<a href="https://xhslink.cn/o/34w09ZlOEgY"><img src="docs/images/presets-video-cover.jpg" width="280" alt="Eight presets — camera demo"></a>
+- **Store recipes:** legacy record slots hold the added color parameters and curves, which the camera’s existing image-processing pipeline uses to produce JPEGs.
+- **Connect the interface:** expanded menu counts and ID mappings make added presets selectable and resolve their playback icons.
+
+This extends Image Control without using U1/U2/U3. Changing recipes requires rebuilding the firmware; direct LUT import from an SD card is not supported.
+
+### See it in action
+
+[![Eight presets — camera demo](docs/images/presets-video-cover.jpg)](https://xhslink.cn/o/34w09ZlOEgY)
 
 [Watch the camera demo on Xiaohongshu](https://xhslink.cn/o/34w09ZlOEgY)
 
+![Casual camera JPEGs, no post-processing](docs/images/preset-samples.jpg)
+
 ## Camera and firmware compatibility
 
-These instructions apply to a **standard GR IIIx on stock firmware 1.60**, tested on one camera. Check MENU → Setup → About This Device → Firmware Info / Options (wording varies by language), and confirm whether the body is HDF or Urban.
+These instructions apply to a **standard GR IIIx on stock firmware 1.60**, tested on one camera. Check MENU → Setup → About This Device → Firmware Info / Options (wording varies by language).
 
 | Current setup | Applicability |
 |---|---|
@@ -32,7 +40,7 @@ These instructions apply to a **standard GR IIIx on stock firmware 1.60**, teste
 | HDF, Urban or another model | Untested; do not apply these instructions directly; see the discussion below |
 | Another modified firmware or unknown modification history | Check existing modifications and recovery options; a “1.60” display alone is insufficient |
 
-⚠️ This is unofficial software. Crashes, damaged photos or repairs may be possible. Back up photos first. Reinstalling stock 1.60 is a theoretical recovery route, not a tested recovery guarantee here.
+⚠️ This is unofficial software and carries risks. Back up photos and important data before use. See [restoring official firmware](#restoring-official-firmware) for the recovery route and its limits.
 
 ## Firmware installation
 
@@ -71,9 +79,19 @@ If the update screen does not appear or a card error is shown, stop and check th
 
 Power on normally and open **MENU → Image Control**. Confirm that the added presets are selectable. Take a photo with one preset and check the image and playback icon.
 
-**Why does the camera still show 1.60?** This project retains the stock version fields. Changes to those fields have not been tested for their effects on update and recovery procedures, so do not change them just to label a modified build. **B2.4 is the project release version**; release labels identify download packages, while the [SHA256 file hash](#file-checksum) identifies the exact firmware file. The camera’s 1.60 display cannot distinguish stock from modified firmware. Added presets provide a functional check, not proof of the exact build installed.
+**Why does the camera still show 1.60?** Stock version fields are retained to avoid introducing untested update behavior; do not change them manually. B2.4 is the project release version, and [SHA256](#file-checksum) identifies the downloaded file. The camera’s 1.60 display cannot identify the specific modified build.
 
 After checking, format the update card in-camera to remove the update file before everyday use; back up any test photos you want to keep first. Stop using the modified firmware if you encounter flickering, crashes or abnormal files, and retain samples for troubleshooting.
+
+## Restoring official firmware
+
+**Reinstalling stock firmware is an option only if the camera can still enter its updater; it is not a guaranteed rescue from every failure. This project has not tested the full recovery procedure.**
+
+1. Download stock GR IIIx 1.60 from [Ricoh](https://www.ricoh-imaging.co.jp/english/support/digital/gr3x_s.html) and extract `fwdc243b.bin`. It has the same filename as the modified build, so confirm its source.
+2. Use a clean spare card containing only the stock BIN, without modified firmware or startup scripts such as `startup.ttl`. Follow the [installation steps above](#firmware-installation), with a full battery; do not interrupt power or remove the card during the update.
+3. If the camera accepts the update and reports completion, remove the update card and check factory presets, shooting and playback. The version still reads 1.60; that number alone does not confirm recovery.
+
+If the updater cannot be reached, rejects a same-version update or problems persist, stop and seek repair support. Do not alter version fields to force installation. Reinstalling firmware does not restore all internal data; a separately installed shutdown image requires separate handling.
 
 ## File checksum
 
@@ -84,11 +102,10 @@ Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x
 
 ## Customization and development
 
-- [Source build and self-tests](docs/guides/BUILD.en.md): environment setup, default builds, self-checks and preset reordering.
+- [Source build and self-tests](docs/guides/BUILD.en.md): default builds, configuration, self-tests and extension constraints.
+- **Shutdown image replacement:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installed through camera Script and confirmed on the test camera. Script must already be enabled; see the included `README.txt` for installation and cleanup.
 
-- **Shutdown image:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Script must already be enabled. See the included `README.txt` for installation and cleanup.
-
-<img src="docs/images/shutdown-camera.jpg" width="360" alt="Custom shutdown image on the camera (separate installation)">
+![Custom shutdown image on the camera (separate installation)](docs/images/shutdown-camera.jpg)
 
 ## Self-tests and known limitations
 
@@ -115,17 +132,18 @@ Thanks to the projects that provided tools and research foundations:
 
 | Project | Role in this project | License / notice |
 |---|---|---|
-| [gr3-film-mods](https://github.com/idontknownihil/gr3-film-mods) | Foundation for preset slots, color processing and ARM emulation | [MIT](tools/gr3-film-mods/LICENSE) |
+| [gr3-film-mods](https://github.com/idontknownihil/gr3-film-mods) | Main source of [`tools/gr3-film-mods/`](tools/gr3-film-mods/); `make_slots*.py`, `verify_slots16.py` and related files adapt upstream implementations; `gr3patch_iiix.py` ports upstream `gr3patch.py` | [MIT](tools/gr3-film-mods/LICENSE) |
 | [gr3x-fw-hack](https://github.com/hhornbacher/gr3x-fw-hack) | Reference for IIIx system and firmware research | Tool / research reference |
 | [gr_unpack](https://github.com/yeahnope/gr_unpack) | Reference for understanding firmware unpacking | Tool / research reference |
-| [gr-custom-tool](https://github.com/DoYitNow/gr-custom-tool) | Firmware container codec used by the build | [GPL-2.0-only](tools/gr3-film-mods/third_party/gr-custom-tool/LICENSE) |
+| [gr-custom-tool](https://github.com/DoYitNow/gr-custom-tool) | [`tools/gr3-film-mods/third_party/gr-custom-tool/`](tools/gr3-film-mods/third_party/gr-custom-tool/) retains the container codec subset required by the build | [GPL-2.0-only](tools/gr3-film-mods/third_party/gr-custom-tool/LICENSE) |
 | [GR3-LUTSmith](https://github.com/lemonadesaltbagel/GR3-LUTSmith) | Color-fitting tooling whose data is connected to the preset build workflow | Tool / research reference |
-| [ricoh-gr3-shutdown-image](https://github.com/AlexMimi/ricoh-gr3-shutdown-image) | Foundation for the separate shutdown-image workflow | Tool / research reference |
-| [spektrafilm / Andrea Volpato](https://github.com/andreavolpato/spektrafilm) | Portra, Ektar, Gold, Pro400H and both Vision3 preset targets | [CC BY-SA 4.0](tools/gr3-film-mods/LICENSES/SPEKTRAFILM_LICENSE.txt) |
-| [FujifilmCameraProfiles / abpy](https://github.com/abpy/FujifilmCameraProfiles) | Classic Negative preset target | [CC BY-NC-SA 4.0](tools/gr3-film-mods/LICENSES/CC-BY-NC-SA-4.0.txt) |
+| [ricoh-gr3-shutdown-image](https://github.com/AlexMimi/ricoh-gr3-shutdown-image) | Foundation for the shutdown-image workflow; tooling is supplied in the separate image package | Tool / research reference |
+| [spektrafilm / Andrea Volpato](https://github.com/andreavolpato/spektrafilm) | Source of the Portra, Ektar, Gold, Pro400H and both Vision3 preset data in [`workspace/b2_iiix/fits/`](workspace/b2_iiix/fits/) | [CC BY-SA 4.0](tools/gr3-film-mods/LICENSES/SPEKTRAFILM_LICENSE.txt) |
+| [FujifilmCameraProfiles / abpy](https://github.com/abpy/FujifilmCameraProfiles) | Source of the preset data in [`workspace/b2_iiix/fits/classic-negative.json`](workspace/b2_iiix/fits/classic-negative.json) | [CC BY-NC-SA 4.0](tools/gr3-film-mods/LICENSES/CC-BY-NC-SA-4.0.txt) |
+| Project-added code | Build, configuration, bridging and self-test scripts in `scripts/` and `workspace/b2_iiix/`; the `tools/gr3-film-mods/asm_util.py` helper | See [license scope](LICENSING.md) |
 
 **This project adds GR IIIx 1.60 adaptation, MENU/playback fixes, configurable eight-preset builds and repeatable self-checks.** Analysis and builds also use Unicorn, Capstone, LLVM and Pillow.
-Original copyright notices, licenses and upstream [data modification records](tools/gr3-film-mods/LICENSES/CHANGELOG.txt) are retained; this project adds IIIx adaptations, fixes and preset configuration metadata. Velvia authorization remains unresolved and its data is excluded from public distribution. References do not imply upstream review or endorsement.
+Original copyright notices, licenses and upstream [data modification records](tools/gr3-film-mods/LICENSES/CHANGELOG.txt) are retained. References do not imply upstream review or endorsement.
 
 Thanks to [OpenCode](https://opencode.ai/) for its capabilities during development.
 
