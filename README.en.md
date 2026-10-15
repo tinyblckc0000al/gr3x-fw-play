@@ -44,6 +44,8 @@ These instructions apply to a **standard GR IIIx on stock firmware 1.60**, teste
 
 ## Firmware installation
 
+Before installing, read [test order and result interpretation](docs/guides/BUILD.en.md#4-run-self-tests): check compatibility and file hashes for the supplied release; source builds require computer-side checks before gradual camera self-tests.
+
 [Download BIN](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/fwdc243b.bin) · [Download ZIP](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/gr3x-film-slots-b2.4.zip) · [Release notes](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4)
 
 For standard GR IIIx 1.60. Prepare the B2.4 ready-made package, a card reader, an SD card and a fully charged camera. No development tools are needed. The steps below use a Mac.

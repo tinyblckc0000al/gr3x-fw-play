@@ -48,7 +48,31 @@ Outputs are the BIN and its `.report.json`. Do not use files left behind by a fa
 venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b24-playback.bin
 ```
 
-Checks cover file integrity, modified regions and allocation bounds, menu/playback mappings, ARM emulation regression, fault injection and deterministic rebuilding. All stages must report `PASS` with exit code 0; failure, timeout, skipped stages or interruption do not count as a pass.
+#### Order and result interpretation
+
+1. **Identify the target:** confirm the camera, stock version and exact BIN. For a source build, complete input validation and building above first. Modified configurations are not frozen B2.4 and cannot be cleared by its verifier.
+2. **Run the single command above:** stages run as `selftest → structure → mutations → playback → references → rebuild → regression`. A failed stage stops the sequence; selected passing stages are not a complete result.
+3. **Read the final report:** in the current run’s `report.json`, the top-level `status` and all seven `stages` must be `PASS`, with command exit code 0. One passing log line or a successful build is insufficient. `hardware: NOT_TESTED` means no camera testing was performed by the script.
+4. **Stop on incomplete or failed results:** `FAIL`, `TIMEOUT`, `INCOMPLETE`, `NOT_RUN`, a remaining `RUNNING`, or no final report does not clear a file for installation. Read the first unsuccessful stage’s `.log`, resolve the cause and rerun the full sequence. Adjust timeouts if necessary; do not remove checks, change expected hashes or disable assertions.
+5. **Check the actual card copy last:** after default B2.4 passes, follow the README to copy the BIN and verify its SHA256 on the card. Any subsequent configuration edit or regenerated file requires another verification run.
+
+Users installing the supplied release do not need a development environment to rerun emulation, but must check compatibility and the card’s BIN against the published hash. Download integrity is not a camera-safety guarantee.
+
+The checks below target frozen B2.4; they do not establish safety for arbitrary modified builds.
+
+| Check | Main failure it helps prevent | Implementation |
+|---|---|---|
+| Input hashes and original instruction bytes | Wrong firmware version or patch address | `prepare_inputs.py` and expected-byte checks before patch writes |
+| Allocation bounds, overlaps, write ranges and protected regions | Overwriting stock code or ISP data, causing crashes, RAW corruption or image artifacts | `structure` and `rebuild` in `verify_release.py` |
+| Stock address-reference scan | Treating referenced stock data as free space | `references`; linear scanning cannot rule out indirect references |
+| Container checksums and section layout | Damaged packaging or changed layout preventing loading | `structure` |
+| Menu counts, playback mappings and ARM emulation | Missing presets, blank icons, wrong branches or regressions in stock modes, including Cross Process | `playback`, `regression` |
+| Fault injection and checker self-tests | Missed errors and false passes | `selftest`, `mutations`; limited to the injected cases |
+| Deterministic rebuilding | Different results from identical configuration, or a release differing from the verified file | `rebuild`, compared with the frozen B2.4 hash |
+
+All stages must report `PASS` with exit code 0; failure, timeout, skipped stages or interruption do not count as a pass. Allocation records come from the builder, and emulation covers selected paths rather than the full sensor, storage and real-time system. RAW/DNG integrity still requires camera capture and file inspection.
+
+After downloading or copying to a card, use the README checksum instructions to check the BIN for a wrong or incomplete copy; this is separate from functional testing. The independent shutdown-image package requires separate checks of generated versus intended image bytes, format, dimensions, backup and repeat-execution protection. Readback and actual display must still be checked after installation.
 
 - Reports: `workspace/b2_iiix/logs/qualification-*`.
 - Default timeout is 1800 seconds per stage; adjust with `--timeout`.
@@ -59,9 +83,29 @@ After default B2.4 passes, copy the output as `fwdc243b.bin` and follow the [ins
 
 ### 5. Camera self-test reference
 
-Check shortcut and MENU selection, RAW+JPEG with each preset, playback identification, file reading on a computer, factory presets and in-camera RAW development, plus repeated switching and power cycles. Retain configuration, reports and samples if problems occur.
+Proceed in order and stop at the first abnormal result. Use a backed-up spare card and a full battery, and record existing settings first. Never interrupt power or remove the card during the firmware update.
+
+| Order | Action | What to observe |
+|---|---|---|
+| 1 | After the update completes, start normally and open the shortcut and MENU → Image Control | Both menus open and close; factory and added presets are selectable without freezes or unexpected restarts |
+| 2 | Capture one RAW+JPEG pair with a factory preset, review it and copy it to a computer | Both files open fully; actually decode the RAW rather than viewing only its embedded thumbnail |
+| 3 | Capture one RAW+JPEG pair per added preset and record filenames and selections | Playback names, icons and visible parameters match; computer decoding shows no errors, obvious corrupt blocks or banding |
+| 4 | Switch added preset → Cross Process → Standard and capture images; check in-camera RAW development | No obvious residual effects after returning to stock modes; development completes. Thumbnails or successful file writes alone are insufficient |
+| 5 | Power off and on normally, then repeat menu entry and capture | Settings persist as intended, without recurring date setup, card errors or new freezes |
+
+Keep configuration, reports, operation order and original problem files. Stop further capture tests on abnormalities and consult the README recovery section; do not interrupt an ongoing firmware update just because it seems slow. These observations detect only some problems and cannot establish completely clean RAW/DNG output or long-term stability.
 
 These are personal-project self-test references, not a claim of full coverage. Current feedback comes from one standard IIIx; retained samples cover seven added presets. Other bodies and long-term stability are untested.
+
+### 6. Ask AI to help interpret results
+
+Provide the camera and version, supplied release versus custom build, BIN SHA256, executed command, exit code, current `report.json` and the full log of the first unsuccessful stage. For camera issues, add the operation sequence, filenames and original RAW/JPEG files. Check logs for personal paths and images for metadata before sharing. A complete firmware upload is not needed initially; a single `PASS` screenshot is insufficient.
+
+Suggested prompt:
+
+> Analyze only the supplied reports, logs and corresponding code. Separate passed, failed, unexecuted and unconfirmed checks. First confirm that the camera, firmware hash and report refer to the same run, then identify the first abnormal result with evidence and suggest minimal diagnostic steps. Do not alter expected hashes, remove assertions or skip checks to manufacture a pass. Do not equate offline success with camera safety. If evidence is missing, list it rather than guessing the cause of hardware damage.
+
+AI can explain evidence and assist troubleshooting; it cannot replace actual test execution or certify a firmware as safe to install.
 
 ## Custom presets
 

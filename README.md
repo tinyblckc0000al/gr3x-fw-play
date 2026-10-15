@@ -45,6 +45,8 @@
 ---
 ## 固件直接安装步骤
 
+刷机前请先看[测试顺序与结果判断](docs/guides/BUILD.md#4-运行自测)：成品包核对兼容性和文件指纹；自行构建需先完成电脑检查，再逐步做相机自测。
+
 [下载 BIN](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/fwdc243b.bin) · [下载 ZIP](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/gr3x-film-slots-b2.4.zip) · [版本说明](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4)
 
 适用于普通版 GR IIIx 1.60。准备 B2.4 成品包、读卡器、存储卡和充满电的相机，无需安装开发工具。下面以 Mac 为例。
