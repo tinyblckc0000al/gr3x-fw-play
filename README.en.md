@@ -5,7 +5,7 @@
 **22 Image Controls on the GR IIIx: 12 factory presets + 2 custom options + 8 extra film looks.** All original modes are retained, and the eight added preset slots can be replaced. Use the default recipes or rebuild the firmware with a different configuration. Shutdown-image customization is a separate feature.
 
 - **Use the eight presets**: download the [ready-made firmware](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4) and follow the [installation steps](#firmware-installation). No development tools needed.
-- **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installed separately; Script must already be enabled.
+- **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installed separately; the camera’s built-in script execution feature (Script) must be enabled first. Copying an image to the card alone will not install it.
 - **Change recipes, names or icons**: see [custom presets](docs/guides/BUILD.en.md#custom-presets) for rebuilding instructions and custom-build verification limits.
 - **Build or explore the code**: see [source build and self-tests](docs/guides/BUILD.en.md).
 
@@ -109,7 +109,7 @@ Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x
 ## Customization and development
 
 - [Source build and self-tests](docs/guides/BUILD.en.md): default builds, configuration, self-tests and extension constraints.
-- **Shutdown image replacement:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installed through camera Script and confirmed on the test camera. Script must already be enabled; see the included `README.txt` for installation and cleanup.
+- **Shutdown image replacement:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). The camera runs the included `.ttl` scripts to write the image; this has been confirmed on the test camera. B2.4 does not itself enable script execution. The package covers installation and cleanup after that feature is enabled; see its `README.txt`. First-time enablement instructions are still pending.
 
 ![Custom shutdown image on the camera (separate installation)](docs/images/shutdown-camera.jpg)
 

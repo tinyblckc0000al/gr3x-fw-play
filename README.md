@@ -5,7 +5,7 @@
 **让 GR IIIx 拥有 22 套影像控制：12 套原厂预设＋2 套自定义＋8 套新增胶片预设。** 原有模式全部保留，新增的八个预设槽位可替换。可以使用默认配方，也可以更换配方后重新生成固件。项目另提供独立的关机图片自定义方案。
 
 - **直接使用八套预设**：下载[成品固件](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4)，按[安装步骤](#固件直接安装步骤)操作，无需开发工具。
-- **只更换关机图片**：下载[独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)，独立安装，当前包要求已启用 Script。
+- **只更换关机图片**：下载[独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)，独立安装，需先启用相机内置的脚本执行功能（Script），不能仅复制图片到卡里使用。
 - **替换配方、名称或图标**：查看[自定义预设](docs/guides/BUILD.md#自定义预设)，按说明重新构建；自定义版本的校验范围也在该节说明。
 - **自行构建或研究代码**：阅读[源码构建与自测](docs/guides/BUILD.md)。
 
@@ -112,7 +112,7 @@
 ## 自定义与开发文档
 
 - [源码构建与自测](docs/guides/BUILD.md)：默认构建、配置说明、自测和扩展约束。
-- **关机图片替换**：[下载独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)。通过相机 Script 安装，已在本机确认效果；需先启用 Script，安装与清理步骤见包内 `README.txt`。
+- **关机图片替换**：[下载独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)。由相机执行包内 `.ttl` 脚本写入图片，已在本机确认效果。B2.4 固件本身不负责启用脚本功能；当前包只包含启用后的安装与清理步骤，见包内 `README.txt`，首次启用说明尚待补齐。
 
 ![自定义关机画面实拍（独立安装）](docs/images/shutdown-camera.jpg)
 
