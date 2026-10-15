@@ -81,6 +81,38 @@ After downloading or copying to a card, use the README checksum instructions to 
 
 After default B2.4 passes, copy the output as `fwdc243b.bin` and follow the [installation instructions](../../README.en.md#firmware-installation). Computer-side checks do not replace camera self-tests.
 
+#### Choosing test files
+
+Paths below are relative to the repository root. “Runnable separately” does not mean a portable standalone file: apart from checker self-tests, most require repository modules, Python dependencies, specific firmware or recipes.
+
+| File | What it investigates | Separate use and limits |
+|---|---|---|
+| `scripts/prepare_inputs.py` | Identity of the required IIIx / IV stock inputs and input preparation | Runnable separately; checks inputs, not the generated firmware |
+| `workspace/b2_iiix/verify_release.py` | Complete computer-side checks and summary for default B2.4 | Preferred entry point; requires stock firmware, repository scripts and default recipes, and accepts only frozen B2.4 |
+| `workspace/b2_iiix/verification.py` | Reference, mapping, protected-region, allocation and write-range rules | Library without a standalone command; used by the verifier and unit tests |
+| `workspace/b2_iiix/test_verification.py` | Whether constructed bounds, overlap and reference errors are detected | Runnable separately without a camera or firmware files; success validates only these checker test cases |
+| `workspace/b2_iiix/test_playback.py` | Playback parsing in the final BIN, with stock, added and boundary inputs | Direct execution uses the default B2.4 path in code; use the stage entry below for another path, not a BIN argument to unittest |
+| `tools/gr3-film-mods/verify_slots16.py` | Emulated menu, icon, color-parameter, mode-transition and RAW-development regression | Runnable with stock BIN, candidate BIN and recipes in slot order; the complete entry point assembles these arguments. Direct runs require checking `FAIL` lines and final `ALL OK`, not exit code alone |
+| `workspace/b2_iiix/verify_offline.py` | Additional container round-trip, change-distribution and selected stock/Cross Process render comparisons | Legacy diagnostic, not a complete gate. Samples only some modes; `FAILED` may not return a nonzero exit code, and some checksum calculations repair the checksum first, so they do not establish original-input checksum validity |
+
+To investigate a single stage, run from the repository root:
+
+```sh
+venv/bin/python -m unittest discover -s workspace/b2_iiix -p 'test_verification.py'
+venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b24-playback.bin --stage playback
+```
+
+The first command tests the checker itself; the second runs playback emulation only. `--stage` is a diagnostic entry point: it produces no complete summary report and does not run other stages. Partial success does not replace the full command in section 4.
+
+#### Minimum coverage when organizing your own tests
+
+- **Files and writes:** input identity, original bytes, container/layout, every changed region, allocation bounds/alignment, protected regions and stock references.
+- **Behavior and boundaries:** all added slots and stock modes; IDs/counts across shortcut, MENU, shooting, playback and in-camera RAW development; valid limits, out-of-range inputs and state restoration when returning from film to stock modes.
+- **Checker reliability and reproducibility:** deliberate corruption must be detected; identical inputs must rebuild identically; retain configuration, dependencies, BIN hashes and full logs.
+- **Camera and file decoding:** follow the next section, capture RAW+JPEG for each preset, actually decode RAW files, and check playback, stock modes and power cycles. Computer-side tests cannot replace this step.
+
+Adding slots, changing allocation layout or porting firmware requires reviewing addresses, capacity and expected results again. Record missing checks as uncovered; do not change a hash or reuse an old report to turn them into passes.
+
 ### 5. Camera self-test reference
 
 Proceed in order and stop at the first abnormal result. Use a backed-up spare card and a full battery, and record existing settings first. Never interrupt power or remove the card during the firmware update.
