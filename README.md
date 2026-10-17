@@ -111,6 +111,7 @@
 
 ## 自定义与开发文档
 
+- [更新记录](CHANGELOG.md)：各版本变更、验证结果与已知限制。
 - [源码构建与自测](docs/guides/BUILD.md)：默认构建、配置说明、自测和扩展约束。
 - **关机图片替换**：[下载独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)。由相机执行包内 `.ttl` 脚本写入图片，已在本机确认效果。B2.4.1 固件本身不负责启用脚本功能；当前包只包含启用后的安装与清理步骤，见包内 `README.txt`，首次启用说明尚待补齐。
 

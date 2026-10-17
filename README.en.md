@@ -108,6 +108,7 @@ Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x
 
 ## Customization and development
 
+- [Changelog](CHANGELOG.md): version changes, validation results and known limitations.
 - [Source build and self-tests](docs/guides/BUILD.en.md): default builds, configuration, self-tests and extension constraints.
 - **Shutdown image replacement:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). The camera runs the included `.ttl` scripts to write the image; this has been confirmed on the test camera. B2.4.1 does not itself enable script execution. The package covers installation and cleanup after that feature is enabled; see its `README.txt`. First-time enablement instructions are still pending.
 
