@@ -35,14 +35,28 @@ class CropIconTests(unittest.TestCase):
         V.check_changes(self.stock_dec[ib:end], self.patched_dec[ib:end], allowed)
 
     def test_all_other_factory_icon_descriptors_are_unchanged(self):
-        def catalog_descriptor(rtos, icon):
-            pointer = V.word(rtos, 0x5407B540 + 0x20FC + 4*icon)
-            return V.read(rtos, pointer, 8)
-        for icon in range(0x29F):
-            if icon in (5, 6, 7, 0x1D):
-                continue
-            with self.subTest(icon=hex(icon)):
-                self.assertEqual(catalog_descriptor(self.patched, icon), catalog_descriptor(self.stock, icon))
+        V.check_factory_icon_descriptors(self.stock, self.patched)
+
+    def test_descriptor_guard_rejects_changes_to_any_reserved_resource(self):
+        # Recreate the old 60x20 -> 40x40 crop overwrite without a SHA check.
+        # Also reject a relocated pointer even if its descriptor bytes match.
+        for icon in (0x2D, 0x2E, 0x15A, 0x29E):
+            entry = 0x5407B540 + 0x20FC + 4 * icon
+            pointer = V.word(self.stock, entry)
+            for kind in ('old collision', 'pixel offset', 'relocated pointer'):
+                with self.subTest(icon=hex(icon), kind=kind):
+                    broken = bytearray(self.patched)
+                    if kind == 'old collision':
+                        film = self.descriptor(self.patched, 0x2A0)
+                        struct.pack_into('<HHI', broken, pointer - V.BASE, *film)
+                    elif kind == 'pixel offset':
+                        broken[pointer - V.BASE + 4] ^= 1
+                    else:
+                        copy_address = V.BASE + len(broken)
+                        broken.extend(V.read(self.stock, pointer, 8))
+                        struct.pack_into('<I', broken, entry - V.BASE, copy_address)
+                    with self.assertRaisesRegex(ValueError, 'factory icon'):
+                        V.check_factory_icon_descriptors(self.stock, broken)
 
     def test_final_playback_tables_match_independent_release_expectations(self):
         V.check_playback(self.patched)

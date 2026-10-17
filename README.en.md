@@ -34,7 +34,7 @@ This extends Image Control without using U1/U2/U3. Changing recipes requires reb
 
 ## Camera and firmware compatibility
 
-These instructions target a **standard GR IIIx on stock firmware 1.60**. Earlier B2.4 testing used one camera; B2.4.1 has computer-side validation only and has not been retested on a camera. Check MENU → Setup → About This Device → Firmware Info / Options (wording varies by language).
+These instructions target a **standard GR IIIx on stock firmware 1.60**. B2.4.1 passed computer-side validation and received a user-reported camera pass for this icon fix on 2026-10-17; this is not complete model or scenario coverage. Check MENU → Setup → About This Device → Firmware Info / Options (wording varies by language).
 
 | Current setup | Applicability |
 |---|---|
@@ -115,9 +115,9 @@ Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x
 
 ## Self-tests and known limitations
 
-B2.4.1 fixes film icons replacing the factory TELE/71mm crop indicators in the Fn menu. The default eight-preset build passes all eight computer-side stages, including 91 functional checks, 5 icon/mapping tests and a deterministic rebuild.
+B2.4.1 fixes film icons replacing the factory TELE/71mm crop indicators in the Fn menu. The default eight-preset build passes all eight computer-side stages, including 91 functional checks, icon-resource preservation and fault-injection checks and a deterministic rebuild.
 
-This version has not been retested on a camera. Earlier single-camera B2.4 testing confirmed menu entry, preset selection and playback information; nine retained RAW+JPEG pairs cover seven added presets. Those historical samples do not validate B2.4.1. Some HDF-state and certification resources remain reused; this release fixes crop icons and does not expand model compatibility.
+The user-reported camera pass for this icon fix is bound to the same firmware SHA256; individual checklist results and new RAW+JPEG samples were not collected. Earlier single-camera B2.4 testing confirmed menu entry, preset selection and playback information; nine retained RAW+JPEG pairs cover seven added presets. Those historical samples do not validate B2.4.1. Some HDF-state and certification resources remain reused; this release fixes crop icons and does not expand model compatibility.
 
 ### Applicability to other cameras and brands
 

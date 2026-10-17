@@ -1,0 +1,16 @@
+{
+  "release": "b2.4.1",
+  "firmware_sha256": "88829723a3a1f8edfe70c0153c636d51fda2bdd2aac75641195142560b7e8128",
+  "date": "2026-10-17",
+  "model": "GR IIIx",
+  "base_firmware": "1.60",
+  "status": "PASS",
+  "evidence_type": "user_report",
+  "scope": "User acceptance of the Fn crop icon fix on the supplied B2.4.1 candidate",
+  "report": "真机测试没问题。",
+  "artifact_binding": "The supplied BIN was copied to the SD card and its SHA256 was verified before the user tested it.",
+  "limitations": [
+    "The user reported an overall pass; individual checklist results and new RAW/JPEG samples were not collected in this run.",
+    "This does not establish HDF/Urban compatibility or a complete camera regression."
+  ]
+}

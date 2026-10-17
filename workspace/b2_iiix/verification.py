@@ -9,6 +9,7 @@ BASE = 0x53000000
 SPANS = [(0x53D453F8, 0x53D45CB0), (0x53D39C8C, 0x53D3A588)]
 RELEASE_SHA = '88829723a3a1f8edfe70c0153c636d51fda2bdd2aac75641195142560b7e8128'
 STOCK_SHA = '708e79f3b7b96a7e1581b4acf4c412233050a1832718ef7f06c8397db1b431c7'
+STAGES = ('selftest', 'structure', 'mutations', 'playback', 'crop_icons', 'references', 'rebuild', 'regression')
 ICONS = (5, 6, 7, 0x1D, 0x2A0, 0x2A1, 0x2A2, 0x2A3)
 FACTORY_TONES = (11, 12, 10, 14, 15, 16, 17, 8, 19, 20, 21, 22)
 FACTORY_ICONS = (0x15A, 0, 0x162, 0x166, 0x224, 0, 0x165, 0x15E, 0x160, 0xE8, 0, 0x164, 0x15F, 0x32, 0x17)
@@ -32,6 +33,23 @@ PROTECTED = [(0x53D445B4, 0x53D44EB0)] + [(a, a + 0xDC8) for a in U1] + \
 def require(condition, message):
     if not condition:
         raise ValueError(message)
+
+
+def check_release_evidence(report, hardware):
+    """Offline qualification and human feedback must identify the same artifact."""
+    require(report.get('status') == 'PASS', 'qualification is incomplete or failed')
+    stages = report.get('stages', [])
+    require(tuple(s.get('name') for s in stages) == STAGES, 'missing, duplicated or reordered stages')
+    require(all(s.get('status') == 'PASS' and s.get('exit_code') == 0 for s in stages),
+            'every stage must finish successfully')
+    require(report.get('release') == 'b2.4.1' and report.get('candidate_sha256') == RELEASE_SHA,
+            'qualification does not identify the frozen release')
+    require(hardware.get('status') == 'PASS', 'camera feedback is missing or not passed')
+    require(hardware.get('release') == report['release'] and hardware.get('firmware_sha256') == RELEASE_SHA,
+            'camera feedback refers to a different artifact')
+    require(hardware.get('evidence_type') == 'user_report' and
+            all(isinstance(hardware.get(k), str) and hardware[k].strip() for k in ('date', 'scope', 'report')),
+            'camera feedback must record its date, scope and actual report')
 
 
 def require_owned(address, size, allocations):
@@ -81,6 +99,18 @@ def check_playback(rtos):
 def check_protected(stock, candidate):
     for lo, hi in PROTECTED:
         require(read(stock, lo, hi - lo) == read(candidate, lo, hi - lo), f'protected window {lo:#x}')
+
+
+def check_factory_icon_descriptors(stock, candidate):
+    """Independent stock baseline, including descriptor pointers, not builder IDs."""
+    for icon in range(0x29F):
+        if icon in (5, 6, 7, 0x1D):  # existing HDF/certification exceptions only
+            continue
+        entry = 0x5407B540 + 0x20FC + 4 * icon
+        pointer = word(stock, entry)
+        require(word(candidate, entry) == pointer, f'factory icon pointer {icon:#x}')
+        require(read(candidate, pointer, 8) == read(stock, pointer, 8),
+                f'factory icon descriptor {icon:#x}')
 
 
 def scan_references(code, base, spans):

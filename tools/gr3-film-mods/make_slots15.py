@@ -258,6 +258,26 @@ def appended(films):
     return m
 
 
+def validate_icon_ids(count):
+    """Conservative III/IIIx policy; existing HDF/certification reuse is explicit.
+
+    Factory IDs are occupied unless listed here. Added descriptors are indexed
+    by ID minus NEW_ICON0, so gaps would write outside their allocated table.
+    See workspace/b2_iiix/VERIFICATION.md for resource owners and limitations.
+    """
+    if not 1 <= count <= min(len(ICON_IDS), len(LEGACY_SLOTS)):
+        raise ValueError('film count exceeds icon/record capacity')
+    ids = ICON_IDS[:count]
+    if len(set(ids)) != count:
+        raise ValueError('duplicate film icon IDs')
+    for icon in ids:
+        if icon < NEW_ICON0 and icon not in (5, 6, 7, 0x1D):
+            raise ValueError(f'factory icon {icon:#x} is reserved; reuse is not approved')
+    added = sorted(icon for icon in ids if icon >= NEW_ICON0)
+    if added != list(range(NEW_ICON0, NEW_ICON0 + len(added))):
+        raise ValueError('added icon IDs must be contiguous from NEW_ICON0')
+
+
 def patch(img, films, raw_nr_above=None, kspace_spans=None):
     """films: [(name, display name, fit, replaced stock tone or None)]; appended films first, in menu order.
 
@@ -267,6 +287,7 @@ def patch(img, films, raw_nr_above=None, kspace_spans=None):
     Cross Process, HDR, Bleach) keep their original curves untouched (B2.1 preserve-Cross build).
     """
     n = len(films)
+    validate_icon_ids(n)
     m = appended(films)
     assert 1 <= n <= len(LEGACY_SLOTS)
     space = Space(REGIONS)

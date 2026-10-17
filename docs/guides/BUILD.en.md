@@ -90,8 +90,10 @@ Paths below are relative to the repository root. “Runnable separately” does 
 |---|---|---|
 | `scripts/prepare_inputs.py` | Identity of the required IIIx / IV stock inputs and input preparation | **Runnable separately**; checks inputs, not the generated firmware |
 | `workspace/b2_iiix/verify_release.py` | Complete computer-side checks and summary for default B2.4.1 | Preferred entry point; requires stock firmware, repository scripts and default recipes, and accepts only frozen B2.4.1 |
+| `workspace/b2_iiix/check_release.py` | Publication gate binding the complete report, committed sources, BIN and camera feedback | Run after qualification and committing; failures block publication. See [release sequence and resource policy](../../workspace/b2_iiix/VERIFICATION.md#release-sequence) |
 | `workspace/b2_iiix/verification.py` | Reference, mapping, protected-region, allocation and write-range rules | Library without a standalone command; used by the verifier and unit tests |
 | `workspace/b2_iiix/test_verification.py` | Whether constructed bounds, overlap and reference errors are detected | **Runnable separately** without a camera or firmware files; success validates only these checker test cases |
+| `workspace/b2_iiix/test_icon_policy.py` / `test_release_gate.py` | Rejection of invalid builder resources and publication evidence | Included in the selftest stage; uses firmware inputs and a temporary Git repository |
 | `workspace/b2_iiix/test_crop_icons.py` | Factory crop descriptors, dimensions and pixels; shared shooting/playback film icons | Requires the specified firmware and default B2.4.1; the full runner passes the actual candidate BIN |
 | `workspace/b2_iiix/test_playback.py` | Playback parsing in the final BIN, with stock, added and boundary inputs | **Direct execution** uses the default B2.4.1 path in code; use the stage entry below for another path, not a BIN argument to unittest |
 | `tools/gr3-film-mods/verify_slots16.py` | Emulated menu, icon, color-parameter, mode-transition and RAW-development regression | **Runnable directly** with stock BIN, candidate BIN and recipes in slot order; the complete entry point assembles these arguments. Direct runs require checking `FAIL` lines and final `ALL OK`, not exit code alone |
@@ -109,7 +111,7 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 #### Minimum test coverage when extending or changing code
 
 - **Files and writes:** input identity, original bytes, container/layout, every changed region, allocation bounds/alignment, protected regions and stock references.
-- **Behavior and boundaries:** all added slots and stock modes; IDs/counts across shortcut, MENU, shooting, playback and in-camera RAW development; valid limits, out-of-range inputs and state restoration when returning from film to stock modes.
+- **Behavior and boundaries:** all added slots and stock modes; IDs/counts across shortcut, MENU, shooting, playback and in-camera RAW development; existing consumers of shared resources, such as Fn crop and status icons; valid limits, out-of-range inputs and state restoration when returning from film to stock modes.
 - **Checker reliability and reproducibility:** deliberate corruption must be detected; identical inputs must rebuild identically; retain configuration, dependencies, BIN hashes and full logs.
 - **Camera and file decoding:** follow the next section, capture RAW+JPEG for each preset, actually decode RAW files, and check playback, stock modes and power cycles. Computer-side tests cannot replace this step.
 
@@ -121,7 +123,7 @@ Proceed in order and stop at the first abnormal result. Use a backed-up spare ca
 
 | Order | Action | What to observe |
 |---|---|---|
-| 1 | After the update completes, start normally and open the shortcut and MENU → Image Control | Both menus open and close; factory and added presets are selectable without freezes or unexpected restarts |
+| 1 | After the update completes, start normally, open the shortcut and MENU → Image Control, and cycle Fn crop Off→50mm→71mm→Off | Both menus open and close; factory and added presets are selectable; crop icons remain complete and correct, without freezes or unexpected restarts |
 | 2 | Capture one RAW+JPEG pair with a factory preset, review it and copy it to a computer | Both files open fully; actually decode the RAW rather than viewing only its embedded thumbnail |
 | 3 | Capture one RAW+JPEG pair per added preset and record filenames and selections | Playback names, icons and visible parameters match; computer decoding shows no errors, obvious corrupt blocks or banding |
 | 4 | Switch added preset → Cross Process → Standard and capture images; check in-camera RAW development | No obvious residual effects after returning to stock modes; development completes. Thumbnails or successful file writes alone are insufficient |
@@ -129,7 +131,7 @@ Proceed in order and stop at the first abnormal result. Use a backed-up spare ca
 
 Keep configuration, reports, operation order and original problem files. Stop further capture tests on abnormalities and consult the README recovery section; do not interrupt an ongoing firmware update just because it seems slow. These observations detect only some problems and cannot establish completely clean RAW/DNG output or long-term stability.
 
-These are personal-project self-test references, not a claim of full coverage. Historical B2.4 feedback comes from one standard IIIx; retained samples cover seven added presets. B2.4.1 still needs camera retesting. Other bodies and long-term stability are untested.
+These are personal-project self-test references, not a claim of full coverage. Historical B2.4 feedback comes from one standard IIIx; retained samples cover seven added presets. B2.4.1 received a user-reported camera pass for this icon fix on 2026-10-17, bound to the same BIN SHA256; individual results and new samples were not collected. Other bodies and long-term stability are untested.
 
 ### 6. Ask AI to help interpret results
 

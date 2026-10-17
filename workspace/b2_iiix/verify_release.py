@@ -20,11 +20,18 @@ import verification as V
 
 STOCK = ROOT / 'firmware/official-v160/fwdc243b.bin'
 DEFAULT = HERE / 'out/fwdc243b-b241.bin'
-STAGES = ('selftest', 'structure', 'mutations', 'playback', 'crop_icons', 'references', 'rebuild', 'regression')
+STAGES = V.STAGES
 
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def qualification_sources():
+    sources = list(HERE.glob('*.py')) + list(FM.glob('*.py')) + list((HERE / 'fits').glob('*.json'))
+    sources += [HERE / 'presets.json', HERE / 'VERIFICATION.md']
+    sources += list((FM / 'third_party/gr-custom-tool/gr4_editor').rglob('*.py'))
+    return sorted(sources)
 
 
 def decode(path):
@@ -173,7 +180,8 @@ def regression(candidate):
 
 def selftest(candidate):
     import unittest
-    suite = unittest.defaultTestLoader.discover(str(HERE), pattern='test_verification.py')
+    suite = unittest.TestSuite(unittest.defaultTestLoader.discover(str(HERE), pattern=name)
+                               for name in ('test_verification.py', 'test_icon_policy.py', 'test_release_gate.py'))
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     V.require(result.wasSuccessful(), 'verifier selftests failed')
 
@@ -221,9 +229,7 @@ def main():
     directory = args.output or HERE / 'logs' / ('qualification-' + datetime.datetime.now().strftime('%Y%m%d-%H%M%S-%f'))
     directory = directory.resolve()
     directory.mkdir(parents=True, exist_ok=False)
-    sources = list(HERE.glob('*.py')) + list(FM.glob('*.py')) + list((HERE / 'fits').glob('*.json'))
-    sources += [HERE / 'presets.json', HERE / 'VERIFICATION.md']
-    sources += list((FM / 'third_party/gr-custom-tool/gr4_editor').rglob('*.py'))
+    sources = qualification_sources()
     report = dict(schema_version=1, status='RUNNING', hardware='NOT_TESTED', candidate=str(candidate),
                   candidate_sha256=sha(candidate), stock_sha256=sha(STOCK), python=sys.version,
                   dependencies={p: importlib.metadata.version(p) for p in ('capstone', 'unicorn', 'numpy')},
