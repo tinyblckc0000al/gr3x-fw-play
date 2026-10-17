@@ -1,105 +1,74 @@
-# Verification guide
+# B2.4.2 verification
 
-## Scope
+The default eight-preset GR IIIx 1.60 build uses a 24 KiB appended RTOS area.
+B2.4.1's data spans overlap complete factory compensation-table read windows;
+its historical reference-scan result is not clearance for those spans.
 
-This guide covers the default eight-preset GR IIIx 1.60 build. The current
-verifier accepts only the frozen B2.4.1 BIN; custom recipes, additional slots and
-other firmware versions require their own qualification. Do not replace the
-expected hash to bypass a failing check.
+## Build and qualify
 
-Version-specific results, asset hashes and logs are available in the
-[B2.4.1 release](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4.1).
-The separate [camera record](hardware-b241.json) states the scope of user feedback.
-Use the release tag to reproduce its original source and verification records.
-
-## Run the checks
-
-Prepare the stock firmware, default recipes and dependencies using the
-[build guide](../../docs/guides/BUILD.en.md). Run from the repository root:
+Run from the repository root after preparing the official firmware and dependencies
+using the [build guide](../../docs/guides/BUILD.en.md).
 
 ```sh
-venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix --presets workspace/b2_iiix/presets.json workspace/b2_iiix/out/fwdc243b-b241.bin
-venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b241.bin
+venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix workspace/b2_iiix/out/fwdc243b-b242.bin
+venv/bin/python workspace/b2_iiix/qualify_storage_candidate.py workspace/b2_iiix/out/fwdc243b-b242.bin --output workspace/b2_iiix/logs/qualification-b242
 ```
 
-The verifier prints the report path under `workspace/b2_iiix/logs/qualification-*`.
-Keep `report.json` and every stage log. The report records firmware and source
-fingerprints, dependency versions and eight stages:
+Require final PASS and all five stages PASS with exit code zero:
 
 | Stage | Checks |
 |---|---|
-| `selftest` | Checker, builder-resource policy and release-evidence rejection tests |
-| `structure` | Frozen artifact identity, checksums, mappings and allowed change ranges |
-| `mutations` | Deliberate instruction, mapping and protected-region errors are rejected |
-| `playback` | Playback parsing and icon selection in the final BIN |
-| `crop_icons` | Factory icon preservation, lookup/dimension emulation, film-icon consistency and fault injection on crop and non-crop resources |
-| `references` | Bounded stock reference scan of reserved spans |
-| `rebuild` | Byte-identical rebuild with tracked allocations and writes |
-| `regression` | Functional emulation of menus, presets and processing paths |
+| structure | Section contents, initialized-data mapping, complete protected windows, appended ownership and icon/playback mappings |
+| mutations | Compensation-table changes and pointers escaping the appended area are rejected |
+| unit_and_native_probes | Checker/release gate, alignment/bounds, section movement, icon preservation, original CPU upload buffers for all seven settings |
+| regression | Menu, preset and processing emulation, including appended helper execution |
+| deterministic_rebuild | Rebuilt BIN equals the qualified artifact byte for byte |
 
-Diagnostic `--stage` runs do not produce complete qualification. A timeout,
-missing stage or partial run is a failure to qualify.
+The native upload probe substitutes hardware helpers and compares submitted buffers;
+it does not execute physical ISP transfers. Reports retain exact source fingerprints
+and stage logs. A partial run or timeout is not complete qualification.
 
-## Acceptance criteria
+## Camera acceptance and release
 
-| Evidence | Required condition | Assessed by |
-|---|---|---|
-| Automated qualification | Exit code 0, final report `PASS`, all eight stages `PASS` | `verify_release.py` |
-| Change-impact review | Identify changed resources, known existing/new consumers, preservation requirements and unresolved assumptions | Maintainer; not inferred by the tools |
-| Camera acceptance | Test the affected behavior and existing consumers on the exact BIN; record model, date, hash, results and untested scenarios | Tester and maintainer; not performed by the emulator |
-| Evidence consistency | Complete qualification, unchanged qualified sources, committed source/feedback records and matching artifact hashes | `check_release.py` |
+[Camera feedback](hardware-b242.json) binds the tested BIN SHA256 and records the
+user's 2026-10-17 confirmation: complete appended-area loading, power on/off and
+actual RAW/JPEG capture. No new sample files were collected. Continuous shooting,
+endurance, HDF/Urban-specific functions and all U-mode persistence paths are not
+covered by that confirmation.
 
-Use the [camera checklist](../../docs/guides/BUILD.en.md#5-camera-self-test-reference)
-as a baseline and add scenarios identified by the impact review. Record each
-scenario as passed, failed or not run. An overall user-reported pass does not
-establish that every checklist item was exercised. The maintainer must assess
-whether the evidence is sufficient for the stated release scope.
+1. Complete qualification and review the changed consumers and allocations.
+2. Record camera acceptance against the exact BIN and commit qualified sources.
+3. Run the consistency gate:
 
-### Release sequence
+```sh
+venv/bin/python workspace/b2_iiix/check_release.py workspace/b2_iiix/out/fwdc243b-b242.bin --report workspace/b2_iiix/logs/qualification-b242/report.json --hardware workspace/b2_iiix/hardware-b242.json
+```
 
-1. Complete the impact review, automated qualification and scoped camera acceptance.
-2. Commit the qualified sources and camera record. Run the consistency check,
-   replacing the report path with the one printed by the verifier:
+4. Retain the gate receipt binding commit, qualification, BIN and camera record.
+   Package that exact BIN, upload assets and verify downloaded hashes and ZIPs.
 
-   ```sh
-   venv/bin/python workspace/b2_iiix/check_release.py workspace/b2_iiix/out/fwdc243b-b241.bin --report workspace/b2_iiix/logs/qualification-YYYYMMDD/report.json
-   ```
+The gate checks evidence consistency, not camera safety or test completeness.
+Any fingerprinted source change requires renewed qualification. A changed BIN
+requires renewed camera acceptance. Identical BINs retain only the existing
+camera confirmation's scope. Custom recipes, extra slots and other versions need
+separate qualification; replacing expected hashes is not validation.
 
-3. Require exit code 0 and retain the JSON receipt. It binds the source commit,
-   BIN, report and camera-record hashes. It checks consistency and the presence
-   of feedback; it does **not** assess test completeness or camera safety.
-4. Package the exact accepted BIN with checksums and evidence, then tag the
-   receipt's commit. Re-download uploaded assets and verify hashes, ZIP contents
-   and equality with the accepted BIN before announcing completion.
+## Remaining resource limits
 
-Changes to fingerprinted sources/configuration require new qualification.
-This guide itself is fingerprinted: editing it makes an earlier report stale
-for the new checkout, but does not invalidate the archived release at its tag.
-Any BIN change requires renewed camera acceptance; an identical BIN retains
-only the scope of its existing camera evidence.
+Factory crop/TELE IDs 0x2C–0x2E are preserved. IDs 0x05–0x07 still reuse HDF-state
+resources; 0x1D reuses certification artwork and backing pixels. New IDs start at
+0x2A0. This release does not restore those remaining reused resources or establish
+HDF compatibility. Independent resources are recorded in TODO.
 
-## Resource policy and limitations
+The automated report's hardware NOT_TESTED and publish_authorized false fields
+refer to the offline runner; scoped human acceptance is recorded separately.
+The allocation ledger is builder-derived. Preserving complete known stock tables
+and original section contents is stronger than treating zero bytes as free space,
+but does not establish universal firmware or model compatibility.
 
-Factory icon resources are occupied by default. The builder rejects unapproved
-reuse, duplicate IDs and gaps in added descriptors before patching. The verifier
-compares factory pointers/descriptors against stock independently of the
-builder's ID list and checks the complete ICONBIN change range.
+## Historical records
 
-| Resource, IIIx 1.60 | Policy |
-|---|---|
-| `0x05–0x07` | Existing HDF-state reuse exception; HDF behavior remains unverified |
-| `0x1D` | Existing certification-artwork reuse exception, including backing pixels for added icons |
-| Remaining factory IDs through `0x29E`, plus gap `0x29F` | No reuse approval; crop/TELE indicators `0x2C–0x2E` must be preserved |
-| Added IDs from `0x2A0` | Unique and contiguous within the allocated descriptor table |
-
-An exception records an existing tradeoff, not proof of harmlessness. New reuse
-requires reviewing original consumers, model/version and affected states;
-unknown ownership is not approval. Matching addresses across models does not
-establish equivalent resource use. Broader memory checks retain their separate
-allocation, protected-window and reference-scan requirements.
-
-The report's `hardware: NOT_TESTED` describes the automated runner; camera
-feedback is separate. Linear scanning cannot exclude all indirect references,
-and the allocation ledger is builder-derived. Offline success does not prove
-RAW/DNG cleanliness, HDF/Urban compatibility or long-term stability. Preserve
-these boundaries in release claims.
+B2.4.1 qualification scripts and receipts remain available at its release tag.
+Their frozen structure/reference stages target that historical BIN. B2.4.2 uses
+qualify_storage_candidate.py; individual verify_release.py stages are diagnostic
+helpers and are not a substitute for the complete five-stage qualification.

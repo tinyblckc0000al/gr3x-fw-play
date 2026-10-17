@@ -319,5 +319,17 @@
   "code_checkout_from_repository_root": ".",
   "latest_report": "followup/report.md",
   "latest_evidence_manifest": "followup/evidence-manifest.json",
-  "withdrawn_claim": "DATA-0 and DATA-1 are not reusable zero runs: both overlap stock compensation tables."
+  "withdrawn_claim": "DATA-0 and DATA-1 are not reusable zero runs: both overlap stock compensation tables.",
+  "repair_followup": {
+    "release": "b2.4.2",
+    "firmware_sha256": "f2c86157bd440d3db20da90af05d770d93b2588878139ab813e4353a0ca9cb74",
+    "strategy": "independent appended RTOS storage; restore complete stock compensation tables, random path and MA storage",
+    "camera_evidence": "../../../workspace/b2_iiix/hardware-b242.json",
+    "camera_scope": [
+      "complete appended-area load",
+      "power on/off",
+      "actual RAW/JPEG capture"
+    ],
+    "historical_evidence_unchanged": true
+  }
 }

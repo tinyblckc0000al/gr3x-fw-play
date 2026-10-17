@@ -63,12 +63,16 @@ n = len(films)
 m = sum(1 for r in repl if r is None)
 proxy_of = {M.FIRST_TONE + k: (r if r is not None else M.PROXY) for k, r in enumerate(repl)}
 FILM_TONES = list(range(M.FIRST_TONE, M.FIRST_TONE + n))
-check(sum32(p_raw) == 0 and sum32(p_dec) == 0 and len(s_dec) == len(p_dec), 'container and decoded sums 0, same length')
+check(sum32(p_raw) == 0 and sum32(p_dec) == 0 and len(p_dec) >= len(s_dec),
+      'container and decoded checksums; candidate is not truncated')
 rows = {r['name']: r for r in section_rows(s_dec)}
-changed = [nm for nm, r in rows.items() if s_dec[r['start']:r['end']] != p_dec[r['start']:r['end']]]
+prows = {r['name']: r for r in section_rows(p_dec)}
+check(list(rows) == list(prows), 'section names and order retained')
+changed = [nm for nm, r in rows.items()
+           if s_dec[r['start']:r['end']] != p_dec[prows[nm]['start']:prows[nm]['end']]]
 check(changed == ['RTOS', 'ICONBIN'], f'changed sections {changed}')
-rt = lambda dec: bytes(dec[0x10870:0x10c5e30])
-S, P = rt(s_dec), rt(p_dec)
+S = bytes(s_dec[rows['RTOS']['start'] + 16:rows['RTOS']['end']])
+P = bytes(p_dec[prows['RTOS']['start'] + 16:prows['RTOS']['end']])
 
 # icons: other ids keep descriptor and pixels; the film ids are 40x40, inside their own (0x05-0x07) or 0x1D's pixels
 CAT = 0x550020FC
@@ -80,7 +84,9 @@ def desc(r, i):
     return struct.unpack('<HHI', r[d:d + 8])
 ib = rows['ICONBIN']['start'] + 16
 allowed = [(ib + 4 * desc(S, i)[2], ib + 4 * desc(S, i)[2] + 4 * desc(S, i)[0] * desc(S, i)[1]) for i in M.ICON_IDS[:3] + (M.CARVE_FROM,)]
-diff = np.flatnonzero(np.frombuffer(s_dec[ib:rows['ICONBIN']['end']], 'u1') != np.frombuffer(p_dec[ib:rows['ICONBIN']['end']], 'u1')) + ib
+pib = prows['ICONBIN']['start'] + 16
+diff = np.flatnonzero(np.frombuffer(s_dec[ib:rows['ICONBIN']['end']], 'u1') !=
+                         np.frombuffer(p_dec[pib:prows['ICONBIN']['end']], 'u1')) + ib
 inside = all(any(lo <= x < hi for lo, hi in allowed) for x in diff[::97].tolist() + diff[-1:].tolist())
 others = all(desc(S, i) == desc(P, i) for i in range(0x29F) if i not in M.ICON_IDS[:len(films)])
 
@@ -363,7 +369,8 @@ def path_of(rtos, f, tone, set_index, mode=0):
     e.u.mem_write(pattern, bytes(((i >> 1) ^ (i >> 9)) & 0xFF for i in range(0x1000)))
 
     def hook(u, at, size, _):
-        if f <= at < end or stub_lo <= at < stub_hi or at == STOP:
+        if (f <= at < end or stub_lo <= at < stub_hi or
+                0x540B55C0 <= at < 0x53000000 + len(rtos) or at == STOP):
             return
         if at in stubs:
             u.reg_write(A.UC_ARM_REG_R0, stubs[at])
@@ -388,7 +395,8 @@ for f in M.PROXY_FUNCS:
                 if path_of(P, f, t, st, mode) != path_of(S, f, proxy_of[t], st, mode):
                     bad.append((hex(f), st, mode, t, 'film'))
 check(not bad, f'18 adjustment functions x 3 sets x still/movie: stock tones unchanged, each film takes its proxy\'s path '
-      f'{ {t: p for t, p in proxy_of.items() if p != M.PROXY} } (others {M.PROXY}) {bad or ""}')
+      f'{ {t: p for t, p in proxy_of.items() if p != M.PROXY} } (others {M.PROXY}) '
+      f'failures={len(bad)} {bad[:16]}')
 
 
 class Img:          # minimal wrapper for make_slots.check_sites on a raw RTOS

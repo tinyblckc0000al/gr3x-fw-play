@@ -3,7 +3,25 @@
 按版本记录用户可见变更、验证结果与已知限制；执行步骤见[验证指南](workspace/b2_iiix/VERIFICATION.md)。
 Version history records changes, validation and limitations. See the [verification guide](workspace/b2_iiix/VERIFICATION.md) for the procedure.
 
+## B2.4.2 — 2026-10-17
+
+[发布包 / Release](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4.2)
+
+修复 B2.4.1 配方数据与原厂补偿表的布局冲突：原检查仅保护 452 字节，实际读取窗口为 3584 字节。新增 24 KiB RTOS 追加区，70 项分配共占 6236 字节；新增配方、曲线与补丁代码迁入该区，恢复完整补偿表及此前借用的随机路径和 MA 区域。同步修正分配对齐、曲线展开范围和增长后的图标段定位，保留 Fn 裁切图标修复。
+
+五阶段离线验证通过，含 92 项功能回归、七档补偿参数的原厂提交缓冲区逐字节对比、保护区错误注入和确定性重建。2026-10-17 用户确认“真机确认了，追加区能完整加载，开关机、实际 RAW／JPEG 成像都没问题”。连续拍摄、长期稳定性及 HDF／Urban 专属功能不在本次确认范围内，未收集新样片。
+
+Fixes the B2.4.1 overlap between added preset data and factory compensation tables: the old check covered 452 bytes instead of the complete 3584-byte read window. A 24 KiB appended RTOS area holds 70 allocations totaling 6236 bytes, restoring the stock compensation tables, random path and MA storage. Allocation alignment, curve-expansion ranges and shifted icon-section offsets are corrected; the crop-icon fix is retained.
+
+Five automated stages pass, including 92 functional checks, stock upload-buffer equality for seven compensation settings, negative mutations and deterministic rebuilding. User-reported camera acceptance covers full append loading, power on/off and actual RAW/JPEG capture. No new samples were collected; burst/endurance and HDF/Urban-specific functions remain outside this confirmation.
+
+- BIN SHA256: `f2c86157bd440d3db20da90af05d770d93b2588878139ab813e4353a0ca9cb74`
+- [Camera feedback](workspace/b2_iiix/hardware-b242.json)
+- [Verification guide](workspace/b2_iiix/VERIFICATION.md)
+
 ## B2.4.1 — 2026-10-17
+
+> 后续审计确认布局冲突，由 B2.4.2 修复；以下为历史发布记录。Superseded by B2.4.2 after a confirmed storage-layout conflict.
 
 [发布包 / Release](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4.1)
 

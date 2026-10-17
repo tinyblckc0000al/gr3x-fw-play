@@ -36,9 +36,9 @@ def check(candidate, report_path, hardware_path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('candidate', nargs='?', type=Path, default=DEFAULT)
+    parser.add_argument('candidate', nargs='?', type=Path, default=HERE / 'out/fwdc243b-b242-storage-rc1.bin')
     parser.add_argument('--report', type=Path, required=True)
-    parser.add_argument('--hardware', type=Path, default=HERE / 'hardware-b241.json')
+    parser.add_argument('--hardware', type=Path, default=HERE / 'hardware-b242.json')
     args = parser.parse_args()
     print(json.dumps(check(args.candidate, args.report, args.hardware), indent=2, ensure_ascii=False))
 

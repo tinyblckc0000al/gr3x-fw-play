@@ -164,7 +164,7 @@ class Space:
         order = sorted(range(len(self.free)), key=lambda i: (prefer is not None and i not in prefer, i))
         for i in order:
             lo, hi = self.free[i]
-            if hi - lo >= n:
+            if hi - lo >= ((n + 3) & ~3):
                 self.free[i][0] = lo + ((n + 3) & ~3)
                 self.used.append((name, lo, n))
                 return lo
@@ -278,7 +278,7 @@ def validate_icon_ids(count):
         raise ValueError('added icon IDs must be contiguous from NEW_ICON0')
 
 
-def patch(img, films, raw_nr_above=None, kspace_spans=None):
+def patch(img, films, raw_nr_above=None, kspace_spans=None, code_spans=None):
     """films: [(name, display name, fit, replaced stock tone or None)]; appended films first, in menu order.
 
     kspace_spans: optional [(lo, hi)] overriding where the per-film knot/curve/data tables live (pristine
@@ -286,11 +286,12 @@ def patch(img, films, raw_nr_above=None, kspace_spans=None):
     areas; passing spans relocates them OUT of every library area, so all 12 factory Image Controls (incl.
     Cross Process, HDR, Bleach) keep their original curves untouched (B2.1 preserve-Cross build).
     """
+    # Explicit code_spans keep all helper allocations out of stock random code.
     n = len(films)
     validate_icon_ids(n)
     m = appended(films)
     assert 1 <= n <= len(LEGACY_SLOTS)
-    space = Space(REGIONS)
+    space = Space(REGIONS if code_spans is None else code_spans)
     lib = [img.word(CURVE_LIB + 4 * i) for i in range(12)]
     if kspace_spans is None:
         regions = merged_regions([lib[i] for i in CURVE_SLOTS_FREE])
@@ -307,7 +308,6 @@ def patch(img, films, raw_nr_above=None, kspace_spans=None):
     # --- film data: records, matrices, knots, CSP table --------------------------------------------------------
     shared = bytes(img.read(SHARED_REC, REC_LEN))
     slots, knot_ptrs, posts, knot_ranges = [], [], {}, []
-    knot_end = 0                                      # end of the contiguous knot area in region 0 (preserve build)
     for k, (key, label, fit, repl) in enumerate(films):
         slot = LEGACY_SLOTS[k]
         rec = img.word(RECORDS + 4 * slot)
@@ -333,7 +333,7 @@ def patch(img, films, raw_nr_above=None, kspace_spans=None):
             at = kspace.take(KNOT_BYTES, f'knots {key}', prefer=[0])
             assert regions[0][0] <= at < regions[0][1]
             img.write(at, struct.pack(f'<{3 * N_KNOTS}H', *np.ravel(kn).tolist()))
-            knot_end = max(knot_end, at + KNOT_BYTES)
+            knot_ranges.append((at, KNOT_BYTES))
             ptrs = [at + 2 * N_KNOTS * c for c in range(3)]
         knot_ptrs += ptrs
         P = fit.get('post_q512', fit.get('cca1_q512'))
@@ -348,7 +348,15 @@ def patch(img, films, raw_nr_above=None, kspace_spans=None):
     if kspace_spans is None:
         merged = [(regions[0][0], regions[0][1] - regions[0][0])]   # default layout: whole region 0 (knots only there)
     else:
-        merged = [(regions[0][0], knot_end - regions[0][0])]        # preserve: knot extent only (velvia full curves share region 0)
+        # Full curves may precede knots in the same appended region. Only
+        # actual knot allocations may enter the native expansion path.
+        merged = []
+        for lo, size in sorted(knot_ranges):
+            if merged and lo <= merged[-1][0] + merged[-1][1] + 3:
+                first, _ = merged[-1]
+                merged[-1] = (first, lo + size - first)
+            else:
+                merged.append((lo, size))
 
     def data(blob, name):
         """Curve area first, then the code areas."""
@@ -536,7 +544,8 @@ def patch(img, films, raw_nr_above=None, kspace_spans=None):
     str2_at = code(space, img, 'string getter 2', strfix(3))
 
     # --- hooks -------------------------------------------------------------------------------------------------
-    put(img, RANDOM, B(RANDOM, PRESET), 0xEDDF0BE0)                       # random case -> fixed-preset case
+    if code_spans is None:
+        put(img, RANDOM, B(RANDOM, PRESET), 0xEDDF0BE0)                       # random case -> fixed-preset case
     put(img, SLOT_AT, BL(SLOT_AT, slot_at), 0xE3520016)
     put(img, SLOT_AT + 4, NOP, 0x11A01002)
     put(img, SLOT_AT + 8, NOP, 0x03A01019)

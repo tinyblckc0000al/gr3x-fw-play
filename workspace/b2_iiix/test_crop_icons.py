@@ -21,8 +21,9 @@ class CropIconTests(unittest.TestCase):
     def setUpClass(cls):
         cls.stock_dec, cls.stock, cls.rows = decode(STOCK)
         cls.patched_dec, cls.patched, rows = decode(cls.candidate)
-        if rows != cls.rows:
-            raise ValueError('candidate section layout differs')
+        cls.patched_rows = rows
+        if list(rows) != list(cls.rows):
+            raise ValueError('candidate section order differs')
 
     def test_known_isp_windows_and_icon_pixel_boundaries_are_preserved(self):
         V.check_protected(self.stock, self.patched)
@@ -32,7 +33,9 @@ class CropIconTests(unittest.TestCase):
         for icon in (5, 6, 7, 0x1D):
             w, h, offset = self.descriptor(self.stock, icon)
             allowed.append((4*offset, 4*offset + 4*w*h))
-        V.check_changes(self.stock_dec[ib:end], self.patched_dec[ib:end], allowed)
+        pib = self.patched_rows['ICONBIN']['start'] + 16
+        pend = self.patched_rows['ICONBIN']['end']
+        V.check_changes(self.stock_dec[ib:end], self.patched_dec[pib:pend], allowed)
 
     def test_all_other_factory_icon_descriptors_are_unchanged(self):
         V.check_factory_icon_descriptors(self.stock, self.patched)
@@ -78,7 +81,8 @@ class CropIconTests(unittest.TestCase):
                 self.assertEqual((e.call(0x53209FB8, 0, icon), e.call(0x53209FEC, 0, icon)), want[:2])
                 w, h, offset = want
                 start = ib + 4 * offset
-                self.assertEqual(self.patched_dec[start:start + 4*w*h], self.stock_dec[start:start + 4*w*h])
+                shift = self.patched_rows['ICONBIN']['start'] - self.rows['ICONBIN']['start']
+                self.assertEqual(self.patched_dec[start+shift:start+shift + 4*w*h], self.stock_dec[start:start + 4*w*h])
 
     def test_shooting_and_final_playback_share_distinct_film_icons(self):
         e = Emu(self.patched)

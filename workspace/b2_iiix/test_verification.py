@@ -35,6 +35,15 @@ class VerificationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.v.check_changes(old, new, [(0, 1), (2, 200)])
 
+    def test_full_byte_tile_read_windows_reject_single_byte_changes(self):
+        stock = bytes(0xD50000)
+        for address in (0x53D39C90, 0x53D453FE, 0x53D3A587, 0x53D45CAF):
+            with self.subTest(address=hex(address)):
+                broken = bytearray(stock)
+                broken[address - self.v.BASE] = 1
+                with self.assertRaisesRegex(ValueError, 'protected window'):
+                    self.v.check_protected(stock, broken)
+
     def test_overlapping_allocations_fail(self):
         with self.assertRaises(ValueError):
             self.v.check_allocations([(100, 110), (109, 120)])

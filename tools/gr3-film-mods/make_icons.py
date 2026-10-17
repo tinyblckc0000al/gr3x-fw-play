@@ -28,7 +28,8 @@ LABELS_V12 = dict(LABELS, bleach=('NC', (110, 205, 200)))    # Fujifilm Classic 
 
 
 def iconbin(img):
-    row = {r['name']: r for r in section_rows(img.original)}['ICONBIN']
+    rows = getattr(img, 'sections', None)
+    row = (rows or {r['name']: r for r in section_rows(img.original)})['ICONBIN']
     return row['start'] + 16
 
 

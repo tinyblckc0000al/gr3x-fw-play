@@ -107,13 +107,15 @@ def make_src(sets, sets_len):
     '''
 
 
-def patch_ma(img, films):
+def patch_ma(img, films, storage_spans=None):
     """films as make_slots15.patch; fit dicts carry hue_q10. Returns info."""
-    # free the stock 10-bit table: its object reads the same zeros from ZERO_SRC
-    assert img.read(OLD_TAB, TAB_LEN) == bytes(TAB_LEN) and img.read(ZERO_SRC, TAB_LEN) == bytes(TAB_LEN)
-    assert struct.unpack('<8I', img.read(TOBJ, 32)) == (OLD_TAB,) * 8
-    img.write(TOBJ, struct.pack('<8I', *[ZERO_SRC] * 8))
-    sp = Space([(OLD_TAB, OLD_TAB + TAB_LEN)])
+    if storage_spans is None:
+        # Historical equal-layout builds relocate the original zero table.
+        assert img.read(OLD_TAB, TAB_LEN) == bytes(TAB_LEN) and img.read(ZERO_SRC, TAB_LEN) == bytes(TAB_LEN)
+        assert struct.unpack('<8I', img.read(TOBJ, 32)) == (OLD_TAB,) * 8
+        img.write(TOBJ, struct.pack('<8I', *[ZERO_SRC] * 8))
+        storage_spans = [(OLD_TAB, OLD_TAB + TAB_LEN)]
+    sp = Space(storage_spans)
     alloc = lambda data, name: (lambda at: (img.write(at, data), at)[1])(sp.take(len(data), name))
     # shared GR IV set fields (stock layout: selectors, control directly behind)
     stock_block = bytearray(img.read(0x53DC2BB8, 0x48))

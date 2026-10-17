@@ -1,0 +1,17 @@
+{
+  "release": "b2.4.2",
+  "firmware_sha256": "f2c86157bd440d3db20da90af05d770d93b2588878139ab813e4353a0ca9cb74",
+  "date": "2026-10-17",
+  "model": "GR IIIx",
+  "base_firmware": "1.60",
+  "status": "PASS",
+  "evidence_type": "user_report",
+  "scope": "Appended RTOS area loads fully; power on/off; actual RAW/JPEG capture",
+  "report": "真机确认了，追加区能完整加载，开关机、实际 RAW／JPEG 成像都没问题",
+  "artifact_binding": "B2.4.2 Storage RC1 BIN copied to SD on 2026-10-17; readback SHA256 matched before this user report.",
+  "limitations": [
+    "Continuous/burst shooting and endurance are not included in this user confirmation.",
+    "No new RAW/JPEG sample files were collected in this confirmation.",
+    "This does not establish HDF/Urban-specific compatibility or all U-mode/persistence behaviour."
+  ]
+}

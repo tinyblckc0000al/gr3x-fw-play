@@ -76,3 +76,30 @@ class ReleaseGateTests(unittest.TestCase):
                 source.write_text('# changed after qualification\n')
                 with self.assertRaisesRegex(ValueError, 'source changed'):
                     gate.check(DEFAULT, report, hardware)
+
+
+class StorageReleaseGateTests(ReleaseGateTests):
+    def setUp(self):
+        super().setUp()
+        self.report.update(release='b2.4.2',
+                           candidate_sha256='f2c86157bd440d3db20da90af05d770d93b2588878139ab813e4353a0ca9cb74',
+                           stages=[dict(name=n, status='PASS', exit_code=0) for n in
+                                   ('structure', 'mutations', 'unit_and_native_probes',
+                                    'regression', 'deterministic_rebuild')])
+        self.hardware.update(release='b2.4.2', firmware_sha256=self.report['candidate_sha256'],
+                             scope='append load, power cycle, RAW/JPEG capture',
+                             report='追加区能完整加载，开关机、实际 RAW／JPEG 成像都没问题')
+
+    def test_complete_evidence_is_accepted(self):
+        try:
+            V.check_release_evidence(self.report, self.hardware)
+        except ValueError as exc:
+            self.fail(str(exc))
+
+    def test_preflight_binds_commit_and_rejects_source_or_binary_drift(self):
+        from pathlib import Path
+        from unittest.mock import patch
+        import verify_release
+        candidate = Path(__file__).resolve().parent / 'out/fwdc243b-b242-storage-rc1.bin'
+        with patch.object(verify_release, 'DEFAULT', candidate):
+            super().test_preflight_binds_commit_and_rejects_source_or_binary_drift()

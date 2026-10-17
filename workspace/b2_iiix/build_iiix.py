@@ -1,26 +1,11 @@
 #!/usr/bin/env python3
-"""Offline film-mods v16 build for GR IIIx 1.60 - 8 appended colour presets.
+"""Local GR IIIx 1.60 eight-preset storage-repair test candidate.
 
-Runs the unmodified film-mods patch code (make_slots15.patch + make_slots16
-patch_ma / patch_rawdev / patch_exif_tone) against a stock firmware, with the
-container codec and section layout that this tree already uses. For IIIx the
-only difference from the GR III 2.10 build is the stock image identity: the
-patch code module is swapped for gr3patch_iiix.py (see that file's docstring).
+All new curve, text, mapping, helper code and MA allocations use a 24 KiB
+appended RTOS area. Stock compensation tables, random code and MA zero table
+are preserved. This builder does not flash, push, tag or publish.
 
-All films are APPENDED (no stock tone is replaced), so the 12 factory Image
-Controls stay byte-identical in the menu and pipeline.
-
-B2.2 preserve-Cross (data in the PRIMARY/SAFE spans + fill-stub reproduction of the stock Cross branch) is the
-default; pass --legacy-b to reproduce the old B2.0 layout (film data inside the 12 library curve areas, Cross
-rendering affected) for regression/comparison only.
-
-Usage:
-  build_iiix.py --stock iiix  OUT.bin                           # B2.2 RC from presets.json (phase-2 default)
-  build_iiix.py --stock iiix  OUT.bin  [name=fit.json ...]      # explicit films (menu order)
-  build_iiix.py --stock iiix --default8 OUT.bin                 # B2.2 RC, built-in 8-film list
-  build_iiix.py --stock iiix --presets presets.json OUT.bin     # config-driven build (phase 2)
-  build_iiix.py --stock iii   OUT.bin  [name=fit.json ...]      # differential control
-  build_iiix.py --legacy-b --default8 OUT.bin                   # legacy B2.0 build (regression only)
+Usage: build_iiix.py --stock iiix OUT.bin [name=fit.json ...]
 """
 import argparse, datetime, hashlib, json, os, sys
 
@@ -45,27 +30,10 @@ STOCK = {
     'iii':  os.path.join(ROOT, 'firmware/official-gr3-v210/fwdc239b.bin'),
 }
 
-# B2.2 preserve-Cross: film data spans relocated OUT of the ISP/sensor compensation LUT source tables.
-#
-# B2.1's spans sat inside the zero run VA 0x53D36368..0x53D37884. The still-capture path's table uploader
-# (0x53632c2c, dispatched from 0x53633e6c with r1=0..7; r4==0 window = [0x53D36ABC, 0x53D37884), 4 x 0x372
-# halfwords, hi/lo split, sent to the ISP/sensor via the mailbox helpers 0x53735880/0x53735a80) reads that
-# window EVERY shot. In stock that window is all zeros = a no-op compensation table; B2.1's build put film
-# knot/curve/data bytes at 0x53D369A0..0x53D37884, so every capture (any tone, incl. stock Standard/Vivid)
-# uploaded film-data bytes as sensor compensation and corrupted the RAW path after the DNG/JPEG pipeline.
-# Live view does not run this upload, which is why it stayed clean. The build-time "0 references" clearance
-# for B2.1 was a scanning BUG (imm16 decode in refs_into_stock, fixed below).
-#
-# New spans are verified-SAFE zero runs in the same read-only data region, checked with the corrected
-# movw/movt + word-pointer census AND with a read-window audit of every table-read function in the uploader
-# cluster (0x53632898/0x53632c2c/0x53633064/0x53633794/0x53633e6c; all movw/movt bases in VA 0x53D00000..
-# 0x53E00000 belong to that cluster). None of the modelled read windows overlaps these runs.
-#   region 0: 0x53D453F8..0x53D45CB0 (2232 B) -> knots (7 x KNOT_BYTES = 1386 B) + small tables
-#   region 1: 0x53D39C8C..0x53D3A588 (2300 B) -> fcr (largest): velvia full curves (3 x 512 B) + data
-# NOTE: former region 2 (0x53D445B4..0x53D44EB0, a 2300 B spare) is DISABLED: its end address is exactly
-# the U2 read-window base 0x53D44EB0 (U2 window = [0x53D44EB0, 0x53D44EB0+0x1c4)), i.e. it borders a live
-# table-read window and buys no safety margin. Kept as stock zeros; not claimed as hardware-verified.
-PRESERVE_SPANS = [(0x53D453F8, 0x53D45CB0), (0x53D39C8C, 0x53D3A588)]
+# Historical regions overlap live 64x8x7 compensation tables. Never allocate there.
+UNSAFE_LEGACY_SPANS = [(0x53D453F8, 0x53D45CB0), (0x53D39C8C, 0x53D3A588)]
+RTOS_GROWTH = 0x6000
+
 
 
 def refs_into_stock(stock_path, spans):
@@ -124,7 +92,7 @@ def main():
                          'library curve areas; fill stub does not reproduce the stock Cross Process branch). '
                          'NOT the deliverable.')
     ap.add_argument('--protect-cross', action='store_true',
-                    help='now the default behavior (preserve all 12 factory Image Controls incl. Cross Process); '
+                    help='now the default behavior (preserve factory Image Controls including Cross Process); '
                          'kept as an explicit no-op alias for compatibility.')
     ap.add_argument('out')
     ap.add_argument('films', nargs='*', help='name=path/to/fit.json (appended, in menu order)')
@@ -138,7 +106,13 @@ def main():
     import make_slots15 as M15
     import make_slots16 as M16
 
-    protect = None if ns.legacy_b else PRESERVE_SPANS
+    if ns.stock != 'iiix' or ns.legacy_b:
+        raise SystemExit('test candidate supports exact GR IIIx 1.60 with appended storage only')
+    img = gp.Image(STOCK[ns.stock])
+    start, end = img.append_rtos(RTOS_GROWTH)
+    protect = [(start, start + 0x2000)]
+    code_spans = [(start + 0x2000, start + 0x3000)]
+    ma_spans = [(start + 0x3000, start + 0x4000)]
 
     # --- film list: positional name=fit.json > --default8 > presets.json (phase-2 default) --------------------
     preset_meta = None
@@ -168,9 +142,8 @@ def main():
         refs = refs_into_stock(STOCK[ns.stock], protect)
         assert not refs, '\n'.join(refs[:20])
 
-    img = gp.Image(STOCK[ns.stock])
-    info = M15.patch(img, films, ns.raw_nr_above, protect)
-    info['_multiaxial'] = M16.patch_ma(img, films)
+    info = M15.patch(img, films, ns.raw_nr_above, protect, code_spans)
+    info['_multiaxial'] = M16.patch_ma(img, films, ma_spans)
     info['_rawdev'] = M16.patch_rawdev(img, films, info)
     info['_exif_tone'] = M16.patch_exif_tone(img, films)
     info['_playback_detail'] = M16.patch_playback_detail(img, films)
@@ -189,6 +162,16 @@ def main():
     if when:
         info['_build']['when'] = when
     info['_build'].update(rep)
+    info['_build']['test_candidate'] = True
+    allocated = list(info['_code']['space']) + list(info['_multiaxial']['space'])
+    seen = {int(address, 16) for _, address, _ in allocated}
+    allocated += [(name, hex(address), size) for name, address, size in M15.FALLBACK[0].used
+                  if address not in seen]
+    info['_build']['allocations'] = [dict(name=name, start=int(address, 16),
+                                         end=int(address, 16) + ((size + 3) & ~3))
+                                      for name, address, size in allocated]
+    info['_build']['storage'] = dict(append_start=hex(start), append_end=hex(end), growth=RTOS_GROWTH,
+                                      data_spans=protect, code_spans=code_spans, ma_spans=ma_spans)
     if protect:
         info['_build'].update(preserve_cross_spans=[tuple(hex(a) for a in s) for s in protect],
                               refs_into_spans=len(refs_into_stock(STOCK[ns.stock], protect)))

@@ -27,7 +27,7 @@ U1 = (0x53D36ABC, 0x53D3BE30, 0x53D3DD54, 0x53D3EE1C, 0x53D431F8, 0x53D46058,
       0x53D3FBE4, 0x53D38840, 0x53D46E20, 0x53D40F94, 0x53D3A834, 0x53D42430)
 U2 = (0x53D35CBC, 0x53D37884, 0x53D44EB0, 0x53D39788, 0x53D440B0, 0x53D3CDD4)
 PROTECTED = [(0x53D445B4, 0x53D44EB0)] + [(a, a + 0xDC8) for a in U1] + \
-            [(a, a + 0x1C4) for a in U2] + [(a, a + 0x1B6) for a in (0x53D39608, 0x53D47BE8)]
+            [(a, a + 0xE00) for a in U2] + [(a, a + 0x1B6) for a in (0x53D39608, 0x53D47BE8)]
 
 
 def require(condition, message):
@@ -37,15 +37,23 @@ def require(condition, message):
 
 def check_release_evidence(report, hardware):
     """Offline qualification and human feedback must identify the same artifact."""
+    release = report.get('release')
+    if release == 'b2.4.2':
+        expected_sha = 'f2c86157bd440d3db20da90af05d770d93b2588878139ab813e4353a0ca9cb74'
+        expected_stages = ('structure', 'mutations', 'unit_and_native_probes',
+                           'regression', 'deterministic_rebuild')
+    else:
+        require(release == 'b2.4.1', 'unsupported release evidence')
+        expected_sha, expected_stages = RELEASE_SHA, STAGES
     require(report.get('status') == 'PASS', 'qualification is incomplete or failed')
     stages = report.get('stages', [])
-    require(tuple(s.get('name') for s in stages) == STAGES, 'missing, duplicated or reordered stages')
+    require(tuple(s.get('name') for s in stages) == expected_stages, 'missing, duplicated or reordered stages')
     require(all(s.get('status') == 'PASS' and s.get('exit_code') == 0 for s in stages),
             'every stage must finish successfully')
-    require(report.get('release') == 'b2.4.1' and report.get('candidate_sha256') == RELEASE_SHA,
+    require(report.get('candidate_sha256') == expected_sha,
             'qualification does not identify the frozen release')
     require(hardware.get('status') == 'PASS', 'camera feedback is missing or not passed')
-    require(hardware.get('release') == report['release'] and hardware.get('firmware_sha256') == RELEASE_SHA,
+    require(hardware.get('release') == release and hardware.get('firmware_sha256') == expected_sha,
             'camera feedback refers to a different artifact')
     require(hardware.get('evidence_type') == 'user_report' and
             all(isinstance(hardware.get(k), str) and hardware[k].strip() for k in ('date', 'scope', 'report')),
@@ -87,13 +95,20 @@ def word(rtos, address):
 def check_playback(rtos):
     for addr, expected in WORDS.items():
         require(word(rtos, addr) == expected, f'instruction mismatch {addr:#x}')
-    for low, high, target, cond, reg in POINTERS:
-        for at, imm, opcode in ((low, target & 65535, 0x03000000), (high, target >> 16, 0x03400000)):
+    for pair, (address, expected) in zip(POINTERS, TABLES):
+        low, high, target, cond, reg = pair
+        recovered = 0
+        for at, shift, opcode in ((low, 0, 0x03000000), (high, 16, 0x03400000)):
             value = word(rtos, at)
             require(value & 0xFFF0F000 == (cond << 28 | opcode | reg << 12), f'pointer opcode {at:#x}')
-            require(((value >> 16 & 15) << 12 | value & 4095) == imm, f'pointer target {at:#x}')
-    for addr, expected in TABLES:
-        require(read(rtos, addr, len(expected)) == expected, f'playback table {addr:#x}')
+            recovered |= (((value >> 16 & 15) << 12 | value & 4095) << shift)
+        stock_end = 0x540B55C0
+        if BASE + len(rtos) > stock_end:
+            require(stock_end <= recovered and recovered + len(expected) <= BASE + len(rtos),
+                    f'playback table is not in appended storage {recovered:#x}')
+        else:
+            require(recovered == target == address, f'pointer target {low:#x}')
+        require(read(rtos, recovered, len(expected)) == expected, f'playback table {recovered:#x}')
 
 
 def check_protected(stock, candidate):
