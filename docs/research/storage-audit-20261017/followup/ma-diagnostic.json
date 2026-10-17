@@ -1,0 +1,63 @@
+{
+  "scope": "synthetic standalone MA diagnostics; not a camera-valid context claim",
+  "ma": [
+    {
+      "input_flag_94": 0,
+      "image": "stock",
+      "returned": true,
+      "output_sha256": "4af6b02ee2353cb7aee46616efcc65c88d238aee829a8274697b5a09d3c5460c",
+      "asserts": [],
+      "zero_table_distinct_reads": 360,
+      "zero_table_min": "0x53dc2bf8",
+      "zero_table_end_exclusive": "0x53dc3198",
+      "read_program_counters_note": "reads records addresses and sizes; instruction PCs not retained",
+      "stock_candidate_output_equal": true,
+      "output_diff_offsets": []
+    },
+    {
+      "input_flag_94": 0,
+      "image": "candidate",
+      "returned": true,
+      "output_sha256": "4af6b02ee2353cb7aee46616efcc65c88d238aee829a8274697b5a09d3c5460c",
+      "asserts": [],
+      "zero_table_distinct_reads": 360,
+      "zero_table_min": "0x53d36400",
+      "zero_table_end_exclusive": "0x53d369a0",
+      "read_program_counters_note": "reads records addresses and sizes; instruction PCs not retained",
+      "stock_candidate_output_equal": true,
+      "output_diff_offsets": []
+    },
+    {
+      "input_flag_94": 1,
+      "image": "stock",
+      "returned": true,
+      "output_sha256": "b66c964d74877b851c0f9142ed0b23e4e6d3d1cadd98e50d2e4bd15be1de93f8",
+      "asserts": [],
+      "zero_table_distinct_reads": 360,
+      "zero_table_min": "0x53dc2bf8",
+      "zero_table_end_exclusive": "0x53dc3198",
+      "read_program_counters_note": "reads records addresses and sizes; instruction PCs not retained",
+      "stock_candidate_output_equal": false,
+      "output_diff_offsets": [
+        "0xa34",
+        "0xa35"
+      ]
+    },
+    {
+      "input_flag_94": 1,
+      "image": "candidate",
+      "returned": true,
+      "output_sha256": "9f2d7b2c5d625bcfa2c45b33acdfba79ab375346649946c2b10d2e419c10d67a",
+      "asserts": [],
+      "zero_table_distinct_reads": 360,
+      "zero_table_min": "0x53d36400",
+      "zero_table_end_exclusive": "0x53d369a0",
+      "read_program_counters_note": "reads records addresses and sizes; instruction PCs not retained",
+      "stock_candidate_output_equal": false,
+      "output_diff_offsets": [
+        "0xa34",
+        "0xa35"
+      ]
+    }
+  ]
+}

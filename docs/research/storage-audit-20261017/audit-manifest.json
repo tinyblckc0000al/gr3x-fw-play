@@ -2,7 +2,7 @@
   "schema_version": 1,
   "audit_id": "gr3x-160-b241-storage-20261017",
   "audit_date": "2026-10-17",
-  "assessment": "STATIC_RESEARCH_ONLY_NOT_FULL_PATH_SAFETY",
+  "assessment": "SUPERSEDED_BY_CONFIRMED_CPU_READER_OVERLAP",
   "hardware_validation_added": false,
   "report": "report.md",
   "address_conventions": {
@@ -38,7 +38,7 @@
       "end_exclusive": "0x53D45CB0",
       "size_bytes": 2232,
       "role": "stock_zero_run_to_film_data",
-      "assessment": "static_evidence_limited_freeze_upper_bound",
+      "assessment": "CONFIRMED_STOCK_CPU_READER_OVERLAP_NOT_ALLOCATABLE",
       "dependencies": [],
       "evidence_ids": [
         "E1",
@@ -58,7 +58,7 @@
       "end_exclusive": "0x53D3A588",
       "size_bytes": 2300,
       "role": "stock_zero_run_to_film_data",
-      "assessment": "static_evidence_limited_freeze_upper_bound",
+      "assessment": "CONFIRMED_STOCK_CPU_READER_OVERLAP_NOT_ALLOCATABLE",
       "dependencies": [],
       "evidence_ids": [
         "E1",
@@ -252,6 +252,13 @@
   ],
   "tasks": [
     {
+      "id": "T0",
+      "priority": "P0",
+      "status": "open",
+      "task": "Remove existing film data from stock compensation tables",
+      "completion_criteria": "Correct read-window model must reject current layout; migrate data, requalify and perform camera regression"
+    },
+    {
       "id": "T1",
       "priority": "P0",
       "status": "open",
@@ -261,9 +268,10 @@
     {
       "id": "T2",
       "priority": "P0",
-      "status": "open",
+      "status": "counterexample_found",
       "task": "Bound uploader parameters",
-      "completion_criteria": "Trace param_3 to callers and derive read intervals; enumerate unknown paths"
+      "completion_criteria": "Trace param_3 to callers and derive read intervals; enumerate unknown paths",
+      "result": "Known caller parameters traced; loop model was too short. See followup."
     },
     {
       "id": "T3",
@@ -308,5 +316,8 @@
     }
   ],
   "path_context": "Input paths ending _from_workspace_root retain the original research workspace layout; see README.md. Evidence and script paths are relative to this directory.",
-  "code_checkout_from_repository_root": "."
+  "code_checkout_from_repository_root": ".",
+  "latest_report": "followup/report.md",
+  "latest_evidence_manifest": "followup/evidence-manifest.json",
+  "withdrawn_claim": "DATA-0 and DATA-1 are not reusable zero runs: both overlap stock compensation tables."
 }

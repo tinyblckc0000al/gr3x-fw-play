@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "assessment": "CONFIRMED_CPU_READ_AND_UPLOAD_BUFFER_CONFLICT",
+  "inputs": {
+    "stock_rtos_sha256": "0f11b0d28bc67932d044c5d01bc0314844a756057c89984278c73a23449a24c6",
+    "candidate_bin_sha256": "88829723a3a1f8edfe70c0153c636d51fda2bdd2aac75641195142560b7e8128"
+  },
+  "files": [
+    {
+      "path": "FollowupAudit.java",
+      "sha256": "22ac4bf4bb7ddded9bbc383dcedb0e503f561a70bb4d3e5bdbf54660bbc11460"
+    },
+    {
+      "path": "emulate.py",
+      "sha256": "7622b59a3f396796ecddabcc585d3981b5e6f25503ddb0c6f774f4c9294774a5"
+    },
+    {
+      "path": "findings.json",
+      "sha256": "0644c5e4a9aa143e036a0476d627d6a2be8ba4630e13a09e9fa13940ce5ca5d1"
+    },
+    {
+      "path": "ghidra.log",
+      "sha256": "138dc24012b1d2eff2aa0de619c63b4bf9016c8bddb98fb2e501b613713ca582"
+    },
+    {
+      "path": "ma-diagnostic.json",
+      "sha256": "2fcad629763347d15db2447a72846617fa82cbbbf5d45a577cab3e4889c51eda"
+    },
+    {
+      "path": "overlap.json",
+      "sha256": "1d7460172f2063105f52e406c43af9538fd673cec48286aaef46f202d4de6142"
+    },
+    {
+      "path": "pipeline.json",
+      "sha256": "bfe451eb9b5f5e77a88cd0eef3dc2643cb69c679ad81c8a6938e7a3d9b732ceb"
+    },
+    {
+      "path": "pipeline_trace.py",
+      "sha256": "1c880bc9a3d95e1b476347e0cf03677ab4b959020008841691a9130d52ee83a8"
+    },
+    {
+      "path": "report.md",
+      "sha256": "220286e2818d7d5a1c3913fe56588af809c7092d06f9c9bfe2569041a6e408cf"
+    },
+    {
+      "path": "trace.json",
+      "sha256": "17f5c730ae7c6cb52a3ebcaeb28b7134b82eecd8beb2a2e2d3ba5a5713cffe2d"
+    },
+    {
+      "path": "trace.py",
+      "sha256": "b0fa629ae2ca91c1136394874c5f9ed6b904defac6e469484327c4edd9f95fa2"
+    },
+    {
+      "path": "verify_overlap.py",
+      "sha256": "9dbff32f6cdbac9a799f40d83b70779dd11761e88817dc588e59a334e9a3b011"
+    }
+  ]
+}

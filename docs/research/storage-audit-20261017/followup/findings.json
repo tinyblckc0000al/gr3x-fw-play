@@ -1,0 +1,203 @@
+{
+  "assessment": "CONFIRMED_STOCK_CPU_READER_OVERLAP_NOT_HARDWARE_IMAGE_IMPACT_PROOF",
+  "stock_rtos_sha256": "0f11b0d28bc67932d044c5d01bc0314844a756057c89984278c73a23449a24c6",
+  "candidate_bin_sha256": "88829723a3a1f8edfe70c0153c636d51fda2bdd2aac75641195142560b7e8128",
+  "root_cause": {
+    "reader": "0x53632898",
+    "previous_modeled_window_bytes": 452,
+    "actual_union_window_bytes": 3584,
+    "formula": "base + 56*row + 7*column + parameter; row=0..63, column=0..7, parameter=0..6",
+    "tables": [
+      {
+        "base": "0x53D39788",
+        "end_exclusive": "0x53D3A588",
+        "overlapped_region": "DATA-1"
+      },
+      {
+        "base": "0x53D44EB0",
+        "end_exclusive": "0x53D45CB0",
+        "overlapped_region": "DATA-0"
+      }
+    ],
+    "load_instructions": [
+      "0x536329A0",
+      "0x53632AE4"
+    ],
+    "tile_upload_calls": [
+      "0x53632A1C",
+      "0x53632B50"
+    ],
+    "tile_upload_helper": "0x537375A0"
+  },
+  "uploader_cases": [
+    {
+      "parameter": 0,
+      "read_addresses_match_loop_formula": true,
+      "overlap_reads": 646,
+      "changed_reads": 513,
+      "changed_32byte_tile_buffers": 19,
+      "reader_summary": {
+        "0x536329a0": {
+          "count": 328,
+          "min": "0x53d39c90",
+          "end": "0x53d3a582",
+          "changed_from_stock": 235
+        },
+        "0x53632ae4": {
+          "count": 318,
+          "min": "0x53d453fe",
+          "end": "0x53d45caa",
+          "changed_from_stock": 278
+        }
+      }
+    },
+    {
+      "parameter": 1,
+      "read_addresses_match_loop_formula": true,
+      "overlap_reads": 647,
+      "changed_reads": 513,
+      "changed_32byte_tile_buffers": 19,
+      "reader_summary": {
+        "0x536329a0": {
+          "count": 328,
+          "min": "0x53d39c91",
+          "end": "0x53d3a583",
+          "changed_from_stock": 234
+        },
+        "0x53632ae4": {
+          "count": 319,
+          "min": "0x53d453f8",
+          "end": "0x53d45cab",
+          "changed_from_stock": 279
+        }
+      }
+    },
+    {
+      "parameter": 2,
+      "read_addresses_match_loop_formula": true,
+      "overlap_reads": 647,
+      "changed_reads": 512,
+      "changed_32byte_tile_buffers": 19,
+      "reader_summary": {
+        "0x536329a0": {
+          "count": 328,
+          "min": "0x53d39c92",
+          "end": "0x53d3a584",
+          "changed_from_stock": 234
+        },
+        "0x53632ae4": {
+          "count": 319,
+          "min": "0x53d453f9",
+          "end": "0x53d45cac",
+          "changed_from_stock": 278
+        }
+      }
+    },
+    {
+      "parameter": 4,
+      "read_addresses_match_loop_formula": true,
+      "overlap_reads": 648,
+      "changed_reads": 510,
+      "changed_32byte_tile_buffers": 19,
+      "reader_summary": {
+        "0x536329a0": {
+          "count": 329,
+          "min": "0x53d39c8d",
+          "end": "0x53d3a586",
+          "changed_from_stock": 232
+        },
+        "0x53632ae4": {
+          "count": 319,
+          "min": "0x53d453fb",
+          "end": "0x53d45cae",
+          "changed_from_stock": 278
+        }
+      }
+    },
+    {
+      "parameter": 5,
+      "read_addresses_match_loop_formula": true,
+      "overlap_reads": 648,
+      "changed_reads": 514,
+      "changed_32byte_tile_buffers": 19,
+      "reader_summary": {
+        "0x536329a0": {
+          "count": 329,
+          "min": "0x53d39c8e",
+          "end": "0x53d3a587",
+          "changed_from_stock": 233
+        },
+        "0x53632ae4": {
+          "count": 319,
+          "min": "0x53d453fc",
+          "end": "0x53d45caf",
+          "changed_from_stock": 281
+        }
+      }
+    }
+  ],
+  "random_switch": {
+    "table": "0x536EF3BC",
+    "entries": [
+      "0x536EF618",
+      "0x536EF6DC",
+      "0x536EF6DC",
+      "0x536EF6DC",
+      "0x536EF5C0",
+      "0x536EF5C0",
+      "0x536EF5C0",
+      "0x536EF5C0",
+      "0x536EF5E4",
+      "0x536EF604",
+      "0x536EF42C"
+    ],
+    "assessment": "known indexed switch entry resolved; candidate bypasses index0 at 0x536EF618"
+  },
+  "ma": {
+    "assessment": "bounded normal pipeline trace supports relocation",
+    "cases": 24,
+    "images_per_case": 2,
+    "tones": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "stages": [
+      0,
+      1
+    ],
+    "observed_calc_flag94": [
+      0
+    ],
+    "all_compared_outputs_equal": true,
+    "zero_table_reads_per_case": 360,
+    "stock_interval": [
+      "0x53DC2BF8",
+      "0x53DC3198"
+    ],
+    "candidate_interval": [
+      "0x53D36400",
+      "0x53D369A0"
+    ]
+  },
+  "limitations": [
+    "Uploader executes original ARM functions with external helpers stubbed; ready helpers return1 and others0 as listed in overlap.json",
+    "Upload helper buffers are captured before hardware helper execution; actual hardware transactions and image effects untested",
+    "MA trace covers initialized tuning harness normal paths, not all synthetic/custom-context states",
+    "A synthetic flag94=1 standalone probe showed output differences at 0xA34/0xA35; reachability/initialization not established, so not a camera regression claim"
+  ],
+  "uploader_cpu_code_stock_equals_candidate": true,
+  "uploader_cpu_code_interval": [
+    "0x53632898",
+    "0x53633F54"
+  ]
+}

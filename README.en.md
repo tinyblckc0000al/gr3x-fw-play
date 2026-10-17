@@ -1,5 +1,8 @@
 # gr3x-fw-play
 
+> **Storage audit update:** [Follow-up audit (Chinese)](docs/research/storage-audit-20261017/followup/report.md) confirms that two B2.4.1 preset-data regions overlap stock compensation-table reads. CPU emulation shows changed submission buffers; camera image effects remain unverified. Installation is not recommended until corrected.
+
+
 [中文](README.md) | [English](README.en.md)
 
 **22 Image Controls on the GR IIIx: 12 factory presets + 2 custom options + 8 extra film looks.** All original modes are retained, and the eight added preset slots can be replaced. Use the default recipes or rebuild the firmware with a different configuration. Shutdown-image customization is a separate feature.
