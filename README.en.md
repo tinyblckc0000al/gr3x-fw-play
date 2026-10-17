@@ -135,6 +135,10 @@ Recipe management, color fitting and comparison methods are more likely to trans
 - [ ] **Independent recipe settings:** investigate storing white balance, grain and other settings per preset to reduce repeated adjustments.
 - [ ] **More aspect ratios:** explore wide-format framing guides and crops for in-camera images.
 
+## Firmware storage audit
+
+[GR IIIx B2.4.1 storage audit (Chinese)](docs/research/storage-audit-20261017/report.md): region ownership, reference evidence, unresolved paths and audit tasks, with a structured manifest and raw evidence.
+
 ## Open-source references
 
 Thanks to the projects that provided tools and research foundations:

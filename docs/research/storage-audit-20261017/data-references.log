@@ -1,0 +1,2 @@
+stock references into reserved spans: []
+PASS bounded ARM linear scan and aligned pointer census; indirect references remain unproven

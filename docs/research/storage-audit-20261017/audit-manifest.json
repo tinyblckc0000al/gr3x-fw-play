@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "audit_id": "gr3x-160-b241-storage-20261017",
+  "audit_date": "2026-10-17",
+  "assessment": "STATIC_RESEARCH_ONLY_NOT_FULL_PATH_SAFETY",
+  "hardware_validation_added": false,
+  "report": "report.md",
+  "address_conventions": {
+    "default": "rtos_runtime_va_hex",
+    "interval": "[start,end)",
+    "rtos_base": "0x53000000",
+    "warning": "Do not treat VA as BIN offset or regions as writable whitelist"
+  },
+  "inputs": [
+    {
+      "id": "stock_bin",
+      "path_from_workspace_root": "workspace/publishing/gr3x-fw-play/firmware/official-v160/fwdc243b.bin",
+      "sha256": "708e79f3b7b96a7e1581b4acf4c412233050a1832718ef7f06c8397db1b431c7"
+    },
+    {
+      "id": "candidate_bin",
+      "path_from_workspace_root": "workspace/publishing/gr3x-fw-play/workspace/b2_iiix/out/fwdc243b-b241.bin",
+      "sha256": "88829723a3a1f8edfe70c0153c636d51fda2bdd2aac75641195142560b7e8128"
+    },
+    {
+      "id": "stock_rtos",
+      "path_from_workspace_root": "tools/gr3-film-mods/work/fw/rtos_iiix.bin",
+      "size_bytes": 17520064,
+      "sha256": "0f11b0d28bc67932d044c5d01bc0314844a756057c89984278c73a23449a24c6"
+    }
+  ],
+  "regions": [
+    {
+      "id": "DATA-0",
+      "address_space": "rtos_runtime_va",
+      "interval": "[start,end)",
+      "start": "0x53D453F8",
+      "end_exclusive": "0x53D45CB0",
+      "size_bytes": 2232,
+      "role": "stock_zero_run_to_film_data",
+      "assessment": "static_evidence_limited_freeze_upper_bound",
+      "dependencies": [],
+      "evidence_ids": [
+        "E1",
+        "E3",
+        "E4"
+      ],
+      "unresolved": [
+        "T1",
+        "T2"
+      ]
+    },
+    {
+      "id": "DATA-1",
+      "address_space": "rtos_runtime_va",
+      "interval": "[start,end)",
+      "start": "0x53D39C8C",
+      "end_exclusive": "0x53D3A588",
+      "size_bytes": 2300,
+      "role": "stock_zero_run_to_film_data",
+      "assessment": "static_evidence_limited_freeze_upper_bound",
+      "dependencies": [],
+      "evidence_ids": [
+        "E1",
+        "E3",
+        "E4"
+      ],
+      "unresolved": [
+        "T1",
+        "T2"
+      ]
+    },
+    {
+      "id": "CODE-A",
+      "address_space": "rtos_runtime_va",
+      "interval": "[start,end)",
+      "start": "0x536EF61C",
+      "end_exclusive": "0x536EF6DC",
+      "size_bytes": 192,
+      "role": "stock_random_code_or_constants_repurposed",
+      "assessment": "conditional_reuse_not_factory_free_space",
+      "dependencies": [
+        "branch at 0x536EF618 -> 0x536EF6DC"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "unresolved": [
+        "T5"
+      ]
+    },
+    {
+      "id": "CODE-B",
+      "address_space": "rtos_runtime_va",
+      "interval": "[start,end)",
+      "start": "0x536EF6FC",
+      "end_exclusive": "0x536EF998",
+      "size_bytes": 668,
+      "role": "stock_random_code_or_constants_repurposed",
+      "assessment": "conditional_reuse_not_factory_free_space",
+      "dependencies": [
+        "branch at 0x536EF618 -> 0x536EF6DC"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "unresolved": [
+        "T5"
+      ]
+    },
+    {
+      "id": "CODE-C",
+      "address_space": "rtos_runtime_va",
+      "interval": "[start,end)",
+      "start": "0x536EF088",
+      "end_exclusive": "0x536EF140",
+      "size_bytes": 184,
+      "role": "stock_random_code_or_constants_repurposed",
+      "assessment": "conditional_reuse_not_factory_free_space",
+      "dependencies": [
+        "branch at 0x536EF618 -> 0x536EF6DC"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "unresolved": [
+        "T5"
+      ]
+    },
+    {
+      "id": "CODE-D",
+      "address_space": "rtos_runtime_va",
+      "interval": "[start,end)",
+      "start": "0x536EF99C",
+      "end_exclusive": "0x536EF9B8",
+      "size_bytes": 28,
+      "role": "stock_random_code_or_constants_repurposed",
+      "assessment": "conditional_reuse_not_factory_free_space",
+      "dependencies": [
+        "branch at 0x536EF618 -> 0x536EF6DC"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "unresolved": [
+        "T5"
+      ]
+    },
+    {
+      "id": "MA-OLD",
+      "address_space": "rtos_runtime_va",
+      "interval": "[start,end)",
+      "start": "0x53DC2BF8",
+      "end_exclusive": "0x53DC3198",
+      "size_bytes": 1440,
+      "role": "stock_zero_table_repurposed_to_ma",
+      "assessment": "conditional_reuse_after_pointer_relocation",
+      "dependencies": [
+        "MA-ZERO",
+        "8 pointers at runtime 0x55019848 map to ROM source 0x54094D88"
+      ],
+      "evidence_ids": [
+        "E3"
+      ],
+      "unresolved": [
+        "T5"
+      ]
+    },
+    {
+      "id": "MA-ZERO",
+      "address_space": "rtos_runtime_va",
+      "interval": "[start,end)",
+      "start": "0x53D36400",
+      "end_exclusive": "0x53D369A0",
+      "size_bytes": 1440,
+      "role": "relocated_ma_zero_table_source",
+      "assessment": "preserve_contents_not_allocatable",
+      "dependencies": [],
+      "evidence_ids": [
+        "E3"
+      ],
+      "unresolved": [
+        "T5"
+      ]
+    }
+  ],
+  "adjacent_checked_intervals": [
+    {
+      "start": "0x53D45CB0",
+      "end_exclusive": "0x53D45D1C",
+      "size_bytes": 108,
+      "stock_equals_candidate": true,
+      "reader": "0x53633C88",
+      "not_complete_window_proof": true
+    },
+    {
+      "start": "0x53D3A588",
+      "end_exclusive": "0x53D3A678",
+      "size_bytes": 240,
+      "stock_equals_candidate": true,
+      "reader": "0x53633B68",
+      "not_complete_window_proof": true
+    }
+  ],
+  "icons": {
+    "factory_ids_reused": [
+      "0x05",
+      "0x06",
+      "0x07",
+      "0x1D"
+    ],
+    "assessment": "intentional_factory_resource_replacement",
+    "new_id_does_not_imply_independent_pixels": true,
+    "hdf_runtime_compatibility_established": false,
+    "unresolved": [
+      "T4"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "E1",
+      "path": "ghidra.log",
+      "sha256": "1d7ac0105c3c8adc6491db5b8934c7fb7e689e8794fd39b3f33c2c0c0fedeef8",
+      "meaning": "selected stock function decompilation; sparse database xrefs not clearance"
+    },
+    {
+      "id": "E2",
+      "path": "arm-census.json",
+      "sha256": "c61755ff1eaa90ad42b8ec1d079d3f1512bda6df57362bc2777fc91d62c0def4",
+      "meaning": "aligned ARM branch and PC relative census; no complete reachability"
+    },
+    {
+      "id": "E3",
+      "path": "comparison.json",
+      "sha256": "00f5712946941af9a57e0140b57ab5e81f88aaeed074c38826e255a8ece8c9ac",
+      "meaning": "exact stock/candidate selected byte and pointer comparisons"
+    },
+    {
+      "id": "E4",
+      "path": "data-references.log",
+      "sha256": "575445e9b10fc6a71fbac06089e687072f89d75ed9b3a033775f9e75b6a7b852",
+      "meaning": "bounded reference scanner output; no indirect reference proof"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T1",
+      "priority": "P0",
+      "status": "open",
+      "task": "Protect neighboring active tables",
+      "completion_criteria": "Compare modeled read windows to stock and demonstrate boundary-mutation rejection"
+    },
+    {
+      "id": "T2",
+      "priority": "P0",
+      "status": "open",
+      "task": "Bound uploader parameters",
+      "completion_criteria": "Trace param_3 to callers and derive read intervals; enumerate unknown paths"
+    },
+    {
+      "id": "T3",
+      "priority": "P1",
+      "status": "open",
+      "task": "Validate appended section",
+      "completion_criteria": "Demonstrate container, loading, memory bounds and round-trip checks on separate candidate"
+    },
+    {
+      "id": "T4",
+      "priority": "P1",
+      "status": "open",
+      "task": "Migrate factory icon resources",
+      "completion_criteria": "Restore factory descriptors/pixels and verify independent new icon mapping"
+    },
+    {
+      "id": "T5",
+      "priority": "P1",
+      "status": "open",
+      "task": "Resolve random and MA semantics",
+      "completion_criteria": "Audit indirect/saved-state entries and all zero-table consumers and pointer copies"
+    }
+  ],
+  "limitations": [
+    "Sparse Ghidra database xrefs are not evidence of absence",
+    "Linear ARM can decode data as code and does not cover Thumb or all indirect references",
+    "Caller parameter bounds and hardware readers are not fully proven",
+    "This audit does not establish image quality, hardware safety, compatibility beyond exact inputs, or release status"
+  ],
+  "reproduction_scripts": [
+    {
+      "path": "StorageAudit.java",
+      "sha256": "cb8d22d9f7ae412bfa3f5aafd12e1cafecf57c2236330fd0292d679f6d5f968f"
+    },
+    {
+      "path": "scan.py",
+      "sha256": "c7a1b7b90675213ac59a60bae83b2bc3b7668c5c32bc189a0c27e8cc5638d41b"
+    },
+    {
+      "path": "compare.py",
+      "sha256": "ec01f6f1095e3bf7b4cea23a5fd00a6de85cfa6ab910012b8ad2e1291457caaf"
+    }
+  ],
+  "path_context": "Input paths ending _from_workspace_root retain the original research workspace layout; see README.md. Evidence and script paths are relative to this directory.",
+  "code_checkout_from_repository_root": "."
+}

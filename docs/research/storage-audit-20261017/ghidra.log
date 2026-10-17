@@ -1,0 +1,1309 @@
+openjdk version "27" 2026-09-15
+OpenJDK Runtime Environment Homebrew (build 27)
+OpenJDK 64-Bit Server VM Homebrew (build 27, mixed mode)
+INFO  Using log config file: jar:file:/Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /Users/hillaryx/Library/ghidra/ghidra_12.1.4_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /Users/hillaryx/Library/ghidra/ghidra_12.1.4_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (901 ms) (ClassSearcher)  
+WARNING: Final field name in class ghidra.util.charset.CharsetInfo has been mutated reflectively by class com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$2 in unnamed module @2b48a640 (file:/Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Framework/Generic/lib/gson-2.13.2.jar)
+WARNING: Use --enable-final-field-mutation=ALL-UNNAMED to avoid a warning
+WARNING: Mutating final fields will be blocked in a future release unless final field mutation is enabled
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (1950 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 59 extension points (20 false positives) (ClassSearcher)  
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldOffset has been called by org.apache.felix.framework.util.SecureAction (file:/Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/lib/org.apache.felix.framework-7.0.5.jar)
+WARNING: Please consider reporting this to the maintainers of class org.apache.felix.framework.util.SecureAction
+WARNING: sun.misc.Unsafe::staticFieldOffset will be removed in a future release
+INFO  HEADLESS Script Paths:
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/Base/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /Users/hillaryx/gr3x-hack/workspace/storage-audit-20261017
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/BSim/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Features/PyGhidra/ghidra_scripts
+    /Users/hillaryx/AI_WORK_LAB/ghidra/ghidra_12.1.4_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /Users/hillaryx/Documents/Codex/2026-10-15/referenced-chatgpt-conversation-this-is-an-2/work/rea-audit/ghidra-project/rtos-audit (HeadlessAnalyzer)  
+INFO  Opening project: /Users/hillaryx/Documents/Codex/2026-10-15/referenced-chatgpt-conversation-this-is-an-2/work/rea-audit/ghidra-project/rtos-audit (HeadlessProject)  
+INFO  REPORT: Processing read-only project file: /rtos_iiix.bin (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: StorageAudit.java  (HeadlessAnalyzer)  
+INFO  SCRIPT: /Users/hillaryx/gr3x-hack/workspace/storage-audit-20261017/StorageAudit.java (HeadlessAnalyzer)  
+INFO  StorageAudit.java> PROGRAM rtos_iiix.bin SHA256 0f11b0d28bc67932d044c5d01bc0314844a756057c89984278c73a23449a24c6 (GhidraScript)  
+INFO  StorageAudit.java> SPAN 53d453f8 53d45cb0 (GhidraScript)  
+INFO  StorageAudit.java> DATABASE_XREF_COUNT 0 (analysis coverage dependent) (GhidraScript)  
+INFO  StorageAudit.java> SPAN 53d39c8c 53d3a588 (GhidraScript)  
+INFO  StorageAudit.java> DATABASE_XREF_COUNT 0 (analysis coverage dependent) (GhidraScript)  
+INFO  StorageAudit.java> SPAN 536ef61c 536ef6dc (GhidraScript)  
+INFO  StorageAudit.java> DATABASE_XREF_COUNT 0 (analysis coverage dependent) (GhidraScript)  
+INFO  StorageAudit.java> SPAN 536ef6fc 536ef998 (GhidraScript)  
+INFO  StorageAudit.java> DATABASE_XREF_COUNT 0 (analysis coverage dependent) (GhidraScript)  
+INFO  StorageAudit.java> SPAN 536ef088 536ef140 (GhidraScript)  
+INFO  StorageAudit.java> DATABASE_XREF_COUNT 0 (analysis coverage dependent) (GhidraScript)  
+INFO  StorageAudit.java> SPAN 536ef99c 536ef9b8 (GhidraScript)  
+INFO  StorageAudit.java> DATABASE_XREF_COUNT 0 (analysis coverage dependent) (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 536ef088 (GhidraScript)  
+INFO  StorageAudit.java> BODY [[536ef088, 536ef12f]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_536ef088(undefined4 param_1,double *param_2,double *param_3)
+
+{
+  double dVar1;
+  int iVar2;
+  undefined4 uVar3;
+  uint in_fpscr;
+  undefined4 uVar4;
+  undefined4 uVar6;
+  undefined4 extraout_s1;
+  undefined4 extraout_s1_00;
+  undefined4 extraout_s1_01;
+  undefined4 extraout_s1_02;
+  undefined4 extraout_s1_03;
+  undefined4 extraout_s1_04;
+  double dVar7;
+  undefined4 uVar5;
+  
+  do {
+    iVar2 = func_0x53140df4();
+    dVar1 = dRam536ef130;
+  } while (iVar2 == 0);
+  dVar7 = (double)VectorSignedToFloat(iVar2,(byte)(in_fpscr >> 0x16) & 3);
+  uVar3 = func_0x53140df4();
+  uVar5 = SUB84(dVar7 / dVar1,0);
+  uVar4 = func_0x531534f0(uVar5);
+  uVar4 = func_0x53153ba8(SUB84((double)CONCAT44(extraout_s1,uVar4) * -2.0,0));
+  dVar7 = (double)VectorSignedToFloat(uVar3,(byte)(in_fpscr >> 0x16) & 3);
+  uVar6 = SUB84((dVar7 / dVar1) * dRam536ef138,0);
+  uVar3 = func_0x53152d18(uVar6);
+  *param_2 = (double)CONCAT44(extraout_s1_00,uVar4) * (double)CONCAT44(extraout_s1_01,uVar3);
+  uVar3 = func_0x531534f0(uVar5);
+  uVar3 = func_0x53153ba8(SUB84((double)CONCAT44(extraout_s1_02,uVar3) * -2.0,0));
+  uVar4 = func_0x53152880(uVar6);
+  *param_3 = (double)CONCAT44(extraout_s1_03,uVar3) * (double)CONCAT44(extraout_s1_04,uVar4);
+  return;
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 536ef140 (GhidraScript)  
+INFO  StorageAudit.java> BODY [[536ef140, 536ef3bb] [536ef3e8, 536ef5bf] [536ef6dc, 536ef6fb] [536ef998, 536ef99b]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_536ef140(char *param_1,int param_2,int param_3)
+
+{
+  byte bVar1;
+  byte bVar2;
+  byte bVar3;
+  byte bVar4;
+  ushort uVar5;
+  ushort uVar6;
+  ushort uVar7;
+  ushort uVar8;
+  double dVar9;
+  char cVar10;
+  int iVar11;
+  byte bVar12;
+  byte bVar13;
+  int iVar14;
+  char cVar15;
+  ushort uVar16;
+  int iVar17;
+  ushort *puVar18;
+  bool bVar19;
+  uint in_fpscr;
+  undefined4 uVar20;
+  uint uVar21;
+  double dVar22;
+  byte abStack_58 [8];
+  double dStack_50;
+  double dStack_48;
+  int iStack_3c;
+  
+  iStack_3c = iRam5405577c;
+  func_0x536afbe4(abStack_58);
+  func_0x53140dd8((uint)abStack_58[0] * 100);
+  bVar12 = param_1[1];
+  iVar17 = *(int *)(param_3 + 0x82d0);
+  puVar18 = (ushort *)(param_1 + 8);
+  *(ushort **)(param_1 + 4) = puVar18;
+  if (param_1[2] == bVar12) {
+    bVar12 = bVar12 | 1;
+  }
+  iVar14 = iVar17 + 0x38a9a;
+  if (bVar12 == 0) {
+    bVar19 = false;
+    if ((*(char *)(param_3 + 0x82bd) == '\0') &&
+       (bVar19 = false, *(char *)(param_3 + 0x82ba) != '\0')) {
+      *(ushort *)(param_1 + 0x116) = (ushort)(byte)param_1[8];
+      *(ushort *)(param_1 + 0x118) = (ushort)(byte)param_1[10];
+      *(ushort *)(param_1 + 0x11a) = (ushort)(byte)param_1[0xc];
+      bVar19 = true;
+      *(ushort *)(param_1 + 0x11e) = (ushort)(byte)param_1[0x10];
+      *(ushort *)(param_1 + 0x11c) = (ushort)(byte)param_1[0xe];
+      *(ushort *)(param_1 + 0x120) = (ushort)(byte)param_1[0x12];
+      param_1[0x124] = param_1[0x16];
+      param_1[0x125] = param_1[0x17];
+      param_1[0x126] = param_1[0x18];
+    }
+  }
+  else {
+    bVar19 = false;
+  }
+  dVar9 = dRam536ef9a8;
+  if (*(char *)(param_3 + 0x82ac) != '\0') {
+    iVar17 = iVar17 + 0x71248;
+  }
+  if (param_2 == 1) {
+    puVar18 = (ushort *)(param_1 + 0x86);
+    bVar12 = *(byte *)(iVar17 + 0x77d);
+    bVar2 = *(byte *)(iVar17 + 0x77e);
+    bVar3 = *(byte *)(iVar17 + 0x780);
+    bVar4 = *(byte *)(iVar17 + 0x77f);
+    bVar1 = *(byte *)(iVar17 + 0x784);
+    *(ushort *)(param_1 + 0x86) = (ushort)*(byte *)(iVar17 + 0x77c);
+    *(ushort *)(param_1 + 0x88) = (ushort)bVar12;
+    *(ushort *)(param_1 + 0x8a) = (ushort)bVar2;
+    *(ushort *)(param_1 + 0x8e) = (ushort)bVar3;
+    *(ushort *)(param_1 + 0x8c) = (ushort)bVar4;
+    *(ushort *)(param_1 + 0x90) = (ushort)bVar1;
+    *(ushort **)(param_1 + 4) = puVar18;
+    if (*param_1 != '\0') {
+      param_1[3] = '\x01';
+      bVar13 = 0;
+      uVar16 = (ushort)*(byte *)(iVar17 + 0x77c);
+      bVar12 = *(byte *)(iVar17 + 0x77d);
+      bVar2 = *(byte *)(iVar17 + 0x77e);
+      bVar3 = *(byte *)(iVar17 + 0x780);
+      bVar4 = *(byte *)(iVar17 + 0x77f);
+      *(ushort *)(param_1 + 0x86) = uVar16;
+      bVar1 = *(byte *)(iVar17 + 0x784);
+      *(ushort *)(param_1 + 0x88) = (ushort)bVar12;
+      *(ushort *)(param_1 + 0x90) = (ushort)bVar1;
+      *(ushort *)(param_1 + 0x8a) = (ushort)bVar2;
+      *(ushort *)(param_1 + 0x8e) = (ushort)bVar3;
+      *(ushort *)(param_1 + 0x8c) = (ushort)bVar4;
+      *(ushort **)(param_1 + 4) = puVar18;
+      bVar12 = param_1[0x94];
+      goto LAB_536ef43c;
+    }
+    goto LAB_536ef42c;
+  }
+  if (param_2 == 2) {
+    puVar18 = (ushort *)(param_1 + 0x98);
+    bVar1 = *(byte *)(iVar17 + 0x77c);
+    bVar12 = *(byte *)(iVar17 + 0x77e);
+    bVar2 = *(byte *)(iVar17 + 0x780);
+    bVar3 = *(byte *)(iVar17 + 0x77f);
+    *(ushort *)(param_1 + 0x9a) = (ushort)*(byte *)(iVar17 + 0x77d);
+    bVar4 = *(byte *)(iVar17 + 0x784);
+    *(ushort *)(param_1 + 0x98) = (ushort)bVar1;
+    *(ushort *)(param_1 + 0x9c) = (ushort)bVar12;
+    *(ushort *)(param_1 + 0xa0) = (ushort)bVar2;
+    *(ushort *)(param_1 + 0x9e) = (ushort)bVar3;
+    *(ushort *)(param_1 + 0xa2) = (ushort)bVar4;
+    *(ushort **)(param_1 + 4) = puVar18;
+    if (*param_1 != '\0') {
+      param_1[3] = '\x02';
+      bVar1 = *(byte *)(iVar17 + 0x77c);
+      bVar12 = *(byte *)(iVar17 + 0x77d);
+      bVar2 = *(byte *)(iVar17 + 0x77e);
+      bVar3 = *(byte *)(iVar17 + 0x780);
+      bVar4 = *(byte *)(iVar17 + 0x77f);
+      *(ushort *)(param_1 + 0x98) = (ushort)bVar1;
+      bVar13 = *(byte *)(iVar17 + 0x784);
+      *(ushort *)(param_1 + 0x9a) = (ushort)bVar12;
+      *(ushort *)(param_1 + 0x9c) = (ushort)bVar2;
+      *(ushort *)(param_1 + 0xa0) = (ushort)bVar3;
+      *(ushort *)(param_1 + 0x9e) = (ushort)bVar4;
+      *(ushort *)(param_1 + 0xa2) = (ushort)bVar13;
+      *(ushort **)(param_1 + 4) = puVar18;
+    }
+    bVar13 = 0;
+    uVar16 = (ushort)bVar1;
+    bVar12 = param_1[0xa6];
+    goto LAB_536ef43c;
+  }
+  if (param_2 == 3) {
+    puVar18 = (ushort *)(param_1 + 0xaa);
+    bVar1 = *(byte *)(iVar17 + 0x77c);
+    bVar12 = *(byte *)(iVar17 + 0x77e);
+    bVar2 = *(byte *)(iVar17 + 0x780);
+    bVar3 = *(byte *)(iVar17 + 0x77f);
+    *(ushort *)(param_1 + 0xac) = (ushort)*(byte *)(iVar17 + 0x77d);
+    bVar4 = *(byte *)(iVar17 + 0x784);
+    *(ushort *)(param_1 + 0xaa) = (ushort)bVar1;
+    *(ushort *)(param_1 + 0xae) = (ushort)bVar12;
+    *(ushort *)(param_1 + 0xb2) = (ushort)bVar2;
+    *(ushort *)(param_1 + 0xb0) = (ushort)bVar3;
+    *(ushort *)(param_1 + 0xb4) = (ushort)bVar4;
+    *(ushort **)(param_1 + 4) = puVar18;
+    if (*param_1 != '\0') {
+      param_1[3] = '\x03';
+      bVar1 = *(byte *)(iVar17 + 0x77c);
+      bVar12 = *(byte *)(iVar17 + 0x77d);
+      bVar2 = *(byte *)(iVar17 + 0x77e);
+      bVar3 = *(byte *)(iVar17 + 0x780);
+      bVar4 = *(byte *)(iVar17 + 0x77f);
+      *(ushort *)(param_1 + 0xaa) = (ushort)bVar1;
+      bVar13 = *(byte *)(iVar17 + 0x784);
+      *(ushort *)(param_1 + 0xac) = (ushort)bVar12;
+      *(ushort *)(param_1 + 0xae) = (ushort)bVar2;
+      *(ushort *)(param_1 + 0xb2) = (ushort)bVar3;
+      *(ushort *)(param_1 + 0xb0) = (ushort)bVar4;
+      *(ushort *)(param_1 + 0xb4) = (ushort)bVar13;
+      *(ushort **)(param_1 + 4) = puVar18;
+    }
+    bVar13 = 0;
+    uVar16 = (ushort)bVar1;
+    bVar12 = param_1[0xb8];
+    goto LAB_536ef43c;
+  }
+  if (*param_1 == '\0') {
+LAB_536ef42c:
+    puVar18 = *(ushort **)(param_1 + 4);
+    bVar13 = 0;
+    uVar16 = *puVar18;
+    bVar12 = (byte)puVar18[7];
+  }
+  else {
+    switch(param_2) {
+    case 0:
+      dStack_50 = dRam536ef9a0;
+      dStack_48 = dRam536ef9a0;
+      FUN_536ef088(param_1,&dStack_50,&dStack_48);
+      uVar20 = VectorFloatToSigned(dStack_48 * dVar9,3);
+      iVar11 = func_0x5313fbac(uVar20);
+      param_1[3] = (char)iVar11 + (char)(iVar11 / 6) * -6;
+      uVar20 = func_0x53140df4();
+      dVar22 = (double)VectorSignedToFloat(uVar20,(byte)(in_fpscr >> 0x16) & 3);
+      uVar21 = VectorFloatToSigned(dVar22 / dRam536ef9b0,3);
+      if ((uVar21 & 7) == 0) {
+        bVar12 = param_1[0x28];
+        puVar18 = (ushort *)(param_1 + 0x1a);
+        *(ushort **)(param_1 + 4) = puVar18;
+      }
+      else if ((int)uVar21 % 9 == 0) {
+        bVar12 = param_1[0x3a];
+        puVar18 = (ushort *)(param_1 + 0x2c);
+        *(ushort **)(param_1 + 4) = puVar18;
+      }
+      else if ((int)uVar21 % 10 == 0) {
+        bVar12 = param_1[0x4c];
+        puVar18 = (ushort *)(param_1 + 0x3e);
+        *(ushort **)(param_1 + 4) = puVar18;
+      }
+      else if ((int)uVar21 % 0xb == 0) {
+        bVar12 = param_1[0x5e];
+        puVar18 = (ushort *)(param_1 + 0x50);
+        *(ushort **)(param_1 + 4) = puVar18;
+      }
+      else if ((int)uVar21 % 0xc == 0) {
+        bVar12 = param_1[0x70];
+        puVar18 = (ushort *)(param_1 + 0x62);
+        *(ushort **)(param_1 + 4) = puVar18;
+      }
+      else {
+        FUN_536ef088(param_1,&dStack_50,&dStack_48);
+        uVar20 = VectorFloatToSigned(dStack_50 * dVar9,3);
+        iVar11 = func_0x5313fbac(uVar20);
+        *(ushort *)(param_1 + 8) = (short)iVar11 + (short)(iVar11 / 6) * -6 & 0xff;
+        FUN_536ef088(param_1,&dStack_50,&dStack_48);
+        uVar20 = VectorFloatToSigned(dStack_50 * dVar9,3);
+        iVar11 = func_0x5313fbac(uVar20);
+        *(ushort *)(param_1 + 10) = (short)iVar11 + (short)(iVar11 / 9) * -9 & 0xff;
+        FUN_536ef088(param_1,&dStack_50,&dStack_48);
+        uVar20 = VectorFloatToSigned(dStack_50 * dVar9,3);
+        iVar11 = func_0x5313fbac(uVar20);
+        *(ushort *)(param_1 + 0xc) = (short)iVar11 + (short)(iVar11 / 9) * -9 & 0xff;
+        FUN_536ef088(param_1,&dStack_50,&dStack_48);
+        uVar20 = VectorFloatToSigned(dStack_48 * dVar9,3);
+        iVar11 = func_0x5313fbac(uVar20);
+        *(ushort *)(param_1 + 0xe) = (short)iVar11 + (short)(iVar11 / 5) * -5 + 4U & 0xff;
+        FUN_536ef088(param_1,&dStack_50,&dStack_48);
+        uVar20 = VectorFloatToSigned(dStack_50 * dVar9,3);
+        iVar11 = func_0x5313fbac(uVar20);
+        *(ushort *)(param_1 + 0x10) = (short)iVar11 + (short)(iVar11 / 9) * -9 & 0xff;
+        FUN_536ef088(param_1,&dStack_50,&dStack_48);
+        uVar20 = VectorFloatToSigned(dStack_50 * dVar9,3);
+        iVar11 = func_0x5313fbac(uVar20);
+        uVar21 = (byte)param_1[3] - 1 & 0xff;
+        *(ushort *)(param_1 + 0x12) = (short)iVar11 + (short)(iVar11 / 5) * -5 & 0xff;
+        if (uVar21 < 5) {
+          bVar12 = *(byte *)(uVar21 + 0x53efb910);
+          cVar10 = *(char *)(uVar21 + 0x53efb918);
+          cVar15 = *(char *)(uVar21 + 0x53efb920);
+        }
+        else {
+          cVar15 = '\x02';
+          cVar10 = '\x01';
+          bVar12 = 0;
+        }
+        param_1[0x17] = cVar10;
+        param_1[0x18] = cVar15;
+        *(ushort **)(param_1 + 4) = puVar18;
+      }
+      uVar16 = *puVar18;
+      if (*(char *)(param_3 + 0x82bd) == '\0') {
+        bVar13 = param_1[1] ^ 1;
+      }
+      else {
+        bVar13 = 0;
+      }
+      break;
+    default:
+      uVar16 = *(ushort *)(param_1 + 0x86);
+      bVar12 = param_1[0x94];
+      puVar18 = (ushort *)(param_1 + 0x86);
+      param_1[3] = '\x01';
+      bVar13 = 0;
+      *(ushort **)(param_1 + 4) = puVar18;
+      break;
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      func_0x536eee30(param_1,iVar14,puVar18);
+      *(ushort **)(param_1 + 4) = puVar18;
+      bVar13 = 0;
+      uVar16 = *(ushort *)(param_1 + 8);
+      bVar12 = param_1[0x16];
+      break;
+    case 8:
+      bVar12 = param_1[0x124];
+      puVar18 = (ushort *)(param_1 + 0x116);
+      *(ushort **)(param_1 + 4) = puVar18;
+      bVar13 = 0;
+      uVar16 = *(ushort *)(param_1 + 0x116);
+      break;
+    case 9:
+      puVar18 = *(ushort **)(param_1 + 4);
+      bVar13 = 1;
+      uVar16 = *puVar18;
+      bVar12 = (byte)puVar18[7];
+      break;
+    case 10:
+      goto LAB_536ef42c;
+    }
+  }
+LAB_536ef43c:
+  *(ushort *)(param_1 + 8) = uVar16 & 0xff;
+  *(ushort *)(param_1 + 10) = (ushort)(byte)puVar18[1];
+  *(ushort *)(param_1 + 0xc) = (ushort)(byte)puVar18[2];
+  *(ushort *)(param_1 + 0x10) = (ushort)(byte)puVar18[4];
+  *(ushort *)(param_1 + 0xe) = (ushort)(byte)puVar18[3];
+  uVar16 = puVar18[5];
+  param_1[0x16] = bVar12;
+  bVar12 = *(byte *)((int)puVar18 + 0xf);
+  *(ushort *)(param_1 + 0x12) = (ushort)(byte)uVar16;
+  param_1[0x17] = bVar12;
+  param_1[0x18] = (byte)puVar18[8];
+  if (((bVar13 != 0) || ((*(char *)(param_3 + 0x82bd) == '\0' && (param_1[1] == '\0')))) &&
+     (!bVar19)) {
+    uVar16 = puVar18[7];
+    *(ushort *)(param_1 + 0x116) = (ushort)(byte)*puVar18;
+    *(ushort *)(param_1 + 0x118) = (ushort)(byte)puVar18[1];
+    *(ushort *)(param_1 + 0x11a) = (ushort)(byte)puVar18[2];
+    *(ushort *)(param_1 + 0x11e) = (ushort)(byte)puVar18[4];
+    *(ushort *)(param_1 + 0x11c) = (ushort)(byte)puVar18[3];
+    *(ushort *)(param_1 + 0x120) = (ushort)(byte)puVar18[5];
+    param_1[0x124] = (byte)uVar16;
+    param_1[0x125] = *(byte *)((int)puVar18 + 0xf);
+    param_1[0x126] = (byte)puVar18[8];
+  }
+  uVar16 = *puVar18;
+  uVar5 = puVar18[1];
+  uVar6 = puVar18[2];
+  uVar7 = puVar18[4];
+  uVar8 = puVar18[3];
+  *(char *)(iVar17 + 0x784) = (char)puVar18[5];
+  *(char *)(iVar17 + 0x77c) = (char)uVar16;
+  *(char *)(iVar17 + 0x77d) = (char)uVar5;
+  *(char *)(iVar17 + 0x77e) = (char)uVar6;
+  *(char *)(iVar17 + 0x780) = (char)uVar7;
+  *(char *)(iVar17 + 0x77f) = (char)uVar8;
+  func_0x536eeffc(param_1,puVar18,iVar14);
+  bVar19 = iStack_3c != iRam5405577c;
+  param_1[2] = param_1[1];
+  if (bVar19) {
+                    /* WARNING: Subroutine does not return */
+    FUN_53820074();
+  }
+  return;
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 53632898 (GhidraScript)  
+INFO  StorageAudit.java> BODY [[53632898, 53632c2b]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_53632898(int param_1,int param_2,int param_3)
+
+{
+  int iVar1;
+  undefined1 uVar2;
+  int iVar3;
+  uint uVar4;
+  char cVar5;
+  int iVar6;
+  int iVar7;
+  undefined1 *puVar8;
+  int iVar9;
+  int iVar10;
+  undefined1 *puVar11;
+  int iVar12;
+  int iStack_7c;
+  uint uStack_78;
+  uint uStack_70;
+  uint uStack_6c;
+  undefined1 auStack_54 [32];
+  int iStack_34;
+  
+  iStack_34 = iRam5405577c;
+  DataSynchronizationBarrier(0xf);
+  iVar1 = param_2 * 4;
+  iVar6 = param_1 + iVar1;
+  do {
+    iVar3 = func_0x537352b0(*(undefined4 *)(iVar6 + 4));
+  } while (iVar3 == 0);
+  func_0x537352ec(*(undefined4 *)(iVar6 + 4),1);
+  DataSynchronizationBarrier(0xf);
+  func_0x536b0a74(1);
+  if (param_2 == 3) {
+    func_0x538526a0();
+  }
+  iStack_7c = 0;
+  uStack_78 = 0;
+  do {
+    uStack_6c = 0;
+    iVar3 = iStack_7c;
+    do {
+      puVar11 = auStack_54;
+      iVar7 = iVar3 + 4;
+      iVar10 = iVar3;
+      iVar12 = iVar3;
+      do {
+        iVar9 = 0;
+        puVar8 = puVar11;
+        do {
+          if (param_2 == 1) {
+            *puVar8 = *(undefined1 *)(iVar3 * 0x38 + param_3 + 0x53d39788 + iVar9);
+          }
+          else if (param_2 == 2) {
+            *puVar8 = *(undefined1 *)(iVar12 * 0x38 + param_3 + 0x53d440b0 + iVar9);
+          }
+          else {
+            if (param_2 == 3) {
+              uVar2 = *(undefined1 *)(iVar10 * 0x38 + param_3 + 0x53d3cdd4 + iVar9);
+            }
+            else {
+              uVar2 = 0;
+            }
+            *puVar8 = uVar2;
+          }
+          iVar9 = iVar9 + 7;
+          puVar8 = puVar8 + 1;
+        } while (iVar9 != 0x38);
+        iVar3 = iVar3 + 1;
+        iVar12 = iVar12 + 1;
+        iVar10 = iVar10 + 1;
+        puVar11 = puVar11 + 8;
+      } while (iVar3 != iVar7);
+      uVar4 = uStack_6c & 0xff;
+      uStack_6c = uStack_6c + 1;
+      func_0x537375a0(*(undefined4 *)(iVar6 + 4),uStack_78 & 0xff,uVar4,auStack_54);
+    } while (uStack_6c != 4);
+    uStack_78 = uStack_78 + 1;
+    iStack_7c = iStack_7c + 0x10;
+  } while (uStack_78 != 4);
+  iStack_7c = 0;
+  cVar5 = '\x04';
+  do {
+    uStack_70 = 0;
+    iVar3 = iStack_7c;
+    do {
+      puVar11 = auStack_54;
+      iVar7 = iVar3 + 4;
+      iVar10 = iVar3;
+      iVar12 = iVar3;
+      do {
+        iVar9 = 0;
+        puVar8 = puVar11;
+        do {
+          if (param_2 == 1) {
+            *puVar8 = *(undefined1 *)(iVar3 * 0x38 + param_3 + 0x53d37884 + iVar9);
+          }
+          else if (param_2 == 2) {
+            *puVar8 = *(undefined1 *)(iVar10 * 0x38 + param_3 + 0x53d44eb0 + iVar9);
+          }
+          else if (param_2 == 3) {
+            *puVar8 = *(undefined1 *)(iVar12 * 0x38 + param_3 + 0x53d35cbc + iVar9);
+          }
+          else {
+            *puVar8 = 0;
+          }
+          iVar9 = iVar9 + 7;
+          puVar8 = puVar8 + 1;
+        } while (iVar9 != 0x38);
+        iVar3 = iVar3 + 1;
+        iVar10 = iVar10 + 1;
+        iVar12 = iVar12 + 1;
+        puVar11 = puVar11 + 8;
+      } while (iVar3 != iVar7);
+      uVar4 = uStack_70 & 0xff;
+      uStack_70 = uStack_70 + 1;
+      func_0x537375a0(*(undefined4 *)(iVar6 + 4),cVar5,uVar4,auStack_54);
+    } while (uStack_70 != 4);
+    iStack_7c = iStack_7c + 0x10;
+    cVar5 = cVar5 + '\x01';
+  } while (iStack_7c != 0x40);
+  DataSynchronizationBarrier(0xf);
+  if (param_2 == 3) {
+    func_0x538526a4();
+  }
+  func_0x53735284(*(undefined4 *)(param_1 + iVar1 + 4),1);
+  func_0x53735294(*(undefined4 *)(param_1 + iVar1 + 4),1);
+  DataSynchronizationBarrier(0xf);
+  do {
+    uVar4 = func_0x53735274(*(undefined4 *)(iVar6 + 4));
+  } while ((uVar4 & 1) == 0);
+  DataSynchronizationBarrier(0xf);
+  do {
+    iVar3 = func_0x537352b0(*(undefined4 *)(iVar6 + 4));
+  } while (iVar3 == 0);
+  func_0x537352ec(*(undefined4 *)(param_1 + iVar1 + 4),0);
+  if (iStack_34 != iRam5405577c) {
+                    /* WARNING: Subroutine does not return */
+    FUN_53820074();
+  }
+  return;
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 53632c2c (GhidraScript)  
+INFO  StorageAudit.java> BODY [[53632c2c, 53633063]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_53632c2c(int param_1,int param_2,int param_3)
+
+{
+  undefined2 uVar1;
+  int iVar2;
+  undefined1 *puVar3;
+  undefined1 *puVar4;
+  uint uVar5;
+  int iVar6;
+  int iVar7;
+  int iVar8;
+  int iVar9;
+  int iVar10;
+  uint uVar11;
+  int iStack_dc;
+  uint uStack_d0;
+  undefined1 *puStack_c8;
+  undefined1 *puStack_c4;
+  int iStack_c0;
+  int iStack_bc;
+  undefined1 auStack_b4 [63];
+  undefined1 uStack_75;
+  undefined1 auStack_74 [64];
+  int iStack_34;
+  
+  param_1 = param_1 + param_2 * 4;
+  iStack_34 = iRam5405577c;
+  iVar2 = func_0x537352dc(*(undefined4 *)(param_1 + 4));
+  if (iVar2 != 0) {
+    func_0x537352c0(*(undefined4 *)(param_1 + 4),0);
+  }
+  if (param_2 == 4) {
+    iStack_dc = param_3 << 1;
+  }
+  else {
+    iStack_dc = param_3 * 2;
+    iStack_bc = iStack_dc + 0x53d431f8;
+    iStack_c0 = iStack_dc + 0x53d46058;
+    iVar7 = iStack_dc + 0x53d36abc;
+    iVar8 = iStack_dc + 0x53d3be30;
+    iVar9 = iStack_dc + 0x53d3dd54;
+    uVar11 = 0;
+    iVar10 = iStack_dc + 0x53d3ee1c;
+    do {
+      iVar6 = 0;
+      puVar3 = auStack_b4;
+      puVar4 = auStack_74;
+      do {
+        if (param_2 == 0) {
+          uVar1 = *(undefined2 *)(iVar7 + iVar6);
+          *puVar3 = (char)uVar1;
+          *puVar4 = (char)((ushort)uVar1 >> 8);
+        }
+        else if (param_2 == 1) {
+          uVar1 = *(undefined2 *)(iVar8 + iVar6);
+          *puVar3 = (char)uVar1;
+          *puVar4 = (char)((ushort)uVar1 >> 8);
+        }
+        else if (param_2 == 2) {
+          uVar1 = *(undefined2 *)(iVar9 + iVar6);
+          *puVar3 = (char)uVar1;
+          *puVar4 = (char)((ushort)uVar1 >> 8);
+        }
+        else if (param_2 == 3) {
+          uVar1 = *(undefined2 *)(iVar10 + iVar6);
+          *puVar3 = (char)uVar1;
+          *puVar4 = (char)((ushort)uVar1 >> 8);
+        }
+        else if (param_2 == 5) {
+          uVar1 = *(undefined2 *)(iStack_bc + iVar6);
+          *puVar3 = (char)uVar1;
+          *puVar4 = (char)((ushort)uVar1 >> 8);
+        }
+        else if (param_2 == 6) {
+          uVar1 = *(undefined2 *)(iStack_c0 + iVar6);
+          *puVar3 = (char)uVar1;
+          *puVar4 = (char)((ushort)uVar1 >> 8);
+        }
+        else {
+          *puVar3 = 0;
+          *puVar4 = 0;
+        }
+        iVar6 = iVar6 + 0xe;
+        puVar3 = puVar3 + 1;
+        puVar4 = puVar4 + 1;
+      } while (iVar6 != 0x372);
+      uVar5 = uVar11 & 0xff;
+      uVar11 = uVar11 + 1;
+      func_0x53735880(*(undefined4 *)(param_1 + 4),uVar5,auStack_b4);
+      iVar7 = iVar7 + 0x372;
+      iVar8 = iVar8 + 0x372;
+      iVar9 = iVar9 + 0x372;
+      iStack_bc = iStack_bc + 0x372;
+      iVar10 = iVar10 + 0x372;
+      iStack_c0 = iStack_c0 + 0x372;
+      func_0x53735a80(*(undefined4 *)(param_1 + 4),uVar5,auStack_74);
+    } while (uVar11 != 4);
+    if (param_2 == 0) goto LAB_53632e40;
+  }
+  puStack_c4 = auStack_74;
+  puStack_c8 = auStack_b4;
+  iVar7 = 0;
+  uStack_d0 = 0;
+  do {
+    iVar9 = iVar7 + iStack_dc;
+    iVar8 = 0;
+    puVar3 = puStack_c4;
+    puVar4 = puStack_c8;
+    do {
+      if (param_2 == 1) {
+        uVar1 = *(undefined2 *)(iVar9 + 0x53d42430 + iVar8);
+        *puVar4 = (char)uVar1;
+        *puVar3 = (char)((ushort)uVar1 >> 8);
+      }
+      else if (param_2 == 2) {
+        uVar1 = *(undefined2 *)(iVar9 + 0x53d3a834 + iVar8);
+        *puVar4 = (char)uVar1;
+        *puVar3 = (char)((ushort)uVar1 >> 8);
+      }
+      else if (param_2 == 3) {
+        uVar1 = *(undefined2 *)(iVar9 + 0x53d40f94 + iVar8);
+        *puVar4 = (char)uVar1;
+        *puVar3 = (char)((ushort)uVar1 >> 8);
+      }
+      else if (param_2 == 4) {
+        uVar1 = *(undefined2 *)(iVar9 + 0x53d46e20 + iVar8);
+        *puVar4 = (char)uVar1;
+        *puVar3 = (char)((ushort)uVar1 >> 8);
+      }
+      else if (param_2 == 5) {
+        uVar1 = *(undefined2 *)(iVar9 + 0x53d38840 + iVar8);
+        *puVar4 = (char)uVar1;
+        *puVar3 = (char)((ushort)uVar1 >> 8);
+      }
+      else if (param_2 == 6) {
+        uVar1 = *(undefined2 *)(iVar9 + 0x53d3fbe4 + iVar8);
+        *puVar4 = (char)uVar1;
+        *puVar3 = (char)((ushort)uVar1 >> 8);
+      }
+      else {
+        *puVar4 = 0;
+        *puVar3 = 0;
+      }
+      puVar4 = puVar4 + 1;
+      puVar3 = puVar3 + 1;
+      iVar8 = iVar8 + 0xe;
+    } while (puVar4 != &uStack_75);
+    iVar7 = iVar7 + 0x372;
+    uVar11 = uStack_d0 & 0xff;
+    uStack_d0 = uStack_d0 + 1;
+    func_0x53735980(*(undefined4 *)(param_1 + 4),uVar11,puStack_c8);
+    func_0x53735b80(*(undefined4 *)(param_1 + 4),uVar11,puStack_c4);
+  } while (uStack_d0 != 4);
+LAB_53632e40:
+  if (iVar2 != 0) {
+    func_0x537352c0(*(undefined4 *)(param_1 + 4),1);
+  }
+  DataSynchronizationBarrier(0xf);
+  if (iStack_34 == iRam5405577c) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  FUN_53820074();
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 53633064 (GhidraScript)  
+INFO  StorageAudit.java> BODY [[53633064, 53633793]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_53633064(int param_1,int param_2)
+
+{
+  int iVar1;
+  undefined2 *puVar2;
+  undefined2 *puVar3;
+  uint uVar4;
+  uint uVar5;
+  undefined2 *puVar6;
+  uint uVar7;
+  undefined2 *puVar8;
+  undefined2 *puVar9;
+  uint uStack_6c;
+  uint uStack_68;
+  undefined2 *puStack_64;
+  undefined2 *puStack_60;
+  undefined1 *puStack_5c;
+  undefined2 *puStack_54;
+  undefined2 *puStack_50;
+  undefined1 uStack_48;
+  undefined1 uStack_47;
+  undefined1 uStack_46;
+  undefined2 uStack_44;
+  undefined2 uStack_42;
+  undefined2 uStack_40;
+  undefined2 uStack_3c;
+  undefined2 uStack_3a;
+  undefined2 uStack_38;
+  int iStack_34;
+  
+  param_1 = param_1 + param_2 * 4;
+  iStack_34 = iRam5405577c;
+  iVar1 = func_0x537352dc(*(undefined4 *)(param_1 + 4));
+  if (iVar1 != 0) {
+    func_0x537352c0(*(undefined4 *)(param_1 + 4),0);
+  }
+  if (param_2 != 4) {
+    uStack_6c = 0;
+    uStack_68 = 0;
+    do {
+      uVar4 = 0;
+      uVar7 = uStack_68 & 0xff;
+      puVar3 = (undefined2 *)(uStack_6c + 0x53d48720);
+      puVar6 = (undefined2 *)(uStack_6c + 0x53d3dbd4);
+      puVar8 = (undefined2 *)(uStack_6c + 0x53d3ec9c);
+      puVar9 = (undefined2 *)(uStack_6c + 0x53d41d5c);
+      puStack_50 = (undefined2 *)(uStack_6c + 0x53d45ed8);
+      puStack_54 = (undefined2 *)(uStack_6c + 0x53d48034);
+      do {
+        if (param_2 == 0) {
+          uStack_48 = (undefined1)*puVar3;
+          uStack_47 = (undefined1)puVar3[0xc];
+          uStack_46 = (undefined1)puVar3[0x18];
+          uStack_44 = puVar3[1];
+          uStack_42 = puVar3[0xd];
+          uStack_40 = puVar3[0x19];
+          uStack_3c = puVar3[2];
+          uStack_3a = puVar3[0xe];
+          uStack_38 = puVar3[0x1a];
+        }
+        else if (param_2 == 1) {
+          uStack_48 = (undefined1)*puVar6;
+          uStack_47 = (undefined1)puVar6[0xc];
+          uStack_46 = (undefined1)puVar6[0x18];
+          uStack_44 = puVar6[1];
+          uStack_42 = puVar6[0xd];
+          uStack_40 = puVar6[0x19];
+          uStack_3c = puVar6[2];
+          uStack_3a = puVar6[0xe];
+          uStack_38 = puVar6[0x1a];
+        }
+        else if (param_2 == 2) {
+          uStack_48 = (undefined1)*puVar8;
+          uStack_47 = (undefined1)puVar8[0xc];
+          uStack_46 = (undefined1)puVar8[0x18];
+          uStack_44 = puVar8[1];
+          uStack_42 = puVar8[0xd];
+          uStack_40 = puVar8[0x19];
+          uStack_3c = puVar8[2];
+          uStack_3a = puVar8[0xe];
+          uStack_38 = puVar8[0x1a];
+        }
+        else if (param_2 == 3) {
+          uStack_48 = (undefined1)*puVar9;
+          uStack_47 = (undefined1)puVar9[0xc];
+          uStack_46 = (undefined1)puVar9[0x18];
+          uStack_44 = puVar9[1];
+          uStack_42 = puVar9[0xd];
+          uStack_40 = puVar9[0x19];
+          uStack_3c = puVar9[2];
+          uStack_3a = puVar9[0xe];
+          uStack_38 = puVar9[0x1a];
+        }
+        else {
+          puVar2 = puStack_50;
+          if ((param_2 == 5) || (puVar2 = puStack_54, param_2 == 6)) {
+            uStack_48 = (undefined1)*puVar2;
+            uStack_47 = (undefined1)puVar2[0xc];
+            uStack_44 = puVar2[1];
+            uStack_46 = (undefined1)puVar2[0x18];
+            uStack_42 = puVar2[0xd];
+            uStack_40 = puVar2[0x19];
+            uStack_3c = puVar2[2];
+            uStack_3a = puVar2[0xe];
+            uStack_38 = puVar2[0x1a];
+          }
+          else {
+            uStack_48 = 0;
+            uStack_47 = 0;
+            uStack_46 = 0;
+            uStack_44 = 0;
+            uStack_42 = 0;
+            uStack_40 = 0;
+            uStack_3c = 0;
+            uStack_3a = 0;
+            uStack_38 = 0;
+          }
+        }
+        uVar5 = uVar4 & 0xff;
+        func_0x53735d00(*(undefined4 *)(param_1 + 4),uVar7,uVar5,&uStack_48);
+        func_0x53736090(*(undefined4 *)(param_1 + 4),uVar7,uVar5,&uStack_44);
+        func_0x53736420(*(undefined4 *)(param_1 + 4),uVar7,uVar5,&uStack_3c);
+        uVar4 = uVar4 + 1;
+        puStack_50 = puStack_50 + 3;
+        puVar3 = puVar3 + 3;
+        puVar6 = puVar6 + 3;
+        puVar8 = puVar8 + 3;
+        puVar9 = puVar9 + 3;
+        puStack_54 = puStack_54 + 3;
+      } while (uVar4 != 4);
+      uStack_68 = uStack_68 + 1;
+      uStack_6c = uStack_6c + 0x60;
+    } while (uStack_68 != 4);
+    if (param_2 == 0) goto LAB_5363325c;
+  }
+  puStack_5c = &uStack_48;
+  puStack_60 = &uStack_44;
+  puStack_64 = &uStack_3c;
+  uStack_68 = 0;
+  uStack_6c = 0;
+  do {
+    uVar4 = 0;
+    uVar7 = uStack_6c & 0xff;
+    puVar3 = (undefined2 *)(uStack_68 + 0x53d409ac);
+    puVar6 = (undefined2 *)(uStack_68 + 0x53d481b4);
+    puVar8 = (undefined2 *)(uStack_68 + 0x53d3b5fc);
+    puVar9 = (undefined2 *)(uStack_68 + 0x53d3eb1c);
+    puStack_50 = (undefined2 *)(uStack_68 + 0x53d47be8);
+    puStack_54 = (undefined2 *)(uStack_68 + 0x53d39608);
+    do {
+      if (param_2 == 1) {
+        uStack_48 = (undefined1)*puVar3;
+        uStack_47 = (undefined1)puVar3[0xc];
+        uStack_46 = (undefined1)puVar3[0x18];
+        uStack_44 = puVar3[1];
+        uStack_42 = puVar3[0xd];
+        uStack_40 = puVar3[0x19];
+        uStack_3c = puVar3[2];
+        uStack_3a = puVar3[0xe];
+        uStack_38 = puVar3[0x1a];
+      }
+      else if (param_2 == 2) {
+        uStack_48 = (undefined1)*puVar6;
+        uStack_47 = (undefined1)puVar6[0xc];
+        uStack_46 = (undefined1)puVar6[0x18];
+        uStack_44 = puVar6[1];
+        uStack_42 = puVar6[0xd];
+        uStack_40 = puVar6[0x19];
+        uStack_3c = puVar6[2];
+        uStack_3a = puVar6[0xe];
+        uStack_38 = puVar6[0x1a];
+      }
+      else if (param_2 == 3) {
+        uStack_48 = (undefined1)*puVar8;
+        uStack_47 = (undefined1)puVar8[0xc];
+        uStack_46 = (undefined1)puVar8[0x18];
+        uStack_44 = puVar8[1];
+        uStack_42 = puVar8[0xd];
+        uStack_40 = puVar8[0x19];
+        uStack_3c = puVar8[2];
+        uStack_3a = puVar8[0xe];
+        uStack_38 = puVar8[0x1a];
+      }
+      else if (param_2 == 4) {
+        uStack_48 = (undefined1)*puVar9;
+        uStack_47 = (undefined1)puVar9[0xc];
+        uStack_46 = (undefined1)puVar9[0x18];
+        uStack_44 = puVar9[1];
+        uStack_42 = puVar9[0xd];
+        uStack_40 = puVar9[0x19];
+        uStack_3c = puVar9[2];
+        uStack_3a = puVar9[0xe];
+        uStack_38 = puVar9[0x1a];
+      }
+      else {
+        puVar2 = puStack_50;
+        if ((param_2 == 5) || (puVar2 = puStack_54, param_2 == 6)) {
+          uStack_48 = (undefined1)*puVar2;
+          uStack_47 = (undefined1)puVar2[0xc];
+          uStack_44 = puVar2[1];
+          uStack_46 = (undefined1)puVar2[0x18];
+          uStack_42 = puVar2[0xd];
+          uStack_40 = puVar2[0x19];
+          uStack_3c = puVar2[2];
+          uStack_3a = puVar2[0xe];
+          uStack_38 = puVar2[0x1a];
+        }
+        else {
+          uStack_48 = 0;
+          uStack_47 = 0;
+          uStack_46 = 0;
+          uStack_44 = 0;
+          uStack_42 = 0;
+          uStack_40 = 0;
+          uStack_3c = 0;
+          uStack_3a = 0;
+          uStack_38 = 0;
+        }
+      }
+      uVar5 = uVar4 & 0xff;
+      func_0x53735ec8(*(undefined4 *)(param_1 + 4),uVar7,uVar5,puStack_5c);
+      func_0x53736258(*(undefined4 *)(param_1 + 4),uVar7,uVar5,puStack_60);
+      func_0x537365e8(*(undefined4 *)(param_1 + 4),uVar7,uVar5,puStack_64);
+      uVar4 = uVar4 + 1;
+      puStack_50 = puStack_50 + 3;
+      puVar3 = puVar3 + 3;
+      puVar6 = puVar6 + 3;
+      puVar8 = puVar8 + 3;
+      puVar9 = puVar9 + 3;
+      puStack_54 = puStack_54 + 3;
+    } while (uVar4 != 4);
+    uStack_6c = uStack_6c + 1;
+    uStack_68 = uStack_68 + 0x60;
+  } while (uStack_6c != 4);
+LAB_5363325c:
+  if (iVar1 != 0) {
+    func_0x537352c0(*(undefined4 *)(param_1 + 4),1);
+  }
+  DataSynchronizationBarrier(0xf);
+  if (iStack_34 == iRam5405577c) {
+    return;
+  }
+                    /* WARNING: Subroutine does not return */
+  FUN_53820074();
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 53633794 (GhidraScript)  
+INFO  StorageAudit.java> BODY [[53633794, 536339e3]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_53633794(int param_1,int param_2,int param_3)
+
+{
+  byte *pbVar1;
+  int iVar2;
+  int iVar3;
+  ushort uVar4;
+  ushort *puVar5;
+  ushort *puVar6;
+  ushort auStack_b4 [63];
+  ushort uStack_36;
+  int iStack_34;
+  
+  iStack_34 = iRam5405577c;
+  if (param_2 == 4) {
+    iVar2 = 0x10;
+  }
+  else {
+    iVar2 = 0;
+    puVar5 = auStack_b4;
+LAB_53633830:
+    do {
+      if (param_2 == 0) {
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d40dd8 + iVar2);
+      }
+      else if (param_2 == 1) {
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d42274 + iVar2);
+      }
+      else if (param_2 == 2) {
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d45d1c + iVar2);
+      }
+      else if (param_2 == 3) {
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d48334 + iVar2);
+      }
+      else {
+        if (param_2 != 5) {
+          puVar6 = puVar5 + 1;
+          if (param_2 == 6) {
+            uVar4 = (ushort)*(byte *)(param_3 + 0x53d38684 + iVar2);
+          }
+          else {
+            uVar4 = 0;
+          }
+          iVar2 = iVar2 + 7;
+          *puVar5 = uVar4;
+          puVar5 = puVar6;
+          if (puVar6 == &uStack_36) break;
+          goto LAB_53633830;
+        }
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d35a10 + iVar2);
+      }
+      puVar5 = puVar5 + 1;
+      iVar2 = iVar2 + 7;
+    } while (puVar5 != &uStack_36);
+    iVar2 = param_2 * 4;
+    func_0x53735c80(*(undefined4 *)(param_1 + iVar2 + 4),auStack_b4);
+    if (param_2 == 0) goto LAB_536338ac;
+  }
+  iVar3 = 0;
+  puVar5 = auStack_b4;
+  do {
+    while (param_2 != 1) {
+      if (param_2 == 2) {
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d3b93c + iVar3);
+      }
+      else if (param_2 == 3) {
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d420b8 + iVar3);
+      }
+      else if (param_2 == 4) {
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d484f0 + iVar3);
+      }
+      else if (param_2 == 5) {
+        *puVar5 = (ushort)*(byte *)(param_3 + 0x53d3a678 + iVar3);
+      }
+      else {
+        if (param_2 == 6) {
+          uVar4 = (ushort)*(byte *)(param_3 + 0x53d40c1c + iVar3);
+        }
+        else {
+          uVar4 = 0;
+        }
+        *puVar5 = uVar4;
+      }
+      puVar5 = puVar5 + 1;
+      iVar3 = iVar3 + 7;
+      if (puVar5 == &uStack_36) goto LAB_536339b4;
+    }
+    puVar6 = puVar5 + 1;
+    pbVar1 = (byte *)(param_3 + 0x53d35854 + iVar3);
+    iVar3 = iVar3 + 7;
+    *puVar5 = (ushort)*pbVar1;
+    puVar5 = puVar6;
+  } while (puVar6 != &uStack_36);
+LAB_536339b4:
+  func_0x53735cc0(*(undefined4 *)(param_1 + iVar2 + 4),auStack_b4);
+LAB_536338ac:
+  DataSynchronizationBarrier(0xf);
+  if (iStack_34 != iRam5405577c) {
+                    /* WARNING: Subroutine does not return */
+    FUN_53820074();
+  }
+  return;
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 53633e6c (GhidraScript)  
+INFO  StorageAudit.java> BODY [[53633e6c, 53633f37]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_53633e6c(undefined4 param_1,undefined4 param_2)
+
+{
+  uint uVar1;
+  uint uVar2;
+  int iVar3;
+  bool bVar4;
+  
+  func_0x536326e4();
+  func_0x536327e8(param_1,param_2);
+  uVar1 = 0;
+  while( true ) {
+    FUN_53632c2c(param_1,uVar1,param_2);
+    FUN_53633064(param_1,uVar1,param_2);
+    uVar2 = uVar1 + 1;
+    FUN_53633794(param_1,uVar1,param_2);
+    if (uVar2 == 7) break;
+    bVar4 = uVar1 < 3;
+    uVar1 = uVar2;
+    if (bVar4) {
+      FUN_53632898(param_1,uVar2,param_2);
+    }
+  }
+  iVar3 = 0;
+  do {
+    func_0x536339e4(param_1,iVar3,param_2);
+    func_0x53633b68(param_1,iVar3,param_2);
+    func_0x53633c88(param_1,iVar3,param_2);
+    bVar4 = iVar3 != 1;
+    iVar3 = 1;
+  } while (bVar4);
+  return;
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 536339e4 (GhidraScript)  
+INFO  StorageAudit.java> BODY [[536339e4, 53633b67]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_536339e4(int param_1,int param_2,int param_3)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  uint uVar3;
+  int iVar4;
+  int iVar5;
+  uint uVar6;
+  int iVar7;
+  
+  DataSynchronizationBarrier(0xf);
+  iVar1 = param_3 * 2;
+  iVar7 = 0;
+  uVar6 = 0;
+  do {
+    while (1 < uVar6 - 0x1e) {
+      if (param_2 == 0) {
+        func_0x53734294(*(undefined4 *)(param_1 + 0x20),uVar6 & 0xff,
+                        *(undefined2 *)(iVar1 + 0x53d3cbf8 + iVar7));
+        func_0x537342b8(*(undefined4 *)(param_1 + 0x20),uVar6 & 0xff,
+                        *(undefined2 *)(iVar1 + 0x53d3bb64 + iVar7));
+        uVar2 = *(undefined4 *)(param_1 + 0x20);
+        iVar4 = param_3 + 0x53d3bd40;
+      }
+      else {
+        if (param_2 != 1) break;
+        func_0x53734294(*(undefined4 *)(param_1 + 0x24),uVar6 & 0xff,
+                        *(undefined2 *)(iVar1 + 0x53d47e58 + iVar7));
+        func_0x537342b8(*(undefined4 *)(param_1 + 0x24),uVar6 & 0xff,
+                        *(undefined2 *)(iVar1 + 0x53d41edc + iVar7));
+        uVar2 = *(undefined4 *)(param_1 + 0x24);
+        iVar4 = param_3 + 0x53d47d68;
+      }
+      iVar5 = uVar6 * 7;
+      uVar3 = uVar6 & 0xff;
+      uVar6 = uVar6 + 1;
+      iVar7 = iVar7 + 0xe;
+      func_0x537342dc(uVar2,uVar3,*(char *)(iVar4 + iVar5) == '\x01');
+      if (uVar6 == 0x22) goto LAB_53633b04;
+    }
+    uVar6 = uVar6 + 1;
+    iVar7 = iVar7 + 0xe;
+  } while (uVar6 != 0x22);
+LAB_53633b04:
+  DataSynchronizationBarrier(0xf);
+  func_0x5373433c(*(undefined4 *)(param_1 + (param_2 + 8) * 4));
+  DataSynchronizationBarrier(0xf);
+  return;
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 53633b68 (GhidraScript)  
+INFO  StorageAudit.java> BODY [[53633b68, 53633c87]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_53633b68(int param_1,int param_2,int param_3)
+
+{
+  uint uVar1;
+  int iVar2;
+  
+  DataSynchronizationBarrier(0xf);
+  iVar2 = 0;
+  uVar1 = 0;
+  do {
+    if (1 < uVar1 - 0x1e) {
+      if (param_2 == 0) {
+        func_0x5373431c(*(undefined4 *)(param_1 + 0x20),uVar1 & 0xff,
+                        *(undefined1 *)(param_3 + 0x53d3a588 + iVar2));
+        func_0x537342fc(*(undefined4 *)(param_1 + 0x20),uVar1 & 0xff,
+                        *(char *)(param_3 + 0x53d40b2c + iVar2) == '\x01');
+      }
+      else if (param_2 == 1) {
+        func_0x5373431c(*(undefined4 *)(param_1 + 0x24),uVar1 & 0xff,
+                        *(undefined1 *)(param_3 + 0x53d43fc0 + iVar2));
+        func_0x537342fc(*(undefined4 *)(param_1 + 0x24),uVar1 & 0xff,
+                        *(char *)(param_3 + 0x53d35bcc + iVar2) == '\x01');
+      }
+    }
+    iVar2 = iVar2 + 7;
+    uVar1 = uVar1 + 1;
+  } while (uVar1 != 0x22);
+  DataSynchronizationBarrier(0xf);
+  return;
+}
+
+ (GhidraScript)  
+INFO  StorageAudit.java> FUNCTION 53633c88 (GhidraScript)  
+INFO  StorageAudit.java> BODY [[53633c88, 53633e6b]] (GhidraScript)  
+INFO  StorageAudit.java> 
+void FUN_53633c88(int param_1,int param_2,int param_3,undefined4 param_4)
+
+{
+  undefined1 uVar1;
+  
+  DataSynchronizationBarrier(0xf);
+  if (param_2 == 0) {
+    uVar1 = *(undefined1 *)(param_3 + 0x53d45cb0);
+    func_0x537340e4(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45cb7),
+                    param_4,param_4);
+    func_0x53734150(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45cbe));
+    func_0x537341bc(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45cc5));
+    func_0x53734228(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45ccc));
+    uVar1 = *(undefined1 *)(param_3 + 0x53d45cd3);
+    func_0x537340e4(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45cda));
+    func_0x53734150(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45ce1));
+    func_0x537341bc(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45ce8));
+    func_0x53734228(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45cef));
+    uVar1 = *(undefined1 *)(param_3 + 0x53d45cf6);
+    func_0x537340e4(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45cfd));
+    func_0x53734150(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45d04));
+    func_0x537341bc(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45d0b));
+    func_0x53734228(*(undefined4 *)(param_1 + 0x20),uVar1,*(undefined1 *)(param_3 + 0x53d45d12));
+    DataSynchronizationBarrier(0xf);
+    return;
+  }
+  if (param_2 != 1) {
+    DataSynchronizationBarrier(0xf);
+    return;
+  }
+  uVar1 = *(undefined1 *)(param_3 + 0x53d3baf8);
+  func_0x537340e4(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3baff),
+                  param_4,param_4);
+  func_0x53734150(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb06));
+  func_0x537341bc(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb0d));
+  func_0x53734228(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb14));
+  uVar1 = *(undefined1 *)(param_3 + 0x53d3bb1b);
+  func_0x537340e4(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb22));
+  func_0x53734150(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb29));
+  func_0x537341bc(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb30));
+  func_0x53734228(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb37));
+  uVar1 = *(undefined1 *)(param_3 + 0x53d3bb3e);
+  func_0x537340e4(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb45));
+  func_0x53734150(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb4c));
+  func_0x537341bc(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb53));
+  func_0x53734228(*(undefined4 *)(param_1 + 0x24),uVar1,*(undefined1 *)(param_3 + 0x53d3bb5a));
+  DataSynchronizationBarrier(0xf);
+  return;
+}
+
+ (GhidraScript)  
+INFO  REPORT: Discarding changes to the following read-only file: /rtos_iiix.bin (HeadlessAnalyzer)  
