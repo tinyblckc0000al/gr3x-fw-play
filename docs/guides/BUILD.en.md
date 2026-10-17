@@ -90,7 +90,7 @@ Paths below are relative to the repository root. “Runnable separately” does 
 |---|---|---|
 | `scripts/prepare_inputs.py` | Identity of the required IIIx / IV stock inputs and input preparation | **Runnable separately**; checks inputs, not the generated firmware |
 | `workspace/b2_iiix/verify_release.py` | Complete computer-side checks and summary for default B2.4.1 | Preferred entry point; requires stock firmware, repository scripts and default recipes, and accepts only frozen B2.4.1 |
-| `workspace/b2_iiix/check_release.py` | Publication gate binding the complete report, committed sources, BIN and camera feedback | Run after qualification and committing; failures block publication. See [release sequence and resource policy](../../workspace/b2_iiix/VERIFICATION.md#release-sequence) |
+| `workspace/b2_iiix/check_release.py` | Release-evidence consistency check binding the complete report, committed sources, BIN and camera feedback | Run after qualification and committing; failures block publication. See [release sequence and resource policy](../../workspace/b2_iiix/VERIFICATION.md#release-sequence) |
 | `workspace/b2_iiix/verification.py` | Reference, mapping, protected-region, allocation and write-range rules | Library without a standalone command; used by the verifier and unit tests |
 | `workspace/b2_iiix/test_verification.py` | Whether constructed bounds, overlap and reference errors are detected | **Runnable separately** without a camera or firmware files; success validates only these checker test cases |
 | `workspace/b2_iiix/test_icon_policy.py` / `test_release_gate.py` | Rejection of invalid builder resources and publication evidence | Included in the selftest stage; uses firmware inputs and a temporary Git repository |
@@ -98,6 +98,8 @@ Paths below are relative to the repository root. “Runnable separately” does 
 | `workspace/b2_iiix/test_playback.py` | Playback parsing in the final BIN, with stock, added and boundary inputs | **Direct execution** uses the default B2.4.1 path in code; use the stage entry below for another path, not a BIN argument to unittest |
 | `tools/gr3-film-mods/verify_slots16.py` | Emulated menu, icon, color-parameter, mode-transition and RAW-development regression | **Runnable directly** with stock BIN, candidate BIN and recipes in slot order; the complete entry point assembles these arguments. Direct runs require checking `FAIL` lines and final `ALL OK`, not exit code alone |
 | `workspace/b2_iiix/verify_offline.py` | Additional container round-trip, change-distribution and selected stock/Cross Process render comparisons | Legacy diagnostic, not a complete gate. Samples only some modes; `FAILED` may not return a nonzero exit code, and some checksum calculations repair the checksum first, so they do not establish original-input checksum validity |
+
+A passing `check_release.py` result establishes evidence consistency, not sufficient camera coverage. It does not replace manual impact review or camera acceptance. Use the corresponding tag to reproduce a published release. Changes to fingerprinted files in the current checkout, including `VERIFICATION.md`, require a new qualification report; do not reuse the archived report for changed sources.
 
 To investigate a single stage, run from the repository root:
 

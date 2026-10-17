@@ -91,7 +91,7 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 |---|---|---|
 | `scripts/prepare_inputs.py` | 输入是否为指定的 IIIx / IV 原厂固件，并准备构建输入 | **可单独运行**；只验证输入，不测试生成的固件 |
 | `workspace/b2_iiix/verify_release.py` | 默认 B2.4.1 的完整电脑端流程与汇总报告 | 首选入口；依赖指定原厂固件、仓库脚本和默认配方，只接受冻结的 B2.4.1 |
-| `workspace/b2_iiix/check_release.py` | 发布前核对完整报告、源码提交、固件与真机反馈的对应关系 | 完整验证并提交后运行；失败则停止发布，见[发布流程与资源约束](../../workspace/b2_iiix/VERIFICATION.md#release-sequence) |
+| `workspace/b2_iiix/check_release.py` | 发布证据一致性检查：核对完整报告、源码提交、固件与真机反馈的对应关系 | 完整验证并提交后运行；失败则停止发布，见[发布流程与资源约束](../../workspace/b2_iiix/VERIFICATION.md#release-sequence) |
 | `workspace/b2_iiix/verification.py` | 地址引用、映射、保护区、分配与写入范围的检查规则 | 库文件，没有独立命令入口；供检查器和单元测试调用 |
 | `workspace/b2_iiix/test_verification.py` | 检查器是否能识别构造的越界、重叠和引用等错误 | **可独立运行**，不需要真机或固件文件；通过只说明这些检查规则的测试通过 |
 | `workspace/b2_iiix/test_icon_policy.py` / `test_release_gate.py` | 构建资源约束和发布证据是否拒绝错误输入 | 由完整入口的 selftest 阶段执行；涉及原厂/候选固件和临时 Git 仓库 |
@@ -99,6 +99,8 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 | `workspace/b2_iiix/test_playback.py` | 最终 BIN 中的回放解析链，含原厂、新增及边界输入 | **可直接运行**，但读取代码中的默认 B2.4.1 路径；指定其他路径用下方分阶段入口，不把 BIN 当作 unittest 参数 |
 | `tools/gr3-film-mods/verify_slots16.py` | 菜单、图标、色彩参数、模式切换及 RAW 显影等仿真回归 | **可直接运行**，但须传入原厂 BIN、候选 BIN 和按槽位顺序排列的配方；推荐由完整入口自动组装参数。直接运行不能只看退出码，要检查 `FAIL` 和最终 `ALL OK` |
 | `workspace/b2_iiix/verify_offline.py` | 补充观察容器往返、修改分布、部分原厂模式及 Cross Process 的渲染差异 | 旧的诊断工具，不是完整放行检查。只抽验部分模式；`FAILED` 不一定产生非零退出码，且部分校验先修复校验和再计算，不能证明输入原有校验和正确 |
+
+`check_release.py` 通过只表示证据相互对应，不能判断真机覆盖是否充分，也不能替代人工影响评审与真机验收。复现已发布版本时请使用对应标签；在当前分支修改被记录指纹的文件（包括 `VERIFICATION.md`）后，需重新生成验证报告，不能沿用旧报告。
 
 只想定位某一阶段时，可从仓库根目录运行：
 
