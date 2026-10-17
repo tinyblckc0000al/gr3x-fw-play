@@ -6,6 +6,7 @@
 
 以下命令在仓库根目录执行。已验证环境为 Apple Silicon macOS、Python 3.14、Homebrew LLVM，并使用系统字体 `DIN Condensed Bold.ttf`。其他环境未验证。
 
+
 ## 默认固件构建与自测
 
 ### 1. 安装依赖
@@ -31,13 +32,13 @@ venv/bin/python scripts/prepare_inputs.py --iiix firmware-inputs/fwdc243b.bin --
 
 输入 SHA256 不匹配时停止；不要替换为其他版本或跳过检查。官方固件不随源码提供。
 
-### 3. 构建默认 B2.4
+### 3. 构建默认 B2.4.1
 
 保持 `presets.json` 和 `fits/` 不变：
 
 ```sh
 mkdir -p workspace/b2_iiix/out
-venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix --presets workspace/b2_iiix/presets.json workspace/b2_iiix/out/fwdc243b-b24-playback.bin
+venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix --presets workspace/b2_iiix/presets.json workspace/b2_iiix/out/fwdc243b-b241.bin
 ```
 
 输出为 BIN 及同名 `.report.json`。构建报错后留下的文件不能使用。
@@ -45,20 +46,20 @@ venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix --presets workspace
 ### 4. 运行自测
 
 ```sh
-venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b24-playback.bin
+venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b241.bin
 ```
 
 #### 测试顺序
 
-1. **先确认对象**：机型、原厂版本和待刷 BIN 必须明确；自己构建时先完成上面的输入检查与构建。修改过配置的版本不属于默认 B2.4，现有冻结版检查器不能直接用于放行。
-2. **运行上面的一条自测命令**：脚本依次执行 `selftest → structure → mutations → playback → references → rebuild → regression`。遇到失败会停下，不要单独挑几个通过项作为完整结果。
-3. **看最终报告**：打开本次输出目录的 `report.json`，顶层 `status` 应为 `PASS`，七个 `stages` 都应为 `PASS`，命令退出码为 0。某条日志中的 `PASS` 或构建成功不代表整套通过；`hardware: NOT_TESTED` 表示没有替你做真机测试。
+1. **先确认对象**：机型、原厂版本和待刷 BIN 必须明确；自己构建时先完成上面的输入检查与构建。修改过配置的版本不属于默认 B2.4.1，现有冻结版检查器不能直接用于放行。
+2. **运行上面的一条自测命令**：脚本依次执行 `selftest → structure → mutations → playback → crop_icons → references → rebuild → regression`。遇到失败会停下，不要单独挑几个通过项作为完整结果。
+3. **看最终报告**：打开本次输出目录的 `report.json`，顶层 `status` 应为 `PASS`，八个 `stages` 都应为 `PASS`，命令退出码为 0。某条日志中的 `PASS` 或构建成功不代表整套通过；`hardware: NOT_TESTED` 表示没有替你做真机测试。
 4. **有异常先停止**：`FAIL`、`TIMEOUT`、`INCOMPLETE`、`NOT_RUN`、仍为 `RUNNING` 或没有最终报告，都不能据此刷机。查看第一个未通过阶段对应的 `.log`；修正原因后重跑完整流程。超时可调整时限，不要删除检查、修改预期指纹或关闭断言。
-5. **最后核对实际写卡文件**：默认 B2.4 全部通过后，将 BIN 按首页说明放到卡内，并核对卡内文件的 SHA256。检查后又改了配置或重新生成文件，就必须重新核验。
+5. **最后核对实际写卡文件**：默认 B2.4.1 全部通过后，将 BIN 按首页说明放到卡内，并核对卡内文件的 SHA256。检查后又改了配置或重新生成文件，就必须重新核验。
 
 > 直接使用发布成品的用户无需搭建开发环境重跑仿真，但仍需确认兼容范围及卡内 BIN 指纹与发布值一致。核对下载完整性不代表对相机安全作保证。
 
-检查及其目的如下；这些检查针对默认 B2.4，不等于对任意修改版的安全保证。
+检查及其目的如下；这些检查针对默认 B2.4.1，不等于对任意修改版的安全保证。
 
 | 检查 | 主要避免的问题 | 对应实现 |
 |---|---|---|
@@ -68,7 +69,7 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 | 容器校验和、分区布局 | 打包损坏或布局变化导致无法加载 | `structure` |
 | 菜单计数、回放映射和 ARM 仿真 | 预设缺项、图标空白、错误分支或破坏原厂模式（含 Cross Process） | `playback`、`regression` |
 | 故障注入、检查工具自测 | 检查器漏报，出现假通过 | `selftest`、`mutations`；仅覆盖已设置的错误案例 |
-| 确定性重建 | 相同配置生成不同结果，发布文件与验证对象不一致 | `rebuild`，与冻结的 B2.4 指纹比较 |
+| 确定性重建 | 相同配置生成不同结果，发布文件与验证对象不一致 | `rebuild`，与冻结的 B2.4.1 指纹比较 |
 
 所有阶段 `PASS`、退出码为 0 才算完成；失败、超时、跳过或中断均不算通过。分配记录来自构建器，仿真也只覆盖设定路径，无法完整模拟传感器、存储卡和实时任务；RAW/DNG 是否正常仍需真机拍摄及读片确认。
 
@@ -80,7 +81,7 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 - 不使用 `python -O` 或 `PYTHONOPTIMIZE`，避免禁用断言检查。
 - [文件指纹见首页](../../README.md#文件校验)，不要修改预期值来绕过检查。
 
-默认 B2.4 通过后，将输出文件复制并命名为 `fwdc243b.bin`，按[首页安装说明](../../README.md#固件直接安装步骤)操作。电脑端检查不能代替相机自测。
+默认 B2.4.1 通过后，将输出文件复制并命名为 `fwdc243b.bin`，按[首页安装说明](../../README.md#固件直接安装步骤)操作。电脑端检查不能代替相机自测。
 
 #### 测试说明
 
@@ -89,10 +90,11 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 | 文件 | 用来查什么 | 能否单独使用及限制 |
 |---|---|---|
 | `scripts/prepare_inputs.py` | 输入是否为指定的 IIIx / IV 原厂固件，并准备构建输入 | **可单独运行**；只验证输入，不测试生成的固件 |
-| `workspace/b2_iiix/verify_release.py` | 默认 B2.4 的完整电脑端流程与汇总报告 | 首选入口；依赖指定原厂固件、仓库脚本和默认配方，只接受冻结的 B2.4 |
+| `workspace/b2_iiix/verify_release.py` | 默认 B2.4.1 的完整电脑端流程与汇总报告 | 首选入口；依赖指定原厂固件、仓库脚本和默认配方，只接受冻结的 B2.4.1 |
 | `workspace/b2_iiix/verification.py` | 地址引用、映射、保护区、分配与写入范围的检查规则 | 库文件，没有独立命令入口；供检查器和单元测试调用 |
 | `workspace/b2_iiix/test_verification.py` | 检查器是否能识别构造的越界、重叠和引用等错误 | **可独立运行**，不需要真机或固件文件；通过只说明这些检查规则的测试通过 |
-| `workspace/b2_iiix/test_playback.py` | 最终 BIN 中的回放解析链，含原厂、新增及边界输入 | **可直接运行**，但读取代码中的默认 B2.4 路径；指定其他路径用下方分阶段入口，不把 BIN 当作 unittest 参数 |
+| `workspace/b2_iiix/test_crop_icons.py` | 原厂裁切图标描述符、尺寸、像素及拍摄/回放预设图标一致性 | 依赖指定固件与默认 B2.4.1；完整入口会传入实际待测 BIN |
+| `workspace/b2_iiix/test_playback.py` | 最终 BIN 中的回放解析链，含原厂、新增及边界输入 | **可直接运行**，但读取代码中的默认 B2.4.1 路径；指定其他路径用下方分阶段入口，不把 BIN 当作 unittest 参数 |
 | `tools/gr3-film-mods/verify_slots16.py` | 菜单、图标、色彩参数、模式切换及 RAW 显影等仿真回归 | **可直接运行**，但须传入原厂 BIN、候选 BIN 和按槽位顺序排列的配方；推荐由完整入口自动组装参数。直接运行不能只看退出码，要检查 `FAIL` 和最终 `ALL OK` |
 | `workspace/b2_iiix/verify_offline.py` | 补充观察容器往返、修改分布、部分原厂模式及 Cross Process 的渲染差异 | 旧的诊断工具，不是完整放行检查。只抽验部分模式；`FAILED` 不一定产生非零退出码，且部分校验先修复校验和再计算，不能证明输入原有校验和正确 |
 
@@ -102,7 +104,7 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 # 测试检查器自身，第二条只执行回放仿真
 venv/bin/python -m unittest discover -s workspace/b2_iiix -p 'test_verification.py'
 # `--stage` 是排查入口，不生成完整汇总报告，也不执行其他阶段；局部通过不能代替第 4 节的完整命令
-venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b24-playback.bin --stage playback
+venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b241.bin --stage playback
 ```
 
 #### 自己扩展改动任意代码，组织测试时请至少覆盖以下方面
@@ -129,7 +131,7 @@ venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc24
 
 保留配置、报告、操作顺序和异常原片。出现异常停止继续拍摄测试，参考首页的恢复说明；刷机过程中不要因为等待时间长而贸然断电。上述观察只能发现部分问题，无法证明 RAW/DNG 完全干净或长期稳定。
 
-这些是个人项目的自测参考，不代表全部已覆盖。当前仅有单台普通 IIIx 的反馈，留存样片覆盖七套新增预设；其他机型和长期稳定性未验证。
+这些是个人项目的自测参考，不代表全部已覆盖。历史 B2.4 的单台普通 IIIx 反馈和留存样片覆盖七套新增预设；B2.4.1 尚待相机复测，其他机型和长期稳定性未验证。
 
 ### 6. 让 AI 帮忙分析结果
 
@@ -150,7 +152,7 @@ AI 用于解释证据和协助排查，降低已知问题存在的可能性，�
 
 - 保留键 `25–32` 和八个槽位；当前配置加载器固定要求此范围。
 - 图标标签为 1–4 个可打印 ASCII 字符，颜色为三个 0–255 整数。模板形状需修改源码。
-- 名称、颜色和曲线等改动都会改变文件指纹。现有 `verify_release.py` 只接受默认 B2.4，不能作为自定义固件的通用校验入口，也不要改掉预期指纹来绕过检查。
+- 名称、颜色和曲线等改动都会改变文件指纹。现有 `verify_release.py` 只接受默认 B2.4.1，不能作为自定义固件的通用校验入口，也不要改掉预期指纹来绕过检查。
 
 ### 图标与配置编辑
 
@@ -194,7 +196,7 @@ venv/bin/python workspace/b2_iiix/presets_config.py workspace/b2_iiix/presets-ex
 venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix --presets workspace/b2_iiix/presets-example.json workspace/b2_iiix/out/fwdc243b-example.bin
 ```
 
-这只生成候选文件。默认自测入口固定检查 B2.4，会拒绝修改后的产物；自定义完整检查流程尚未补齐，不应将构建成功视为可以刷入。新配方制作和内部参数编辑不在本说明范围内。
+这只生成候选文件。默认自测入口固定检查 B2.4.1，会拒绝修改后的产物；自定义完整检查流程尚未补齐，不应将构建成功视为可以刷入。新配方制作和内部参数编辑不在本说明范围内。
 
 ## 实现原理与扩展约束
 
@@ -220,11 +222,11 @@ assert 1 <= n <= len(LEGACY_SLOTS)
 #### 2. 图标资源与兼容性
 
 ```python
-ICON_IDS = (0x05, 0x06, 0x07, 0x1D, 0x2D, 0x2E, 0x2A0, 0x2A1, 0x2A2)
+ICON_IDS = (0x05, 0x06, 0x07, 0x1D, 0x2A0, 0x2A1, 0x2A2, 0x2A3, 0x2A4)
 NEW_ICON0, ICON_BOUND = 0x2A0, 0x29E
 ```
 
-按现有源码的资源识别，前六个 ID 复用 HDF 开关状态、IIIx 认证标志及 TELE/71mm 裁切图标；后三个使用新增描述符。默认八套使用前八个 ID。
+当前源码前四个 ID 仍复用 HDF 开关状态和 IIIx 认证标志，后五个使用新增描述符；默认八套使用前八个 ID。旧 B2.4 把 TELE/71mm 的 `0x2D/0x2E` 用作预设图标，会造成裁切图标异常；B2.4.1 保留这两个原厂资源。
 
 新 ID 通过补丁接入图标宽度、高度和绘制三个已知消费点。扩展时需检查其他直接索引图标表或判断上界的代码。HDF 等机型可能实际使用这些被复用的图标，不能直接套用；影响不限于新增预设自己的显示。
 
@@ -242,7 +244,7 @@ Custom 1/2 使用显示 tone 23/24，新增胶片从 25 开始；默认八套的
 
 #### 4. 空间预算与打包
 
-B2.4 的 `PRESERVE_SPANS` 为两段半开区间：
+B2.4.1 的 `PRESERVE_SPANS` 为两段半开区间：
 
 | 区间 | 总容量 |
 |---|---|
@@ -258,6 +260,6 @@ B2.4 的 `PRESERVE_SPANS` 为两段半开区间：
 新增配方会使用曲线表指针。preserve 路径恢复共享指针，并保留 tone 21（Cross Process）的原厂分支，防止上一套胶片状态影响后续原厂模式。
 改动后应检查“胶片 → Cross Process → 其他原厂模式”的切换，不只是单独渲染一张照片。
 
-扩展还需补齐配置对应的映射、边界、原厂模式与仿真测试。现有 `verify_release.py` 通过固定 SHA256 验证默认 B2.4，会拒绝新的构建；修改计数期望或替换指纹都不能代替完整的自定义验证。
+扩展还需补齐配置对应的映射、边界、原厂模式与仿真测试。现有 `verify_release.py` 通过固定 SHA256 验证默认 B2.4.1，会拒绝新的构建；修改计数期望或替换指纹都不能代替完整的自定义验证。
 
 ## 总之，如果自己不是特别懂的话，小心使得万年船，请多跟AI交流，交叉验证可靠性！！觉得理光不贵的请随意～

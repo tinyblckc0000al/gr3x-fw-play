@@ -21,7 +21,7 @@ class PlaybackTests(unittest.TestCase):
         e.extra_stubs[0x5320B97C] = model
         tones = [11, 12, 10, 14, 15, 16, 17, 8, 19, 20, 21, 22, 25, 26, 27, 28, 29, 30, 31, 32]
         icons = [0x166, 0x224, 0x162, 0x165, 0x15E, 0x160, 0xE8, 0x15A, 0x164, 0x15F, 0x32, 0x17,
-                 5, 6, 7, 0x1D, 0x2D, 0x2E, 0x2A0, 0x2A1]
+                 5, 6, 7, 0x1D, 0x2A0, 0x2A1, 0x2A2, 0x2A3]
         for index, (tone, icon) in enumerate(zip(tones, icons)):
             with self.subTest(code=hex(0x100 + index)):
                 e.extra_stubs[0x535D04D4] = 0x100 + index

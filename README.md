@@ -4,7 +4,7 @@
 
 **让 GR IIIx 拥有 22 套影像控制：12 套原厂预设＋2 套自定义＋8 套新增胶片预设。** 原有模式全部保留，新增的八个预设槽位可替换。可以使用默认配方，也可以更换配方后重新生成固件。项目另提供独立的关机图片自定义方案。
 
-- **直接使用八套预设**：下载[成品固件](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4)，按[安装步骤](#固件直接安装步骤)操作，无需开发工具。
+- **直接使用八套预设**：下载[成品固件](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4.1)，按[安装步骤](#固件直接安装步骤)操作，无需开发工具。
 - **只更换关机图片**：下载[独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)，独立安装，需先启用相机内置的脚本执行功能（Script），不能仅复制图片到卡里使用。
 - **替换配方、名称或图标**：查看[自定义预设](docs/guides/BUILD.md#自定义预设)，按说明重新构建；自定义版本的校验范围也在该节说明。
 - **自行构建或研究代码**：阅读[源码构建与自测](docs/guides/BUILD.md)。
@@ -15,7 +15,7 @@
 
 ## 功能概述
 
-**B2.4 基于 GR IIIx 原厂 1.60**，内置新增胶片预设（Portra 400、Ektar 100、Gold 200、Pro 400H、Vision3 250D、Classic Negative、Vision3 500T、Velvia 50）。安装后，可在拍摄快捷菜单和 MENU → 影像控制中选择，拍摄对应风格的 JPEG，并在回放时识别预设。名称表示色彩模拟目标，实际效果也受曝光、白平衡和场景影响。
+**B2.4.1 基于 GR IIIx 原厂 1.60**，内置新增胶片预设（Portra 400、Ektar 100、Gold 200、Pro 400H、Vision3 250D、Classic Negative、Vision3 500T、Velvia 50）。安装后，可在拍摄快捷菜单和 MENU → 影像控制中选择，拍摄对应风格的 JPEG，并在回放时识别预设。名称表示色彩模拟目标，实际效果也受曝光、白平衡和场景影响。
 
 ### 原理简述
 
@@ -34,7 +34,7 @@
 
 ## 适用机型与版本
 
-本教程适用于**普通版 GR IIIx、原厂固件 1.60**，实测来自一台设备。可在 MENU → 设置 → 关于本机 → 固件信息／选项查看版本（名称以相机语言为准）。
+本教程面向**普通版 GR IIIx、原厂固件 1.60**。此前 B2.4 的实测来自一台设备；本次 B2.4.1 仅完成电脑端验证，尚未完成相机复测。可在 MENU → 设置 → 关于本机 → 固件信息／选项查看版本（名称以相机语言为准）。
 
 | 相机当前情况 | 是否适用本教程 |
 |---|---|
@@ -51,9 +51,9 @@
 
 刷机前请先看[测试顺序与结果判断](docs/guides/BUILD.md#4-运行自测)：成品包核对兼容性和文件指纹；自行构建需先完成电脑检查，再逐步做相机自测。
 
-[下载 BIN](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/fwdc243b.bin) · [下载 ZIP](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/gr3x-film-slots-b2.4.zip) · [版本说明](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4)
+[下载 BIN](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4.1/fwdc243b.bin) · [下载 ZIP](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4.1/gr3x-film-slots-b2.4.1.zip) · [版本说明](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4.1)
 
-适用于普通版 GR IIIx 1.60。准备 B2.4 成品包、读卡器、存储卡和充满电的相机，无需安装开发工具。下面以 Mac 为例。
+适用于普通版 GR IIIx 1.60。准备 B2.4.1 成品包、读卡器、存储卡和充满电的相机，无需安装开发工具。下面以 Mac 为例。
 
 ### 1. 将固件放到存储卡
 
@@ -86,7 +86,7 @@
 
 正常开机，进入 **MENU → 影像控制**，确认新增预设可选；选一套拍照，检查照片和回放图标。
 
-**为什么仍显示 1.60？** 保留原厂版本字段，避免引入未经验证的更新行为，不要自行改号。B2.4 是项目发布版本，下载文件用 [SHA256](#文件校验) 区分；机内的 1.60 显示不能识别具体修改版。
+**为什么仍显示 1.60？** 保留原厂版本字段，避免引入未经验证的更新行为，不要自行改号。B2.4.1 是项目发布版本，下载文件用 [SHA256](#文件校验) 区分；机内的 1.60 显示不能识别具体修改版。
 
 确认后，在相机内格式化更新卡，清除更新文件，再用于日常拍摄；刚拍的测试照片如果要保留，先备份。出现闪屏、死机或照片异常时停止使用，并保留样片反馈。
 
@@ -104,7 +104,7 @@
 
 ## 文件校验
 
-计算结果与 [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/SHA256SUMS.txt) 对照（命令中的路径替换为实际固件文件）：
+计算结果与 [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4.1/SHA256SUMS.txt) 对照（命令中的路径替换为实际固件文件）：
 
 - Mac：`shasum -a 256 /路径/fwdc243b.bin`
 - Windows PowerShell：`Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`。
@@ -112,13 +112,15 @@
 ## 自定义与开发文档
 
 - [源码构建与自测](docs/guides/BUILD.md)：默认构建、配置说明、自测和扩展约束。
-- **关机图片替换**：[下载独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)。由相机执行包内 `.ttl` 脚本写入图片，已在本机确认效果。B2.4 固件本身不负责启用脚本功能；当前包只包含启用后的安装与清理步骤，见包内 `README.txt`，首次启用说明尚待补齐。
+- **关机图片替换**：[下载独立图片包](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0)。由相机执行包内 `.ttl` 脚本写入图片，已在本机确认效果。B2.4.1 固件本身不负责启用脚本功能；当前包只包含启用后的安装与清理步骤，见包内 `README.txt`，首次启用说明尚待补齐。
 
 ![自定义关机画面实拍（独立安装）](docs/images/shutdown-camera.jpg)
 
 ## 自测情况与已知限制
 
-默认 B2.4 通过了修改区域、菜单与回放映射检查及 91 项回归检查，可重建出指纹一致的文件。真机已确认 MENU 进入、预设选择和回放信息正常；现有九组 RAW+JPEG 样片覆盖七套新增预设。
+B2.4.1 修复 Fn 裁切菜单中 TELE／71mm 图标被预设图标替换的问题，保留原厂裁切资源。默认八预设构建通过完整八阶段电脑端检查，包含 91 项功能回归、5 项图标与映射测试和确定性重建。
+
+本次版本尚未完成相机复测。此前 B2.4 的单机测试确认过 MENU 进入、预设选择和回放信息；九组 RAW+JPEG 样片覆盖七套新增预设，这些历史样片不能代替 B2.4.1 的实测。HDF 状态与认证页仍复用部分资源，本次只修复裁切图标，不扩大机型兼容范围。
 
 ### 其他机型和品牌参考价值
 

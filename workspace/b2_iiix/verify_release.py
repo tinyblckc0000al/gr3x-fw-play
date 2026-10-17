@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One-command, read-only qualification of the frozen B2.4 release. See VERIFICATION.md."""
+"""One-command, read-only qualification of B2.4.1. See VERIFICATION.md."""
 import argparse
 import datetime
 import hashlib
@@ -19,8 +19,8 @@ sys.path.insert(0, str(FM))
 import verification as V
 
 STOCK = ROOT / 'firmware/official-v160/fwdc243b.bin'
-DEFAULT = HERE / 'out/fwdc243b-b24-playback.bin'
-STAGES = ('selftest', 'structure', 'mutations', 'playback', 'references', 'rebuild', 'regression')
+DEFAULT = HERE / 'out/fwdc243b-b241.bin'
+STAGES = ('selftest', 'structure', 'mutations', 'playback', 'crop_icons', 'references', 'rebuild', 'regression')
 
 
 def sha(path):
@@ -42,7 +42,7 @@ def decode(path):
 
 def structure(candidate):
     V.require(sha(STOCK) == V.STOCK_SHA, 'wrong stock firmware')
-    V.require(sha(candidate) == V.B24_SHA, 'candidate is not the frozen B2.4 release')
+    V.require(sha(candidate) == V.RELEASE_SHA, 'candidate is not the frozen B2.4.1 release')
     stock, sr, rows = decode(STOCK)
     patched, pr, prows = decode(candidate)
     V.require(rows == prows, 'section layout changed')
@@ -96,6 +96,15 @@ def playback(candidate):
     V.require(result.wasSuccessful(), 'actual playback chain failed')
 
 
+def crop_icons(candidate):
+    import unittest
+    from test_crop_icons import CropIconTests
+    CropIconTests.candidate = candidate
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(CropIconTests)
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    V.require(result.wasSuccessful(), 'factory crop resources or film icons failed')
+
+
 def references(candidate):
     import numpy as np
     _, stock, _ = decode(STOCK)
@@ -143,7 +152,7 @@ def rebuild(candidate):
         m16.patch_exif_tone(image, films)
         m16.patch_playback_detail(image, films)
         built, _ = image.build()
-        V.require(hashlib.sha256(built).hexdigest() == V.B24_SHA, 'rebuild SHA differs from frozen B2.4')
+        V.require(hashlib.sha256(built).hexdigest() == V.RELEASE_SHA, 'rebuild SHA differs from frozen B2.4.1')
         V.require(built == candidate.read_bytes(), 'rebuilt bytes differ from candidate')
         print('PASS deterministic rebuild;', len(allocations), 'nonoverlapping allocations')
         print('allocations:', json.dumps(allocations))
@@ -219,7 +228,8 @@ def main():
                   candidate_sha256=sha(candidate), stock_sha256=sha(STOCK), python=sys.version,
                   dependencies={p: importlib.metadata.version(p) for p in ('capstone', 'unicorn', 'numpy')},
                   source_sha256={str(p.relative_to(ROOT)): sha(p) for p in sorted(sources)}, stages=[],
-                  limitations=['Frozen B2.4 only; new release requires reviewed expectations.',
+                  release='b2.4.1',
+                  limitations=['Frozen B2.4.1 only; custom builds require independent verification.',
                                'Linear ARM scan is not complete indirect-address or Thumb analysis.',
                                'Offline checks do not establish DNG cleanliness or hardware safety.',
                                'Rebuild allocation ledger is builder-derived evidence, not independent ownership proof.'])

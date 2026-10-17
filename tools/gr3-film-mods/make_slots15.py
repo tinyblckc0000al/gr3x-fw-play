@@ -62,10 +62,11 @@ LEGACY_SLOTS = (1, 2, 3, 4, 5, 7, 9, 8, 6)  # unreachable records; own single-re
 NEW_MAT_SLOTS = (6,)
 YCC_SETS = 0x55018E4C                       # per-slot YCbCr set table (read next to RECORDS at 0x536DC2BC)                        # stock look matrix shared -> the film's matrix goes into the curve area
 SID0 = 0x380                                # string ids of the film names
-# icon ids taken over for the films: HDF on/off (0x05-0x07, HDF models only), GR IIIx certification marks (0x1D,
-# 720x360; the GR III shows 0x1E) and GR IIIx TELE / 71mm crop (0x2D, 0x2E). 0x05-0x07 are 40x40 and are redrawn in
-# place; 0x1D/0x2D/0x2E get 40x40 descriptors inside 0x1D's pixel area. Only for a GR III without HDF.
-ICON_IDS = (0x05, 0x06, 0x07, 0x1D, 0x2D, 0x2E, 0x2A0, 0x2A1, 0x2A2)
+# HDF on/off (0x05-0x07) are redrawn in place; 0x1D (IIIx certification,
+# 720x360) and five added descriptors use slices of 0x1D's pixels. Keep
+# 0x2D/0x2E intact: IIIx actively uses them for TELE / 71mm crop indicators.
+# HDF and certification resources are still reused; this is not HDF support.
+ICON_IDS = (0x05, 0x06, 0x07, 0x1D, 0x2A0, 0x2A1, 0x2A2, 0x2A3, 0x2A4)
 NEW_ICON0, ICON_BOUND = 0x2A0, 0x29E          # ids >= NEW_ICON0 served from a descriptor table
 ICON_G1_FAIL, ICON_G2_FAIL = 0x53209FC4, 0x53209FF8   # id getters (width / height): out-of-range path 'mov r0,#0'
 ICON_DRAW_BOUND, ICON_DRAW_AT, ICON_DRAW_RET = 0x5320A7CC, 0x5320A80C, 0x5320A814   # draw fn 0x5320A7AC

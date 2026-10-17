@@ -1,4 +1,4 @@
-"""Independent, fail-closed checks for the frozen GR IIIx 1.60 B2.4 release.
+"""Independent, fail-closed checks for the frozen GR IIIx 1.60 B2.4.1 release.
 
 No patch-generator imports. Linear reference scanning is evidence, not a proof
 against arbitrary indirect addressing or dynamically generated code.
@@ -7,9 +7,9 @@ import struct
 
 BASE = 0x53000000
 SPANS = [(0x53D453F8, 0x53D45CB0), (0x53D39C8C, 0x53D3A588)]
-B24_SHA = '8e5f7a638cfc971aca26de27fdb7ea7296398a29260c7fa1a0ff916764288ca5'
+RELEASE_SHA = '88829723a3a1f8edfe70c0153c636d51fda2bdd2aac75641195142560b7e8128'
 STOCK_SHA = '708e79f3b7b96a7e1581b4acf4c412233050a1832718ef7f06c8397db1b431c7'
-ICONS = (5, 6, 7, 0x1D, 0x2D, 0x2E, 0x2A0, 0x2A1)
+ICONS = (5, 6, 7, 0x1D, 0x2A0, 0x2A1, 0x2A2, 0x2A3)
 FACTORY_TONES = (11, 12, 10, 14, 15, 16, 17, 8, 19, 20, 21, 22)
 FACTORY_ICONS = (0x15A, 0, 0x162, 0x166, 0x224, 0, 0x165, 0x15E, 0x160, 0xE8, 0, 0x164, 0x15F, 0x32, 0x17)
 TABLES = ((0x53D3A2DC, bytes(range(1, 21))),

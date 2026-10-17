@@ -4,7 +4,7 @@
 
 **22 Image Controls on the GR IIIx: 12 factory presets + 2 custom options + 8 extra film looks.** All original modes are retained, and the eight added preset slots can be replaced. Use the default recipes or rebuild the firmware with a different configuration. Shutdown-image customization is a separate feature.
 
-- **Use the eight presets**: download the [ready-made firmware](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4) and follow the [installation steps](#firmware-installation). No development tools needed.
+- **Use the eight presets**: download the [ready-made firmware](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4.1) and follow the [installation steps](#firmware-installation). No development tools needed.
 - **Change only the shutdown image**: use the [separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). Installed separately; the camera’s built-in script execution feature (Script) must be enabled first. Copying an image to the card alone will not install it.
 - **Change recipes, names or icons**: see [custom presets](docs/guides/BUILD.en.md#custom-presets) for rebuilding instructions and custom-build verification limits.
 - **Build or explore the code**: see [source build and self-tests](docs/guides/BUILD.en.md).
@@ -15,7 +15,7 @@ Built on gr3-film-mods, this project adapts the preset expansion to **GR IIIx 1.
 
 ## Features
 
-**B2.4 is based on stock GR IIIx firmware 1.60.** The added film presets are Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.
+**B2.4.1 is based on stock GR IIIx firmware 1.60.** The added film presets are Portra 400, Ektar 100, Gold 200, Pro 400H, Vision3 250D, Classic Negative, Vision3 500T and Velvia 50. Select them from the shooting shortcut or MENU → Image Control, shoot in-camera JPEGs and identify the preset in playback. Names describe color targets; exposure, white balance and the scene also affect results.
 
 ### How it works
 
@@ -34,7 +34,7 @@ This extends Image Control without using U1/U2/U3. Changing recipes requires reb
 
 ## Camera and firmware compatibility
 
-These instructions apply to a **standard GR IIIx on stock firmware 1.60**, tested on one camera. Check MENU → Setup → About This Device → Firmware Info / Options (wording varies by language).
+These instructions target a **standard GR IIIx on stock firmware 1.60**. Earlier B2.4 testing used one camera; B2.4.1 has computer-side validation only and has not been retested on a camera. Check MENU → Setup → About This Device → Firmware Info / Options (wording varies by language).
 
 | Current setup | Applicability |
 |---|---|
@@ -50,9 +50,9 @@ These instructions apply to a **standard GR IIIx on stock firmware 1.60**, teste
 
 Before installing, read [test order and result interpretation](docs/guides/BUILD.en.md#4-run-self-tests): check compatibility and file hashes for the supplied release; source builds require computer-side checks before gradual camera self-tests.
 
-[Download BIN](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/fwdc243b.bin) · [Download ZIP](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/gr3x-film-slots-b2.4.zip) · [Release notes](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4)
+[Download BIN](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4.1/fwdc243b.bin) · [Download ZIP](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4.1/gr3x-film-slots-b2.4.1.zip) · [Release notes](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4.1)
 
-For standard GR IIIx 1.60. Prepare the B2.4 ready-made package, a card reader, an SD card and a fully charged camera. No development tools are needed. The steps below use a Mac.
+For standard GR IIIx 1.60. Prepare the B2.4.1 ready-made package, a card reader, an SD card and a fully charged camera. No development tools are needed. The steps below use a Mac.
 
 ### 1. Put the firmware on the card
 
@@ -85,7 +85,7 @@ If the update screen does not appear or a card error is shown, stop and check th
 
 Power on normally and open **MENU → Image Control**. Confirm that the added presets are selectable. Take a photo with one preset and check the image and playback icon.
 
-**Why does the camera still show 1.60?** Stock version fields are retained to avoid introducing untested update behavior; do not change them manually. B2.4 is the project release version, and [SHA256](#file-checksum) identifies the downloaded file. The camera’s 1.60 display cannot identify the specific modified build.
+**Why does the camera still show 1.60?** Stock version fields are retained to avoid introducing untested update behavior; do not change them manually. B2.4.1 is the project release version, and [SHA256](#file-checksum) identifies the downloaded file. The camera’s 1.60 display cannot identify the specific modified build.
 
 After checking, format the update card in-camera to remove the update file before everyday use; back up any test photos you want to keep first. Stop using the modified firmware if you encounter flickering, crashes or abnormal files, and retain samples for troubleshooting.
 
@@ -101,7 +101,7 @@ If the updater cannot be reached, rejects a same-version update or problems pers
 
 ## File checksum
 
-Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4/SHA256SUMS.txt). Replace the example path with your firmware file:
+Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/download/b2.4.1/SHA256SUMS.txt). Replace the example path with your firmware file:
 
 - Mac: `shasum -a 256 /path/fwdc243b.bin`
 - Windows PowerShell: `Get-FileHash -Algorithm SHA256 "E:\fwdc243b.bin"`.
@@ -109,13 +109,15 @@ Compare the result with [SHA256SUMS.txt](https://github.com/tinyblckc0000al/gr3x
 ## Customization and development
 
 - [Source build and self-tests](docs/guides/BUILD.en.md): default builds, configuration, self-tests and extension constraints.
-- **Shutdown image replacement:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). The camera runs the included `.ttl` scripts to write the image; this has been confirmed on the test camera. B2.4 does not itself enable script execution. The package covers installation and cleanup after that feature is enabled; see its `README.txt`. First-time enablement instructions are still pending.
+- **Shutdown image replacement:** [Download the separate image package](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/shutdown-v1.0). The camera runs the included `.ttl` scripts to write the image; this has been confirmed on the test camera. B2.4.1 does not itself enable script execution. The package covers installation and cleanup after that feature is enabled; see its `README.txt`. First-time enablement instructions are still pending.
 
 ![Custom shutdown image on the camera (separate installation)](docs/images/shutdown-camera.jpg)
 
 ## Self-tests and known limitations
 
-Default B2.4 passed checks for modified regions, menu/playback mappings and 91 regression checks, and can be rebuilt with an identical hash. On the camera, menu entry, preset selection and playback information have been confirmed. Nine retained RAW+JPEG pairs cover seven added presets.
+B2.4.1 fixes film icons replacing the factory TELE/71mm crop indicators in the Fn menu. The default eight-preset build passes all eight computer-side stages, including 91 functional checks, 5 icon/mapping tests and a deterministic rebuild.
+
+This version has not been retested on a camera. Earlier single-camera B2.4 testing confirmed menu entry, preset selection and playback information; nine retained RAW+JPEG pairs cover seven added presets. Those historical samples do not validate B2.4.1. Some HDF-state and certification resources remain reused; this release fixes crop icons and does not expand model compatibility.
 
 ### Applicability to other cameras and brands
 

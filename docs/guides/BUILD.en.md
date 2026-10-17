@@ -6,6 +6,7 @@
 
 Run commands from the repository root. Tested environment: Apple Silicon macOS, Python 3.14, Homebrew LLVM and the system `DIN Condensed Bold.ttf` font. Other environments are untested.
 
+
 ## Default firmware build and self-tests
 
 ### 1. Install dependencies
@@ -31,13 +32,13 @@ venv/bin/python scripts/prepare_inputs.py --iiix firmware-inputs/fwdc243b.bin --
 
 Stop if input hashes do not match; do not substitute versions or bypass checks. Official firmware is not included in the source repository.
 
-### 3. Build default B2.4
+### 3. Build default B2.4.1
 
 Leave `presets.json` and `fits/` unchanged:
 
 ```sh
 mkdir -p workspace/b2_iiix/out
-venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix --presets workspace/b2_iiix/presets.json workspace/b2_iiix/out/fwdc243b-b24-playback.bin
+venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix --presets workspace/b2_iiix/presets.json workspace/b2_iiix/out/fwdc243b-b241.bin
 ```
 
 Outputs are the BIN and its `.report.json`. Do not use files left behind by a failed build.
@@ -45,20 +46,20 @@ Outputs are the BIN and its `.report.json`. Do not use files left behind by a fa
 ### 4. Run self-tests
 
 ```sh
-venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b24-playback.bin
+venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b241.bin
 ```
 
 #### Test order
 
-1. **Identify the target:** confirm the camera, stock version and exact BIN. For a source build, complete input validation and building above first. Modified configurations are not frozen B2.4 and cannot be cleared by its verifier.
-2. **Run the single command above:** stages run as `selftest → structure → mutations → playback → references → rebuild → regression`. A failed stage stops the sequence; selected passing stages are not a complete result.
-3. **Read the final report:** in the current run’s `report.json`, the top-level `status` and all seven `stages` must be `PASS`, with command exit code 0. One passing log line or a successful build is insufficient. `hardware: NOT_TESTED` means no camera testing was performed by the script.
+1. **Identify the target:** confirm the camera, stock version and exact BIN. For a source build, complete input validation and building above first. Modified configurations are not frozen B2.4.1 and cannot be cleared by its verifier.
+2. **Run the single command above:** stages run as `selftest → structure → mutations → playback → crop_icons → references → rebuild → regression`. A failed stage stops the sequence; selected passing stages are not a complete result.
+3. **Read the final report:** in the current run’s `report.json`, the top-level `status` and all eight `stages` must be `PASS`, with command exit code 0. One passing log line or a successful build is insufficient. `hardware: NOT_TESTED` means no camera testing was performed by the script.
 4. **Stop on incomplete or failed results:** `FAIL`, `TIMEOUT`, `INCOMPLETE`, `NOT_RUN`, a remaining `RUNNING`, or no final report does not clear a file for installation. Read the first unsuccessful stage’s `.log`, resolve the cause and rerun the full sequence. Adjust timeouts if necessary; do not remove checks, change expected hashes or disable assertions.
-5. **Check the actual card copy last:** after default B2.4 passes, follow the README to copy the BIN and verify its SHA256 on the card. Any subsequent configuration edit or regenerated file requires another verification run.
+5. **Check the actual card copy last:** after default B2.4.1 passes, follow the README to copy the BIN and verify its SHA256 on the card. Any subsequent configuration edit or regenerated file requires another verification run.
 
 > Users installing the supplied release do not need a development environment to rerun emulation, but must check compatibility and the card’s BIN against the published hash. Download integrity is not a camera-safety guarantee.
 
-The checks below target frozen B2.4; they do not establish safety for arbitrary modified builds.
+The checks below target frozen B2.4.1; they do not establish safety for arbitrary modified builds.
 
 | Check | Main failure it helps prevent | Implementation |
 |---|---|---|
@@ -68,7 +69,7 @@ The checks below target frozen B2.4; they do not establish safety for arbitrary 
 | Container checksums and section layout | Damaged packaging or changed layout preventing loading | `structure` |
 | Menu counts, playback mappings and ARM emulation | Missing presets, blank icons, wrong branches or regressions in stock modes, including Cross Process | `playback`, `regression` |
 | Fault injection and checker self-tests | Missed errors and false passes | `selftest`, `mutations`; limited to the injected cases |
-| Deterministic rebuilding | Different results from identical configuration, or a release differing from the verified file | `rebuild`, compared with the frozen B2.4 hash |
+| Deterministic rebuilding | Different results from identical configuration, or a release differing from the verified file | `rebuild`, compared with the frozen B2.4.1 hash |
 
 All stages must report `PASS` with exit code 0; failure, timeout, skipped stages or interruption do not count as a pass. Allocation records come from the builder, and emulation covers selected paths rather than the full sensor, storage and real-time system. RAW/DNG integrity still requires camera capture and file inspection.
 
@@ -79,7 +80,7 @@ After downloading or copying to a card, use the README checksum instructions to 
 - Do not use `python -O` or `PYTHONOPTIMIZE`, which disable assertions.
 - See the [README checksum section](../../README.en.md#file-checksum); do not change the expected hash to bypass checks.
 
-After default B2.4 passes, copy the output as `fwdc243b.bin` and follow the [installation instructions](../../README.en.md#firmware-installation). Computer-side checks do not replace camera self-tests.
+After default B2.4.1 passes, copy the output as `fwdc243b.bin` and follow the [installation instructions](../../README.en.md#firmware-installation). Computer-side checks do not replace camera self-tests.
 
 #### Test reference
 
@@ -88,10 +89,11 @@ Paths below are relative to the repository root. “Runnable separately” does 
 | File | What it investigates | Separate use and limits |
 |---|---|---|
 | `scripts/prepare_inputs.py` | Identity of the required IIIx / IV stock inputs and input preparation | **Runnable separately**; checks inputs, not the generated firmware |
-| `workspace/b2_iiix/verify_release.py` | Complete computer-side checks and summary for default B2.4 | Preferred entry point; requires stock firmware, repository scripts and default recipes, and accepts only frozen B2.4 |
+| `workspace/b2_iiix/verify_release.py` | Complete computer-side checks and summary for default B2.4.1 | Preferred entry point; requires stock firmware, repository scripts and default recipes, and accepts only frozen B2.4.1 |
 | `workspace/b2_iiix/verification.py` | Reference, mapping, protected-region, allocation and write-range rules | Library without a standalone command; used by the verifier and unit tests |
 | `workspace/b2_iiix/test_verification.py` | Whether constructed bounds, overlap and reference errors are detected | **Runnable separately** without a camera or firmware files; success validates only these checker test cases |
-| `workspace/b2_iiix/test_playback.py` | Playback parsing in the final BIN, with stock, added and boundary inputs | **Direct execution** uses the default B2.4 path in code; use the stage entry below for another path, not a BIN argument to unittest |
+| `workspace/b2_iiix/test_crop_icons.py` | Factory crop descriptors, dimensions and pixels; shared shooting/playback film icons | Requires the specified firmware and default B2.4.1; the full runner passes the actual candidate BIN |
+| `workspace/b2_iiix/test_playback.py` | Playback parsing in the final BIN, with stock, added and boundary inputs | **Direct execution** uses the default B2.4.1 path in code; use the stage entry below for another path, not a BIN argument to unittest |
 | `tools/gr3-film-mods/verify_slots16.py` | Emulated menu, icon, color-parameter, mode-transition and RAW-development regression | **Runnable directly** with stock BIN, candidate BIN and recipes in slot order; the complete entry point assembles these arguments. Direct runs require checking `FAIL` lines and final `ALL OK`, not exit code alone |
 | `workspace/b2_iiix/verify_offline.py` | Additional container round-trip, change-distribution and selected stock/Cross Process render comparisons | Legacy diagnostic, not a complete gate. Samples only some modes; `FAILED` may not return a nonzero exit code, and some checksum calculations repair the checksum first, so they do not establish original-input checksum validity |
 
@@ -101,7 +103,7 @@ To investigate a single stage, run from the repository root:
 # Test the checker itself; the second command runs playback emulation only
 venv/bin/python -m unittest discover -s workspace/b2_iiix -p 'test_verification.py'
 # Diagnostic stage only: no complete report or other stages; partial success does not replace section 4
-venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b24-playback.bin --stage playback
+venv/bin/python workspace/b2_iiix/verify_release.py workspace/b2_iiix/out/fwdc243b-b241.bin --stage playback
 ```
 
 #### Minimum test coverage when extending or changing code
@@ -127,7 +129,7 @@ Proceed in order and stop at the first abnormal result. Use a backed-up spare ca
 
 Keep configuration, reports, operation order and original problem files. Stop further capture tests on abnormalities and consult the README recovery section; do not interrupt an ongoing firmware update just because it seems slow. These observations detect only some problems and cannot establish completely clean RAW/DNG output or long-term stability.
 
-These are personal-project self-test references, not a claim of full coverage. Current feedback comes from one standard IIIx; retained samples cover seven added presets. Other bodies and long-term stability are untested.
+These are personal-project self-test references, not a claim of full coverage. Historical B2.4 feedback comes from one standard IIIx; retained samples cover seven added presets. B2.4.1 still needs camera retesting. Other bodies and long-term stability are untested.
 
 ### 6. Ask AI to help interpret results
 
@@ -149,7 +151,7 @@ AI can help interpret evidence and investigate known problems, but cannot replac
 
 - Keep keys `25–32` and eight slots; the configuration loader currently requires this exact range.
 - Icon labels accept 1–4 printable ASCII characters; colors are three integers from 0 to 255. Changing the template shape requires source changes.
-- Changes to names, colors or curves change the file hash. `verify_release.py` accepts only default B2.4; it is not a general custom-firmware verifier. Do not replace its expected hash to bypass checks.
+- Changes to names, colors or curves change the file hash. `verify_release.py` accepts only default B2.4.1; it is not a general custom-firmware verifier. Do not replace its expected hash to bypass checks.
 
 ### Editing icons and configuration
 
@@ -193,7 +195,7 @@ venv/bin/python workspace/b2_iiix/presets_config.py workspace/b2_iiix/presets-ex
 venv/bin/python workspace/b2_iiix/build_iiix.py --stock iiix --presets workspace/b2_iiix/presets-example.json workspace/b2_iiix/out/fwdc243b-example.bin
 ```
 
-This only generates a candidate. The default self-test entry point is frozen to B2.4 and rejects changed builds. Full custom-build checks remain incomplete; a successful build does not make it ready to install. New recipe creation and internal parameter editing are outside this guide's scope.
+This only generates a candidate. The default self-test entry point is frozen to B2.4.1 and rejects changed builds. Full custom-build checks remain incomplete; a successful build does not make it ready to install. New recipe creation and internal parameter editing are outside this guide's scope.
 
 ## Implementation and extension constraints
 
@@ -219,11 +221,11 @@ These are only nine candidate positions listed by the underlying patch. `presets
 #### 2. Icon resources and compatibility
 
 ```python
-ICON_IDS = (0x05, 0x06, 0x07, 0x1D, 0x2D, 0x2E, 0x2A0, 0x2A1, 0x2A2)
+ICON_IDS = (0x05, 0x06, 0x07, 0x1D, 0x2A0, 0x2A1, 0x2A2, 0x2A3, 0x2A4)
 NEW_ICON0, ICON_BOUND = 0x2A0, 0x29E
 ```
 
-According to the existing source identification, the first six IDs reuse HDF on/off states, IIIx certification marks and TELE/71mm crop icons; the last three use added descriptors. Default eight-preset builds use the first eight IDs.
+The current source still reuses HDF on/off states and the IIIx certification mark for the first four IDs; the remaining five use added descriptors. Default eight-preset builds use the first eight IDs. Old B2.4 used TELE/71mm IDs `0x2D/0x2E` for film icons, corrupting crop indicators; B2.4.1 preserves both factory resources.
 
 Patches route new IDs through three known consumers: icon width, height and drawing. Extensions must check other direct table indexing and upper-bound checks. HDF and other models may actively use the repurposed icons, so these changes cannot simply be copied over; effects can extend beyond the added preset icons.
 
@@ -241,7 +243,7 @@ Count changes also require index↔tone tables, EXIF writing/parsing and the thr
 
 #### 4. Space budget and packing
 
-B2.4 defines two half-open `PRESERVE_SPANS` ranges:
+B2.4.1 defines two half-open `PRESERVE_SPANS` ranges:
 
 | Range | Total capacity |
 |---|---|
@@ -256,6 +258,6 @@ Stock code may read apparently empty regions. Do not enlarge the allocation area
 
 Added recipes use curve-table pointers. The preserve path restores shared pointers and retains the stock branch for tone 21 (Cross Process), preventing the previous film’s state from affecting later factory-mode rendering. After changes, check transitions from a film to Cross Process and then other factory modes, not just a single isolated render.
 
-Extensions also require configuration-specific mapping, boundary, factory-mode and emulation tests. `verify_release.py` identifies default B2.4 by its fixed SHA256 and rejects changed builds. Editing expected counts or substituting a hash does not replace full custom-build verification.
+Extensions also require configuration-specific mapping, boundary, factory-mode and emulation tests. `verify_release.py` identifies default B2.4.1 by its fixed SHA256 and rejects changed builds. Editing expected counts or substituting a hash does not replace full custom-build verification.
 
 ## If you are unsure, take it slowly: ask AI questions and cross-check the evidence. Unless replacing your GR is pocket change, caution pays off.
