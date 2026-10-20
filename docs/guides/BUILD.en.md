@@ -114,4 +114,4 @@ The stock Image Control record and mapping framework remains in use. Added recip
 
 Added display tones are 25–32 and photo ImageTone codes are 0x10C–0x113. Menu counts, EXIF, playback mappings and icons must agree. Configuration currently requires exactly eight presets; changing a count alone does not add slots. HDF-state and certification resources remain reused; independent resources are listed in TODO.
 
-See the [follow-up audit](../research/storage-audit-20261017/followup/report.md), build allocation report and source for exact addresses and original consumers. The two compensation-table spans borrowed by the older build are occupied and must not be reused. Other models or firmware versions require fresh identification and validation.
+See the internal audit record (not published), build allocation report and source for exact addresses and original consumers. The two compensation-table spans borrowed by the older build are occupied and must not be reused. Other models or firmware versions require fresh identification and validation.

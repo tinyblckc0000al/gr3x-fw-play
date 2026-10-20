@@ -20,3 +20,17 @@ workspace/b2_iiix/logs/
 !docs/images/shutdown-camera.jpg
 
 !docs/images/preset-samples.jpg
+
+# Offline plugin build artifacts
+workspace/plugin_runtime/out/
+
+# Research notes and probes stay local; not published.
+docs/research/
+specs/
+AGENTS.md
+workspace/plugin_runtime/
+workspace/icon_diagnostics/
+workspace/usb_readonly_probe/
+workspace/internal_params_probe/
+workspace/sd_recipe_probe/
+workspace/b2_iiix/CROP_RESEARCH.md

@@ -1,5 +1,7 @@
 # gr3x-fw-play
 
+> **Development direction (2026-10-20):** future extensions will use stock firmware with a disableable plugin. Research notes and loader details are not published; there is no installable camera plugin yet. The firmware release documented below remains available.
+
 > **B2.4.2 storage repair:** added recipes and helper code now use a separate appended area, restoring factory compensation tables. Automated checks and user-reported camera loading, power cycling and RAW/JPEG capture passed. B2.4.1 has a layout conflict; use this release.
 
 
@@ -132,38 +134,9 @@ Camera feedback is bound to the same firmware SHA256 and covers appended-area lo
 
 Recipe management, color fitting and comparison methods are more likely to transfer across brands. Extra slots, independent recipe settings, crops and shutdown images depend on each firmware. These are feasibility observations, not supported features or installation advice, and no implementation is promised.
 
-## TODO
+## Development status
 
-[Extension priorities, firmware/software split and GR III reuse assessment (Chinese)](docs/research/EXTENSION_PLAN.md).
-
-Ordered by dependencies and expected development value. This includes planned work and feasibility research; unchecked items are not supported features.
-
-### Current priorities
-
-- [x] **Appended-storage repair accepted:** automated checks passed; on 2026-10-17 the tester confirmed complete loading, power on/off and RAW/JPEG capture.
-- [ ] **Independent text and icon resources:** restore reused factory resources, including HDF-state and certification assets, and centrally manage new resource IDs and storage.
-- [ ] **Grain and camera menu:** add off/weak/medium/strong controls to the Image Control detail page for all eight presets; verify per-preset memory, restart recovery and capture-metadata consistency.
-- [ ] **JPEG recipe identity:** record recipe name, revision and parameter fingerprint for identification and reproducibility. JPEG identity does not establish RAW metadata support.
-- [ ] **Aspect ratios:** prioritize 4:3, 16:9 and 65:24; validate live view, JPEG, thumbnails, full RAW, AF/metering, orientation, digital crop and playback zoom.
-
-### Configuration and companion software
-
-- [ ] **Desktop recipe editing and previews:** edit parameters, names and icons; compare results, validate configuration and build candidates. Keep CUBE/XMP conversion and fitting primarily on the desktop.
-- [ ] **SD-card configuration:** verify camera file APIs and loading timing, starting with validated recipe parameters, names and icons. Retain a firmware loader and defaults, with fallback for a missing card, invalid files or read failures. Arbitrary CUBE loading and card-based code execution are not promised.
-- [ ] **Independent recipe memory:** extend grain memory research to white balance and other settings, including preset switching, restart recovery and U modes.
-
-### Further research
-
-- [ ] **Software glow/highlight diffusion:** build a separate prototype and compare highlights, skin tones, processing time and JPEG/RAW boundaries. Assess it separately from physical HDF and negative-clarity soft focus.
-- [ ] **Focus bracketing:** establish reliable focus-distance or lens-step control before adding a capture menu. Prefer software for focus stacking.
-- [ ] **Multiple-exposure enhancements:** use the native feature first; prefer companion software for alignment, previews, masks and additional blend modes.
-- [ ] **Eye-AF improvements:** investigate enhancements to existing eye detection. Defer recognition/tracking algorithm changes until reproducible improvement evidence exists.
-- [ ] **GR II support:** separately investigate firmware structure, address mapping and update checks. Use ecosystem projects as effect/UI references, without reusing IIIx addresses or unpublished implementations.
-- [ ] **Video extensions:** investigate manual exposure, bitrate and Log curves outside the first photography phase.
-
-## Firmware storage audit
-
-[GR IIIx B2.4.1 storage audit (Chinese)](docs/research/storage-audit-20261017/report.md): region ownership, reference evidence, unresolved paths and audit tasks, with a structured manifest and raw evidence.
+Research notes and development plans are not published. This repository keeps only the released builds, usage guidance and verification records; unchecked items are not supported features.
 
 ## Open-source references
 
