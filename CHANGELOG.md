@@ -5,6 +5,8 @@ Version history records changes, validation and limitations. See the [verificati
 
 ## 插件路线 — 2026-10-23 / Plugin route — 2026-10-23
 
+[发布包 / Release](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/plugin-v0.1)
+
 从修改固件转向原厂 1.60 + SD 卡插件。安装前必须刷回原厂；项目之前的 B2.4.x 固件和本插件版不能同时存在，旧包继续保留。
 
 Switches from firmware patching to stock 1.60 plus an SD-card plugin. Flashing stock first is required; the project's previous B2.4.x firmware and this plugin cannot coexist. Old packages remain available.
