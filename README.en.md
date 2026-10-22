@@ -223,7 +223,7 @@ Thanks to the projects that provided tools and research foundations:
 | Project | Role in this project | License / notice |
 |---|---|---|
 | [gr3-film-mods](https://github.com/idontknownihil/gr3-film-mods) | Main source of [`tools/gr3-film-mods/`](tools/gr3-film-mods/); `make_slots*.py`, `verify_slots16.py` and related files adapt upstream implementations; `gr3patch_iiix.py` ports upstream `gr3patch.py` | [MIT](tools/gr3-film-mods/LICENSE) |
-| [GRKit v1.0.0](https://github.com/ahonn/grkit) | Plugin startup base: Linux TTL installer, fixed tail, private ADJ menu, picture.encode, SD packaging/CLI | [MIT](https://github.com/ahonn/grkit/blob/main/LICENSE) |
+| [GRKit v1.0.0](https://github.com/ahonn/grkit) | Plugin startup base: installer/loader, fixed tail, ADJ menu host, modules/pages, picture.encode, processing/framing hooks, GRF effect registry, SD packaging and CLI | [MIT](https://github.com/ahonn/grkit/blob/main/LICENSE) |
 | [gr3x-fw-hack](https://github.com/hhornbacher/gr3x-fw-hack) | Reference for IIIx system and firmware research | Tool / research reference |
 | [gr_unpack](https://github.com/yeahnope/gr_unpack) | Reference for understanding firmware unpacking | Tool / research reference |
 | [gr-custom-tool](https://github.com/DoYitNow/gr-custom-tool) | [`tools/gr3-film-mods/third_party/gr-custom-tool/`](tools/gr3-film-mods/third_party/gr-custom-tool/) retains the container codec subset required by the build | [GPL-2.0-only](tools/gr3-film-mods/third_party/gr-custom-tool/LICENSE) |

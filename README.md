@@ -220,7 +220,7 @@ B2.4.2 修复配方数据与原厂补偿表的布局冲突，保留此前 Fn 裁
 | 项目 | 在本项目中的用途 | 许可与说明 |
 |---|---|---|
 | [gr3-film-mods](https://github.com/idontknownihil/gr3-film-mods) | [`tools/gr3-film-mods/`](tools/gr3-film-mods/) 的主要来源；`make_slots*.py`、`verify_slots16.py` 等沿用并修改上游实现，`gr3patch_iiix.py` 基于上游 `gr3patch.py` 移植 | [MIT](tools/gr3-film-mods/LICENSE) |
-| [GRKit v1.0.0](https://github.com/ahonn/grkit) | 插件启动基底：Linux TTL 安装器、固定尾部、私有 ADJ 菜单、picture.encode 与 SD 包/CLI | [MIT](https://github.com/ahonn/grkit/blob/main/LICENSE) |
+| [GRKit v1.0.0](https://github.com/ahonn/grkit) | 插件启动基底：安装器/loader、固定尾部、ADJ 菜单宿主、modules/pages、picture.encode、processing/framing hook、GRF effect 注册、SD 包与 CLI | [MIT](https://github.com/ahonn/grkit/blob/main/LICENSE) |
 | [gr3x-fw-hack](https://github.com/hhornbacher/gr3x-fw-hack) | IIIx 系统结构与固件分析的研究参考 | 工具／研究参考 |
 | [gr_unpack](https://github.com/yeahnope/gr_unpack) | 理解固件解包结构的研究参考 | 工具／研究参考 |
 | [gr-custom-tool](https://github.com/DoYitNow/gr-custom-tool) | [`tools/gr3-film-mods/third_party/gr-custom-tool/`](tools/gr3-film-mods/third_party/gr-custom-tool/) 保留构建所需的容器编解码子集 | [GPL-2.0-only](tools/gr3-film-mods/third_party/gr-custom-tool/LICENSE) |
