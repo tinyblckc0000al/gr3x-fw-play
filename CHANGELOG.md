@@ -3,6 +3,26 @@
 按版本记录用户可见变更、验证结果与已知限制；执行步骤见[验证指南](workspace/b2_iiix/VERIFICATION.md)。
 Version history records changes, validation and limitations. See the [verification guide](workspace/b2_iiix/VERIFICATION.md) for the procedure.
 
+## 插件路线 — 2026-10-23 / Plugin route — 2026-10-23
+
+从修改固件转向原厂 1.60 + SD 卡插件。安装前必须刷回原厂；项目之前的 B2.4.x 固件和本插件版不能同时存在，旧包继续保留。
+
+Switches from firmware patching to stock 1.60 plus an SD-card plugin. Flashing stock first is required; the project's previous B2.4.x firmware and this plugin cannot coexist. Old packages remain available.
+
+- 新增独立 ADJ 插件菜单，以及 Image Control / Framing / Guides / Date / Grain 页面。
+- 新增拍摄比例、构图辅助线、日期戳、颗粒，以及柔焦和柔光多档调节。
+- 提供 18 套机内胶片效果，包含之前的 8 套预设。
+- 安装时恢复原厂 Clarity 表；不修改原厂固件。
+- 已验证：Soft Focus host 96 case、Glow 四档 host 测试、Soft OFF/STRONG 同场景对照、Glow DIAGALL 执行/完成标志、grkit build/package/verify 通过。
+- 未完成：设置重启持久化、原生菜单体验、柔焦/柔光调整、GR2 色彩。
+
+- Adds an independent ADJ plugin menu and Image Control / Framing / Guides / Date / Grain pages.
+- Adds aspect ratios, composition guides, date stamp, grain, and multi-level soft focus/glow.
+- Ships 18 in-camera film effects, including the previous 8 presets.
+- Restores the stock Clarity table at install time; stock firmware is not modified.
+- Verified: 96-case Soft Focus host sweep, Glow four-level host test, same-scene Soft OFF/STRONG comparison, Glow DIAGALL entry/completion flags, and grkit build/package/verify.
+- Not done: settings persistence, native menu experience, soft focus/glow tuning, GR2 color.
+
 ## B2.4.2 — 2026-10-17
 
 [发布包 / Release](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/b2.4.2)

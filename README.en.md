@@ -1,6 +1,84 @@
 # gr3x-fw-play
 
-> **Development direction (2026-10-20):** future extensions will use stock firmware with a disableable plugin. Research notes and loader details are not published; there is no installable camera plugin yet. The firmware release documented below remains available.
+## 2026-10-23 update: switch to the plugin route
+
+### Installation
+
+1. Flash stock GR IIIx 1.60 first.
+   - This removes modifications in the project's B2.4.x firmware (added presets, icons/ratios, etc.). To keep those effects, reflash B2.4.x; it cannot coexist with the plugin build.
+2. Copy the GRPlay package to the SD card root.
+3. Power off, hold MENU and press Power; wait for Complete and automatic shutdown.
+4. Power on normally and wait for installation to finish; INSTALL.OK on the card means it is done.
+5. Power on normally and use the camera.
+
+Notes:
+
+- The new route does not depend on B2.4.x; the two cannot coexist.
+  - B2.4.2 appended blob: 0x540B55C0..0x540C9604; GRKit appended area: 0x540B6000..0x540BE000. They overlap.
+- B2.4.x remains available as a separate flash; old packages are kept, not overwritten or deleted.
+
+### What is added compared with the project's previous firmware (B2.4.x)
+
+- 9:16 / 3:4 / XPan ratios, composition guides, date stamp and grain;
+- multiple levels of soft focus and glow;
+- 18 in-camera film effects (including the previous 8 presets);
+- improved menu key interaction;
+- the stock Clarity table is restored at install time; the stock firmware is not modified.
+
+### Source and advantages
+
+Built on [GRKit v1.0.0](https://github.com/ahonn/grkit):
+
+- Linux TTL/Script installer writes the private tail through /dev/mem;
+- RTOS fixed tail, private ADJ menu and picture.encode chain;
+- SD packages, build/verification and per-plugin enable/disable.
+
+Advantages of the approach:
+
+- no firmware flashing and low recovery cost;
+- reuses the stock RTOS menu, image processing and JPEG encoder;
+- fixed tail plus a few hooks keeps the change small;
+- plugins can be enabled, disabled and rolled back independently;
+- Linux already provides the filesystem, eMMC and script entry points.
+
+### Other options dropped
+
+#### Why firmware patching stopped
+
+B2.4.x modified the firmware directly, tying features to a firmware version and storage layout; every official update needed re-adaptation, and recovery after a flash was not controllable.
+
+The plugin route does not modify firmware, installs from SD and restores on reboot; features can be tested and rolled back individually.
+
+The B2.4.x patch layer and modified RTOS image were dropped. Reused from the B2.4.x work:
+
+- curves/matrices/parameters for the 8 presets;
+- image-processing, storage-layout and effect-verification experience;
+- installation, rollback and camera-test procedures.
+
+Direct RTOS attempts included B2.4.x firmware images, preset slots, icons and storage layout, plus clarity/parameter and internal-storage calls.
+
+A full RTOS replacement requires extensive per-version reverse engineering, with no controllable recovery path; the stock RTOS already provides the menu and image processing, so replacement has low benefit.
+
+Final layout:
+
+- Linux handles installation, the filesystem and rollback;
+- RTOS only hosts the menu and necessary hooks such as picture.encode;
+- image processing still runs in the stock RTOS.
+
+#### Why internal-storage persistence is deferred
+
+The stock I: volume has a file service, but calling it during installation interrupts the installer; create/truncate/append semantics, power-loss sync and path boundaries are unverified.
+
+Direct writes risk losing photos or damaging the system area. Settings remain in RAM and reset on reboot; SD configuration comes first, and internal storage will only be probed under control.
+
+### Possible future improvements (not promised)
+
+- [ ] settings persistence across reboots
+- [ ] native menu experience
+- [ ] soft focus / glow tuning
+- [ ] GR2 color
+
+## Previous firmware (B2.4.2)
 
 > **B2.4.2 storage repair:** added recipes and helper code now use a separate appended area, restoring factory compensation tables. Automated checks and user-reported camera loading, power cycling and RAW/JPEG capture passed. B2.4.1 has a layout conflict; use this release.
 
