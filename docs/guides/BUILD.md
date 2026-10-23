@@ -52,8 +52,6 @@ venv/bin/python workspace/b2_iiix/qualify_storage_candidate.py workspace/b2_iiix
 
 检查启动与关机、原厂及新增预设选择、Fn 裁切图标、JPEG／RAW 拍摄与回放；扩展改动还应覆盖连拍、重启恢复、U 模式及相应专属功能。逐项记录通过、失败或未测，并绑定固件哈希。仿真不能替代整机加载和实际成像。
 
-本次真机确认仅覆盖追加区完整加载、开关机、实际 RAW／JPEG 成像，详见[反馈记录](../../workspace/b2_iiix/hardware-b242.json)。
-
 ## 自定义预设
 
 ### 配置文件与可修改内容
