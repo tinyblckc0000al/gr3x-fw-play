@@ -8,8 +8,7 @@
    - 刷回原厂会清除旧 B2.4.x 固件里的改动（新增预设、图标/比例等）；需要这些效果只能刷回 B2.4.x，不能和插件版共存。
 2. 下载 [GRPlay 插件版 v0.1](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/plugin-v0.1)，解压后把包放到 SD 卡根目录。
 3. 关机，按住 MENU 再按电源，等 Complete 自动关机。
-4. 正常开机，等安装结束；卡上出现 INSTALL.OK 即完成。
-5. 正常开机使用。
+4. 正常开机使用。
 
 PS：
 - 新方案不依赖 B2.4.x 固件；B2.4.x 和插件版不能同时存在
