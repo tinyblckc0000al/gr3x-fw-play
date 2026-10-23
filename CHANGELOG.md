@@ -3,6 +3,16 @@
 按版本记录用户可见变更、验证结果与已知限制；执行步骤见[验证指南](workspace/b2_iiix/VERIFICATION.md)。
 Version history records changes, validation and limitations. See the [verification guide](workspace/b2_iiix/VERIFICATION.md) for the procedure.
 
+## 插件路线 v0.2 — 2026-10-23 / Plugin route v0.2 — 2026-10-23
+
+[发布包 / Release](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/plugin-v0.2)
+
+- 柔焦重调为五档；修正上采样对齐与 box 取整。
+- 柔焦/柔光/颗粒改为 Fn 滑杆调整。
+
+Soft Focus retuned to five levels; the upsample mapping and box rounding are corrected.
+Soft focus/glow/grain use a Fn slider.
+
 ## 插件路线 — 2026-10-23 / Plugin route — 2026-10-23
 
 [发布包 / Release](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/plugin-v0.1)

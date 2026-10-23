@@ -115,3 +115,48 @@ The stock Image Control record and mapping framework remains in use. Added recip
 Added display tones are 25–32 and photo ImageTone codes are 0x10C–0x113. Menu counts, EXIF, playback mappings and icons must agree. Configuration currently requires exactly eight presets; changing a count alone does not add slots. HDF-state and certification resources remain reused; independent resources are listed in TODO.
 
 See the internal audit record (not published), build allocation report and source for exact addresses and original consumers. The two compensation-table spans borrowed by the older build are occupied and must not be reused. Other models or firmware versions require fresh identification and validation.
+
+### Soft focus and glow
+
+Both run in `picture.encode` and touch only the luma plane; thumbnails, chroma and the camera pipeline are unchanged.
+
+#### Soft focus
+
+- downsample Y by 32x (block mean);
+- three horizontal/vertical box passes on the small image, each with radius 2 work pixels (about 64 full-resolution pixels);
+- bilinear upsample and blend: `Y' = Y + (blur - Y) * alpha`;
+- levels change alpha only, not the radius.
+
+| Level | alpha | Look |
+|---|---|---|
+| 1 | 0.08 | slight softening, texture kept |
+| 2 | 0.18 | noticeable, everyday use |
+| 3 | 0.30 | clear soft focus, subject readable |
+| 4 | 0.45 | dreamy, visible haze |
+| 5 | 0.65 | hazy, detail and local contrast drop sharply |
+
+Brightness rises slightly and contrast compresses; that is inherent to the blend.
+
+#### Glow
+
+- highlights only: weights above Y 180 by `((Y-180)/75)^2`;
+- spreads them at three full-resolution radii: 64/128/256;
+- mixes the three layers at 462/77/25 and caps the Q14 sum at 16384;
+- adds them back through the highlight-protection curve, less near 255;
+- levels change opacity and mix, not the radii.
+
+| Level | Opacity | Look |
+|---|---|---|
+| 1 | 20 | slight halo |
+| 2 | 36 | clear highlight spread |
+| 3 | 56 | strong halo, night/neon |
+
+The frame stays sharp and shadows barely move; strong light sources show greyed highlights and lifted shadows from the contrast compression.
+
+| Scene | Soft focus | Glow |
+|---|---|---|
+| Portrait, everyday | L1-L2 | 0-1 |
+| Street, backlight | L1 | 2 |
+| Night, neon | 0 | 2-3 |
+| Dreamy | L4-L5 | 1 |
+| Text, product | 0 | 0-1 |

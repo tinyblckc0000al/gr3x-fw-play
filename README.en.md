@@ -6,10 +6,10 @@
 
 1. Flash stock GR IIIx 1.60 first.
    - This removes modifications in the project's B2.4.x firmware (added presets, icons/ratios, etc.). To keep those effects, reflash B2.4.x; it cannot coexist with the plugin build.
-2. Download [GRPlay plugin v0.1](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/plugin-v0.1), extract it and copy the package to the SD card root.
+2. Download [GRPlay plugin v0.2](https://github.com/tinyblckc0000al/gr3x-fw-play/releases/tag/plugin-v0.2), extract it and copy the package to the SD card root.
 3. Power off, hold MENU and press Power; wait for Complete and automatic shutdown.
-4. Power on normally and wait for installation to finish; INSTALL.OK on the card means it is done.
-5. Power on normally and use the camera.
+4. Power on normally and wait 30-60 s.
+5. After the indicator blinks continuously, press ADJ; the added menu should appear.
 
 Notes:
 
@@ -20,7 +20,7 @@ Notes:
 ### What is added compared with the project's previous firmware (B2.4.x)
 
 - 9:16 / 3:4 / XPan ratios, composition guides, date stamp and grain;
-- multiple levels of soft focus and glow;
+- five soft-focus levels and four glow levels, adjusted with a Fn slider;
 - 18 in-camera film effects (including the previous 8 presets);
 - improved menu key interaction;
 - the stock Clarity table is restored at install time; the stock firmware is not modified.
@@ -74,8 +74,8 @@ Direct writes risk losing photos or damaging the system area. Settings remain in
 ### Possible future improvements (not promised)
 
 - [ ] settings persistence across reboots
-- [ ] native menu experience
-- [ ] soft focus / glow tuning
+- [x] native menu experience (v0.2)
+- [x] soft focus / glow tuning (v0.2)
 - [ ] GR2 color
 
 ## Previous firmware (B2.4.2)
